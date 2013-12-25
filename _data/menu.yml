@@ -1,17 +1,11 @@
 - title: software
   page: /software.html
+  
+- title: research
+  page: /research.html
 
-- title: blog archive
+- title: blog
   page: /archive.html
-
-- title: pages
-  page: /pages.html
-
-- title: categories
-  page: /categories.html
-  
-- title: tags
-  page: /tags.html
-  
+    
 #<li class="forkme"><iframe src="http://markdotto.github.com/github-buttons/github-btn.html?user=plusjade&repo=jekyll-bootstrap&type=fork&count=true"
 #		allowtransparency="true" frameborder="0" scrolling="0" width="95px" height="20px"></iframe></li>
