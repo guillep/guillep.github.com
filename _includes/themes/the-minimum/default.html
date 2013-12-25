@@ -18,8 +18,10 @@
 	<header class="the-header">
 		<div class="unit-head">
 			<div class="unit-inner unit-head-inner">
-				<p class="logo"><a href="{{ HOME_PATH }}">{{ site.title }}</a></p>
-				<p class="logo">{{ site.tagline }}</p>
+				<p class="logo">
+					<a href="{{ HOME_PATH }}">{{ site.title }}</a>
+					<p class="logo">{{ site.tagline }}</p>
+				</p>
 				<nav class="nav-global">
 					<ul>
 					{% for menuitem in site.data.menu %}
