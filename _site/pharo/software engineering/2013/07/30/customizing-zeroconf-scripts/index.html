@@ -1,0 +1,471 @@
+
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7 ie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8 ie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9 ie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>Customizing ZeroConf scripts</title>
+	<meta name="author" content="Guille Polito">
+	<link href='/assets/themes/the-minimum/css/style.css' rel="stylesheet" media="all">
+	<link href="http://feeds.feedburner.com/" rel="alternate" title="Customizing ZeroConf scripts" type="application/atom+xml">
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.0.6/modernizr.min.js"></script>
+</head>
+<body>
+
+<div id="page" class="hentry">
+	<header class="the-header">
+		<div class="unit-head">
+			<div class="unit-inner unit-head-inner">
+				<p class="logo"><a href="/">Playing with Objects</a></p>
+				<nav class="nav-global">
+					<ul>
+						<li class="archive"><a href="/archive.html">archive</a></li>
+						<li class="page"><a href="/pages.html">pages</a></li>
+						<li class="category"><a href="/categories.html">categories</a></li>
+						<li class="tag"><a href="/tags.html">tags</a></li>
+						<li class="forkme"><iframe src="http://markdotto.github.com/github-buttons/github-btn.html?user=plusjade&repo=jekyll-bootstrap&type=fork&count=true"
+								allowtransparency="true" frameborder="0" scrolling="0" width="95px" height="20px"></iframe></li>
+					</ul>
+				</nav>
+			</div><!-- unit-inner -->
+		</div><!-- unit-head -->
+	</header>
+	<div class="body" role="main">
+		<div class="unit-body">
+			<div class="unit-inner unit-body-inner">
+				<div class="entry-content">
+					
+<article class="unit-article layout-post">
+	<div class="unit-inner unit-article-inner">
+		<div class="content">
+			<header>
+				<div class="unit-head">
+					<div class="unit-inner unit-head-inner">
+						<h1 class="h2 entry-title">Customizing ZeroConf scripts</h1>
+					</div><!-- unit-inner -->
+				</div><!-- unit-head -->
+			</header>
+
+			<div class="bd">
+				<div class="entry-content">
+					As you may already know, ZeroConf scripts are bash scripts that <a>ease the installation of a Pharo environment</a>. A funny thing about these ZeroConf scripts is that they are seen as bash scripts by a bash terminal, and as simple and minimal html pages by a web browser. These scripts are extensively used to simplify the configuration of Pharo CI jobs. They allow you to easily download many versions of the Pharo image and VM.
+
+As I'm working for my Phd, and have a custom version of my virtual machine and image, and also want to make use of the advantages our CI server provides, I wanted to build my own ZeroConf scripts specialized for my needs. I also heard recently on the pharo mailing list that there was some work on customizing ZeroConf scripts[1] for Moose[2]. So I wanted to do it as well for my project :).
+
+[1] <a href="http://get.moosetechnology.org/">http://get.moosetechnology.org/</a>
+[2] <a href="http://www.moosetechnology.org/">http://www.moosetechnology.org/</a>
+<h2>Downloading the ZeroConf package</h2>
+The ZeroConf scripts are generated automatically by the ZeroConf Pharo package. You can find this package in [2]. To download the current version, you just have to execute the following piece of code in a workspace:
+
+[code language="ruby"]
+Gofer it
+	smalltalkhubUser: 'Pharo' project: 'ZeroConf';
+	package: 'ZeroConf';
+	loadVersion: '1.0'
+[/code]
+
+This code snippet will install in your image the ZeroConf package for the 1.0 version, containing the script generator, and some tests that are not currently working :).
+[2] <a href="http://www.smalltalkhub.com/#!/~Pharo/ZeroConf">http://www.smalltalkhub.com/#!/~Pharo/ZeroConf</a>
+<h2>Getting what's inside ZeroConf</h2>
+The ZeroConf package is pretty small and simple. There is an abstract class AbstractZeroConfBashScript implementing most of the script generation and bash writing utils. Its subclasses will implement the concrete script generation. Current implementation includes three main classes below the AbstractZeroConfBashScript hierarchy, implementing a composite pattern:
+<ul>
+	<li><strong>ZeroConfImageScript</strong>: Generates scripts in charge of downloading image files.</li>
+	<li><strong>ZeroConfVMScript</strong>: Generates scripts in charge of downloading Virtual Machine files (and source files).</li>
+	<li><strong>ZeroConfCombinedScript</strong>: Generates scripts that combine several scripts. It will point to its combined scripts and downloading it means to download them all.</li>
+</ul>
+<a href="http://playingwithobjects.files.wordpress.com/2013/07/zeroconf.png"><img class="alignright size-large wp-image-281" alt="zeroconf" src="http://playingwithobjects.files.wordpress.com/2013/07/zeroconf.png?w=625" width="625" height="337" /></a>
+
+<h2>Customizing our ZeroConf scripts</h2>
+
+As you can see in the picture, in order to customize the ZeroConf scripts, you have to create your own subclasses and overriding the correct hooks.
+
+<h3>Customizing an image script</h3>
+A custom image script is defined by a subclass of ZeroConfImageScript. ZeroConfImageScript already defines some image common behavior, such as the <strong>release</strong> number, which we will use in our script.
+
+[code language="ruby"]
+ZeroConfImageScript subclass: #OzZeroConfImageScript
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'OurZeroConf'
+[/code]
+
+Then we override the methods that tell some information about the files to download:
+<ul>
+<li><strong>OzZeroConfImageScript&gt;&gt;imageName</strong>: The name of the image and changes files</li>
+<li><strong>OzZeroConfImageScript&gt;&gt;imageUrl</strong>: The url of the image zip, instance of ZnUrl</li>
+<li><strong>OzZeroConfImageScript&gt;&gt;defaultBaseName</strong>: The baseName of the script</li>
+<li><strong>OzZeroConfImageScript class&gt;&gt;baseUrl</strong>: The base url where the scripts are found, instance of ZnUrl</li>
+<li><strong>OzZeroConfImageScript class&gt;&gt;fileBaseUrl</strong>: The base url where the files the scripts will download are found, instance of ZnUrl</li>
+</ul>
+
+I implemented them in my class as follows
+[code language="ruby"]
+OzZeroConfImageScript&gt;&gt;imageName
+	^'Oz'
+
+OzZeroConfImageScript&gt;&gt;imageUrl
+	^ self fileBaseUrl / 'image' / self release asString / self imageFileName / 'download'
+
+OzZeroConfImageScript&gt;&gt;imageFileName
+	^'Oz-image-', self release asString , '.zip'
+
+OzZeroConfImageScript&gt;&gt;defaultBasename
+	^ self imageName, self release
+
+OzZeroConfImageScript class&gt;&gt;fileBaseUrl
+	^ 'https://sourceforge.net/projects/ozobjectspaces/files' asZnUrl
+
+OzZeroConfImageScript class&gt;&gt;baseUrl
+	^ self fileBaseUrl / 'get'
+[/code]
+
+I also extended my script so it generates a custom html title and uses my combining script when combining:
+[code language="ruby"]
+OzZeroConfImageScript&gt;&gt;htmlTitle
+	^ self imageName, ' Zeroconf Script'
+
+OzZeroConfImageScript&gt;&gt;defaultCombiningScript
+	^ OzZeroConfCombinedScript
+[/code]
+
+Finally, I created a convenience method for creating a script corresponding to the 1.0 version of my custom image.
+[code language="ruby"]
+OzZeroConfImageScript class&gt;&gt;oz10
+	^self new
+		release: '1.0';
+		yourself
+[/code]
+
+Now you can try generating your script in a workspace,
+[code language="ruby"]
+OzZeroConfImageScript oz10 generate
+[/code]
+
+and see the generated results in your working directory!
+
+<h3>Customizing a vm script</h3>
+A custom vm script is defined by a subclass of ZeroConfVMScript. ZeroConfVMScript defines, as its image friend, some vm common behavior, such as the <strong>release</strong> number and virtual machine <strong>type</strong>(i.e., if it is a jitted vm or not), which we will use in our script.
+
+[code language="ruby"]
+ZeroConfVMScript subclass: #OzZeroConfVMScript
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'OurZeroConf'
+[/code]
+
+Then we override the methods that tell some information about the files to download:
+<ul>
+<li><strong>OzZeroConfVMScript&gt;&gt;binaryName</strong>: The name of the vm binary name</li>
+<li><strong>OzZeroConfVMScript&gt;&gt;binaryNameLinux</strong>: The name of the vm binary name in linux, which tends to be different</li>
+<li><strong>OzZeroConfVMScript&gt;&gt;vmUrl</strong>: The url of the vm zip, instance of ZnUrl</li>
+<li><strong>OzZeroConfVMScript&gt;&gt;defaultBaseName</strong>: The baseName of the script</li>
+<li><strong>OzZeroConfVMScript class&gt;&gt;baseUrl</strong>: The base url where the scripts are found, instance of ZnUrl</li>
+<li><strong>OzZeroConfVMScript class&gt;&gt;fileBaseUrl</strong>: The base url where the files the scripts will download are found, instance of ZnUrl</li>
+</ul>
+
+I implemented them in my class as follows
+[code language="ruby"]
+OzZeroConfVMScript&gt;&gt;binaryName
+	^'ozstack'
+
+OzZeroConfVMScript&gt;&gt;binaryNameLinux
+	^self binaryName
+
+OzZeroConfVMScript&gt;&gt;vmUrl
+	^self fileBaseUrl asString, '/vm/', self release asString,'/', self vmFileName, '/download'
+
+OzZeroConfVMScript&gt;&gt;vmFileName
+	^'OzVm-${OS}-', self release asString , '.zip'
+
+OzZeroConfVMScript class&gt;&gt;fileBaseUrl
+	^ 'https://sourceforge.net/projects/ozobjectspaces/files' asZnUrl
+
+OzZeroConfVMScript class&gt;&gt;baseUrl
+	^ self fileBaseUrl / 'get'
+[/code]
+
+I also extended my script so it uses my combining script when combining:
+[code language="ruby"]
+OzZeroConfVMScript&gt;&gt;defaultCombiningScript
+	^ OzZeroConfCombinedScript
+[/code]
+
+Finally, I created a convenience method for creating a script corresponding to the 1.0 version of my custom vm.
+[code language="ruby"]
+OzZeroConfVMScript class&gt;&gt;ozvm10
+	^self new
+		type: 'oz';
+		release: '1.0';
+		yourself
+[/code]
+
+Now you can try generating your script in a workspace,
+[code language="ruby"]
+OzZeroConfVMScript ozvm10 generate
+[/code]
+
+and see the generated results in your working directory!
+
+<h3>Customizing a combined script</h3>
+A combined script is the one we use to combine several scripts. It is defined by a subclass of ZeroConfCombinedScript.
+
+[code language="ruby"]
+ZeroConfCombinedScript subclass: #OzZeroConfCombinedScript
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'OurZeroConf'
+[/code]
+
+Then we override the methods that tell some information about the files to download:
+<ul>
+<li><strong>OzZeroConfCombinedScript class&gt;&gt;baseUrl</strong>: The base url where the scripts are found, instance of ZnUrl</li>
+<li><strong>OzZeroConfCombinedScript class&gt;&gt;fileBaseUrl</strong>: The base url where the files the scripts will download are found, instance of ZnUrl</li>
+</ul>
+
+I implemented them in my class as follows
+[code language="ruby"]
+OzZeroConfCombinedScript class&gt;&gt;fileBaseUrl
+	^ 'https://sourceforge.net/projects/ozobjectspaces/files' asZnUrl
+
+OzZeroConfCombinedScript class&gt;&gt;baseUrl
+	^ self fileBaseUrl / 'get'
+[/code]
+
+As you can see, my methods baseUrl and fileBaseUrl are always the same in all scripts. I extracted them into another class later, but keep the code here as is for clarity.
+
+I also extended my script so it uses my combining script when combining and the html title:
+[code language="ruby"]
+OzZeroConfCombinedScript&gt;&gt;defaultCombiningScript
+	^ OzZeroConfCombinedScript
+
+OzZeroConfCombinedScript&gt;&gt;htmlTitle
+	^ self scripts first htmlTitle
+[/code]
+
+<h2>Integrating everything and automating generation</h2>
+
+As I already showed you, every script understands the message <strong>#generate</strong> to generate itself. However, we may want to generate many scripts, and combine them. The ZeroConf infrastructure already provides for that the ZeroConfCommandLineHandler. The ZeroConfCommandLineHandler is a command line handler that knows which are the scripts we want to generate, combines them appropriately and generates them. So we will subclass from ZeroConfCommandLineHandler and specialize it to fulfill our needs.
+
+[code language="ruby"]
+ZeroConfCommandLineHandler subclass: #OzZeroConfCommandLineHandler
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'OzZeroConf'
+[/code]
+
+Once we have it, we configure it as a command line handler specifying its command name and description:
+[code language="ruby"]
+OzZeroConfCommandLineHandler class&gt;&gt;commandName
+	^ 'ozzeroconf'
+
+OzZeroConfCommandLineHandler class&gt;&gt;description
+	^ 'Generate Oz zeroconf bash scripts'
+[/code]
+
+And finally we specialize it to tell it about our scripts:
+[code language="ruby"]
+OzZeroConfCommandLineHandler&gt;&gt;defaultScript
+	^ self defaultImage, self defaultVM
+
+OzZeroConfCommandLineHandler&gt;&gt;defaultImage
+	^ OzZeroConfImageScript oz10
+
+OzZeroConfCommandLineHandler&gt;&gt;defaultVM
+	^ OzZeroConfVMScript ozvm10
+
+OzZeroConfCommandLineHandler&gt;&gt;imageScripts
+	^ { 
+		OzZeroConfImageScript oz10.
+	}
+
+OzZeroConfCommandLineHandler&gt;&gt;vmScripts
+	^ { 
+		OzZeroConfVMScript ozvm10
+	}
+
+OzZeroConfCommandLineHandler&gt;&gt;indexScriptExamplesHtml
+	^ ''
+[/code]
+
+Now we have our command line handler, we can test it and make it generate our scripts:
+
+[code language="ruby"]
+OzZeroConfCommandLineHandler new
+	commandLine: CommandLineArguments new;
+	generateScripts
+[/code]
+
+Finally, if you have all this code in your image, you can just activate it through the command line thanks to the command line handler!
+
+[code language="bash"]
+./pharo PharoMyZeroConf.image ozzeroconf
+[/code]
+
+And look at the results. Upload your files, archive them, and use them :).
+
+Guille
+
+					<div class="meta">
+						<p class="date-publish">
+							Published: 
+							<date class="date-pub" title="2013-07-30T00:00:00+02:00" datetime="2013-07-30T00:00:00+02:00" pubdate>
+							<span class="month"><abbr>July</abbr></span>
+							<span class="day">30</span>
+							<span class="year">2013</span>
+							</date>
+						</p>
+						<ul class="list-category list-linear">
+							<li class="list-head">category: </li>
+							
+							
+
+
+  
+     
+    	<li><a href="/categories.html#pharo-ref">
+    		pharo <span>13</span>
+    	</a></li>
+     
+    	<li><a href="/categories.html#software engineering-ref">
+    		software engineering <span>3</span>
+    	</a></li>
+    
+  
+
+
+						</ul>
+						<ul class="list-tag list-linear">
+							<li class="list-head">tags: </li>
+							
+							
+
+
+  
+     
+    	<li><a href="/tags.html#bash-ref">bash <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#bash scripts-ref">bash scripts <span>2</span></a></li>
+     
+    	<li><a href="/tags.html#Pharo-ref">Pharo <span>14</span></a></li>
+     
+    	<li><a href="/tags.html#Smalltalk-ref">Smalltalk <span>8</span></a></li>
+     
+    	<li><a href="/tags.html#zeroconf-ref">zeroconf <span>1</span></a></li>
+    
+  
+
+
+
+						</ul>
+					</div><!-- meta -->
+				</div><!-- entry-content -->
+				<div class="misc-content">
+					<div class="social">
+						<ul class="list-linear">
+							<li><div class="twitter-tweet"><a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="guillepolito" data-lang="en">Tweet</a></div></li>
+							<li><div class="twitter-follow"><a href="https://twitter.com/guillepolito" class="twitter-follow-button" data-show-count="false" data-lang="en"></a></div></li>
+						</ul>
+					</div>
+					
+					
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+				</div><!-- misc-content -->
+				
+			</div><!-- bd -->
+			<footer class="unit-foot">
+				<div class="unit-inner unit-foot-inner">
+					<nav class="pagination">
+						<ul>
+							
+							<li class="prev"><a class="internal" rel="prev"  href="/pharo/software%20engineering/2013/07/23/installing-pharo-in-many-flavors" title="View Installing Pharo in many flavors">&laquo; Installing Pharo in many flavors</a></li>
+							
+							
+							<li class="pipe"> | </li>
+							
+							
+							<li class="next"><a class="internal" rel="next"  href="/oz/2013/08/26/recover-a-broken-image-with-oz" title="View Recover a broken image with Oz">Recover a broken image with Oz &raquo;</a></li>
+							
+						</ul>
+					</nav>
+					<p class="gotop">
+						<a href="#page">Back to Top</a>
+					</p>
+				</div>
+			</footer>
+
+		</div><!-- content -->
+	</div><!-- unit-inner -->
+</article>
+
+
+				</div>
+			</div><!-- unit-inner -->
+		</div><!-- unit-body -->
+	</div><!-- body -->
+	<footer class="the-footer">
+		<div class="unit-foot">
+			<div class="unit-inner unit-foot-inner">
+				<div class="misc vcard">
+					<h4>about</h4>
+					<ul>
+						<li class="contact"><address><span class="author fn n">Guille Polito</span> - <span class="fn email">guillermopolito@gmail.com</span></address></li>
+						<li class="github"><a href="http://github.com/guillep/" rel="me">github.com/guillep</a></li>
+						<li class="twitter"><a href="http://twitter.com/guillepolito/" rel="me">twitter.com/guillepolito</a></li>
+						<li class="rss"><a href="http://feeds.feedburner.com/">Subscribe to RSS Feed</a></li>
+					</ul>
+				</div><!-- misc -->
+				<p class="licence">
+					Theme: <a href="http://layouts-the.me">the_minimum</a> based on <a href="http://jekyllbootstrap.com/">Jekyll-bootstrap</a>.<br>
+					Powered by <a href="https://github.com/mojombo/jekyll">Jekyll</a>.
+				</p>
+			</div><!-- unit-foot-inner -->
+		</div><!-- unit-foot -->
+	</footer>
+</div><!-- page -->
+<script>
+	(function(d, s) {
+		var js, fjs = d.getElementsByTagName(s)[0], load = function(url, id) {
+		if (d.getElementById(id)) {return;}
+		js = d.createElement(s); js.src = url; js.id = id;
+		fjs.parentNode.insertBefore(js, fjs);
+		};
+	load('//platform.twitter.com/widgets.js', 'tweetjs');
+	// load('https://apis.google.com/js/plusone.js', 'gplus1js'); // Checkout http://j.mp/ApDgMr for usage html for this is <div class="g-plusone" data-size="medium"></div>
+	// load('//connect.facebook.net/en_US/all.js#xfbml=1', 'fbjssdk'); // Checkout http://j.mp/wZw2xR for using open graph protorol html for this is <div class="fb-like" data-href="/pharo/software%20engineering/2013/07/30/customizing-zeroconf-scripts" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false" data-font="verdana"></div>
+	}(document, 'script'));
+</script>
+<script>
+/*! A fix for the iOS orientationchange zoom bug.Script by @scottjehl, rebound by @wilto. MIT License.*/
+(function(j){var i=j.document;if(!i.querySelectorAll){return}var l=i.querySelectorAll("meta[name=viewport]")[0],a=l&&l.getAttribute("content"),h=a+", maximum-scale=1.0",d=a+", maximum-scale=10.0",g=true,c=j.orientation,k=0;if(!l){return}function f(){l.setAttribute("content",d);g=true}function b(){l.setAttribute("content",h);g=false}function e(m){c=Math.abs(j.orientation);k=Math.abs(m.gamma);if(k>8&&c===0){if(g){b()}}else{if(!g){f()}}}j.addEventListener("orientationchange",f,false);j.addEventListener("deviceorientation",e,false)})(this);
+</script>
+
+  
+</body>
+</html>
+

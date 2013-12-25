@@ -1,0 +1,1918 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+ 
+ <title>Playing with Objects</title>
+ <link href="http://guillep.github.io/" rel="self"/>
+ <link href="http://guillep.github.io"/>
+ <updated>2013-12-25T18:29:21+01:00</updated>
+ <id>http://guillep.github.io</id>
+ <author>
+   <name>Guille Polito</name>
+   <email>guillermopolito@gmail.com</email>
+ </author>
+
+ 
+ <entry>
+   <title>Blogging Like a Hacker</title>
+   <link href="http://guillep.github.io/2013/12/25/test"/>
+   <updated>2013-12-25T00:00:00+01:00</updated>
+   <id>http://guillep.github.io/2013/12/25/test</id>
+   <content type="html">&lt;h1 id=&quot;a_first_level_header&quot;&gt;A First Level Header&lt;/h1&gt;
+
+&lt;h2 id=&quot;a_second_level_header&quot;&gt;A Second Level Header&lt;/h2&gt;
+
+&lt;p&gt;Now is the time for all good men to come to the aid of their country. This is just a regular paragraph.&lt;/p&gt;
+
+&lt;p&gt;The quick brown fox jumped over the lazy dog’s back.&lt;/p&gt;
+
+&lt;h3 id=&quot;header_3&quot;&gt;Header 3&lt;/h3&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;This is a blockquote.&lt;/p&gt;
+
+&lt;p&gt;This is the second paragraph in the blockquote.&lt;/p&gt;
+
+&lt;h2 id=&quot;this_is_an_h2_in_a_blockquote&quot;&gt;This is an H2 in a blockquote&lt;/h2&gt;
+&lt;/blockquote&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='ruby'&gt;&lt;span class='k'&gt;def&lt;/span&gt; &lt;span class='nf'&gt;show&lt;/span&gt;
+  &lt;span class='vi'&gt;@widget&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='no'&gt;Widget&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;params&lt;/span&gt;&lt;span class='o'&gt;[&lt;/span&gt;&lt;span class='ss'&gt;:id&lt;/span&gt;&lt;span class='o'&gt;]&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt;
+  &lt;span class='n'&gt;respond_to&lt;/span&gt; &lt;span class='k'&gt;do&lt;/span&gt; &lt;span class='o'&gt;|&lt;/span&gt;&lt;span class='nb'&gt;format&lt;/span&gt;&lt;span class='o'&gt;|&lt;/span&gt;
+    &lt;span class='nb'&gt;format&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;html&lt;/span&gt; &lt;span class='c1'&gt;# show.html.erb&lt;/span&gt;
+    &lt;span class='nb'&gt;format&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;json&lt;/span&gt; &lt;span class='p'&gt;{&lt;/span&gt; &lt;span class='n'&gt;render&lt;/span&gt; &lt;span class='ss'&gt;json&lt;/span&gt;&lt;span class='p'&gt;:&lt;/span&gt; &lt;span class='vi'&gt;@widget&lt;/span&gt; &lt;span class='p'&gt;}&lt;/span&gt;
+  &lt;span class='k'&gt;end&lt;/span&gt;
+&lt;span class='k'&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>Oz object spaces in Esug 2013</title>
+   <link href="http://guillep.github.io/oz/pharo/2013/09/06/oz-object-spaces-in-esug-2013"/>
+   <updated>2013-09-06T00:00:00+02:00</updated>
+   <id>http://guillep.github.io/oz/pharo/2013/09/06/oz-object-spaces-in-esug-2013</id>
+   <content type="html">Hi!
+
+This little post is to add a summary of what I'll be showing in the upcoming &lt;a href=&quot;http://esug.org/wiki/pier/Conferences/2013&quot;&gt;ESUG conference&lt;/a&gt;. I'll present a paper about my work in the workshop and present the recovery tools of Oz in the innovation awards :).
+&lt;h4&gt;For the paper&lt;/h4&gt;
+I'll present the ideas and implementation of Oz object spaces. Especially the metacircular problems it solves, and a bit on the vision we (I and my supervisors have on this line of work). If you want to read the paper, you can go to:
+
+&lt;a href=&quot;http://rmod.lille.inria.fr/archives/papers/Poli13a-IWST13-ObjectSpacesVirtualization.pdf&quot;&gt;http://rmod.lille.inria.fr/archives/papers/Poli13a-IWST13-ObjectSpacesVirtualization.pdf&lt;/a&gt;.
+
+For the lazy, I paste here the abstract:
+&lt;blockquote&gt;Reﬂective architectures are a powerful solution for code browsing, debugging or in-language process handling. However, these reﬂective architectures show some limitations in edge cases of self-modiﬁcation and self-monitoring. Modifying the modiﬁer process or monitoring the monitor process in a reﬂective system alters the system itself, leading to the impossibility to perform some of those tasks properly. In this paper we analyze the problems of reﬂective architectures in the context of image based object-oriented languages and solve them by providing a ﬁrst-class representation of an image: a virtualized image.
+We present Oz, our virtual image solution. In Oz, a virtual image is represented by an object space. Through an object space, an image can manipulate the internal structure and control the execution of other images. An Oz object space allows one to introspect and modify execution information such as processes, contexts, existing classes and objects. We show how Oz solves the edge cases of reﬂective architectures by adding a third participant, and thus, removing the selfmodiﬁcation and self-observation constraints.&lt;/blockquote&gt;
+&lt;h4&gt;For the innovation awards&lt;/h4&gt;
+I've prepared a demo and with that I recorded a little video showing it. You can see it in:
+
+http://www.youtube.com/watch?v=9-ARnlGXjL8
+&lt;h4&gt;Also, we have a sexy logo!&lt;/h4&gt;
+[caption id=&quot;attachment_318&quot; align=&quot;alignright&quot; width=&quot;135&quot;]&lt;a href=&quot;http://playingwithobjects.files.wordpress.com/2013/09/oz.gif&quot;&gt;&lt;img class=&quot;wp-image-318 &quot; title=&quot;Oz Logo&quot; alt=&quot;Oz logo&quot; src=&quot;http://playingwithobjects.files.wordpress.com/2013/09/oz.gif?w=625&quot; width=&quot;135&quot; height=&quot;137&quot; /&gt;&lt;/a&gt; Oz logo, created by my friend Ximena Fernandez&lt;br /&gt;Copyright (C) 2013 Ximena Fernandez[/caption]
+
+I asked my friend Ximena to make a logo for my projects, even pushing her with the deadline of ESUG 2013 (sorry xime ;), and she created this one, that I really like.
+
+So, thanks again Xime!
+
+Now, waiting for next week @ ESUG, to taste the &lt;a href=&quot;https://twitter.com/esugsmalltalk/status/375693284389441536/photo/1&quot;&gt;ESUG beers&lt;/a&gt; ;).
+Enjoy!
+Guille
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Recover a broken image with Oz</title>
+   <link href="http://guillep.github.io/oz/2013/08/26/recover-a-broken-image-with-oz"/>
+   <updated>2013-08-26T00:00:00+02:00</updated>
+   <id>http://guillep.github.io/oz/2013/08/26/recover-a-broken-image-with-oz</id>
+   <content type="html">While hacking the VM the other day, I went into a very special situation: I got an image that crashed on startup. And I had stuff without commit!! So I started the crusade to recover it.
+
+I know that some time ago, people like &lt;a href=&quot;http://seandenigris.com/blog/&quot;&gt;Sean De Nigris&lt;/a&gt; had the same problem and ended up hacking the VM to solve their problem. You can have an idea of what exactly happened by reading the &lt;a href=&quot;http://forum.world.st/Oops-I-put-a-halt-in-a-startup-method-td3800163.html&quot;&gt;original mailing list post&lt;/a&gt;.
+
+But doing that required debugging the vm at the bytecode level (that is, debugging each bytecode internally) until I reach my point and solve my problem.
+&lt;h2&gt;The concrete situation&lt;/h2&gt;
+The last thing I executed in my broken image was the following two statements in one doit:
+
+[code language=&quot;ruby&quot;]
+Smalltalk snapshot: true andQuit: true.
+someObject doSomethingThatCrashesTheVM.
+[/code]
+
+So when my image was started, it executed all the startup code, returned to the context of the code above, and tried to send the &lt;b&gt;doSomethingThatCrashesTheVM&lt;/b&gt; message to &lt;b&gt;someObject&lt;/b&gt;, causing a crash.
+
+I knew that Oz could do it, so I went into it.
+&lt;h2&gt;The recovery environment&lt;/h2&gt;
+I needed to put my image in a place where I could fix it. And that place is an &lt;i&gt;object space&lt;/i&gt;, which I am implementing in Oz. The idea is to put the broken image inside another image with an object space, so we can manipulate it freely, fix it, and restart it. With the Oz library and VM, creating the object space is as easy as:
+
+[code language=&quot;ruby&quot;]
+objectSpace := Pharo20 loadFrom: 'broken.image'.
+[/code]
+&lt;h2&gt;The diagnostic&lt;/h2&gt;
+Once we have the &lt;i&gt;objectSpace&lt;/i&gt; object, we need to understand how to solve our problem. So I wondered around by getting the scheduler of the loaded image, and looking at the active process.
+
+[code language=&quot;ruby&quot;]
+ps := (objectSpace specialObjectsArray at: 4) value asSchedulerMirror.
+activeProcess := ps activeProcess.
+[/code]
+
+And once we have the active process, we can have a look at its context and the method that is being executed. We can follow the sender chain until we reach the context with the problem:
+
+[code language=&quot;ruby&quot;]
+cm := objectSpace
+          fromRemoteCompiledMethod: activeProcess context sender method.
+cm decompile ==&amp;gt; ' DoIt
+	Smalltalk snapshot: true andQuit: true.
+	^ someObject doSomethingThatCrashesTheVM.
+[/code]
+
+Now that we are there, we have to fix it.
+&lt;h2&gt;The medicine&lt;/h2&gt;
+There are many ways to manipulate the contexts and and processes to solve that. But there is also one that is really easy and simple.
+
+We only need to change the &lt;b&gt;someObject&lt;/b&gt; reference to nil. That way, we avoid the crash in the startup and obtain a debugger instead with a:
+
+&quot;Undefined Object does not understand doSomethingThatCrashesTheVM&quot;
+
+Nice! So, in order to do that, I needed to understand a bit how the code was compiled. I did it by sending a couple of messages to the compiled method, to understand its structure. Finally, I got the following conclusion: &lt;b&gt;someObject&lt;/b&gt; was the first literal in the compiled method. And I fixed it:
+
+[code language=&quot;ruby&quot;]
+association := cm literalAt: 4.
+association instVarAt: 2 put: objectSpace nilObject.
+[/code]
+
+I restarted the image in the object space (with the so far ad-hoc method):
+
+[code language=&quot;ruby&quot;]
+[[ objectSpace giveChanceToRun. true ] whileTrue: [ ]] forkAt: 80.
+[/code]
+
+So you make a loop and in each iteration you give the object space a window of time to run. And after that the broken image will appear before you (if you fixed it reasonably well) :).
+&lt;span style=&quot;line-height:1.714285714;font-size:1rem;&quot;&gt;Then, I saved it with another name, restored manually the changes file (because my object spaces solution does not handle yet :)) and voilá. I had my image back again, with all my objects there. I and could commit :).&lt;/span&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Customizing ZeroConf scripts</title>
+   <link href="http://guillep.github.io/pharo/software%20engineering/2013/07/30/customizing-zeroconf-scripts"/>
+   <updated>2013-07-30T00:00:00+02:00</updated>
+   <id>http://guillep.github.io/pharo/software%20engineering/2013/07/30/customizing-zeroconf-scripts</id>
+   <content type="html">As you may already know, ZeroConf scripts are bash scripts that &lt;a&gt;ease the installation of a Pharo environment&lt;/a&gt;. A funny thing about these ZeroConf scripts is that they are seen as bash scripts by a bash terminal, and as simple and minimal html pages by a web browser. These scripts are extensively used to simplify the configuration of Pharo CI jobs. They allow you to easily download many versions of the Pharo image and VM.
+
+As I'm working for my Phd, and have a custom version of my virtual machine and image, and also want to make use of the advantages our CI server provides, I wanted to build my own ZeroConf scripts specialized for my needs. I also heard recently on the pharo mailing list that there was some work on customizing ZeroConf scripts[1] for Moose[2]. So I wanted to do it as well for my project :).
+
+[1] &lt;a href=&quot;http://get.moosetechnology.org/&quot;&gt;http://get.moosetechnology.org/&lt;/a&gt;
+[2] &lt;a href=&quot;http://www.moosetechnology.org/&quot;&gt;http://www.moosetechnology.org/&lt;/a&gt;
+&lt;h2&gt;Downloading the ZeroConf package&lt;/h2&gt;
+The ZeroConf scripts are generated automatically by the ZeroConf Pharo package. You can find this package in [2]. To download the current version, you just have to execute the following piece of code in a workspace:
+
+[code language=&quot;ruby&quot;]
+Gofer it
+	smalltalkhubUser: 'Pharo' project: 'ZeroConf';
+	package: 'ZeroConf';
+	loadVersion: '1.0'
+[/code]
+
+This code snippet will install in your image the ZeroConf package for the 1.0 version, containing the script generator, and some tests that are not currently working :).
+[2] &lt;a href=&quot;http://www.smalltalkhub.com/#!/~Pharo/ZeroConf&quot;&gt;http://www.smalltalkhub.com/#!/~Pharo/ZeroConf&lt;/a&gt;
+&lt;h2&gt;Getting what's inside ZeroConf&lt;/h2&gt;
+The ZeroConf package is pretty small and simple. There is an abstract class AbstractZeroConfBashScript implementing most of the script generation and bash writing utils. Its subclasses will implement the concrete script generation. Current implementation includes three main classes below the AbstractZeroConfBashScript hierarchy, implementing a composite pattern:
+&lt;ul&gt;
+	&lt;li&gt;&lt;strong&gt;ZeroConfImageScript&lt;/strong&gt;: Generates scripts in charge of downloading image files.&lt;/li&gt;
+	&lt;li&gt;&lt;strong&gt;ZeroConfVMScript&lt;/strong&gt;: Generates scripts in charge of downloading Virtual Machine files (and source files).&lt;/li&gt;
+	&lt;li&gt;&lt;strong&gt;ZeroConfCombinedScript&lt;/strong&gt;: Generates scripts that combine several scripts. It will point to its combined scripts and downloading it means to download them all.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;a href=&quot;http://playingwithobjects.files.wordpress.com/2013/07/zeroconf.png&quot;&gt;&lt;img class=&quot;alignright size-large wp-image-281&quot; alt=&quot;zeroconf&quot; src=&quot;http://playingwithobjects.files.wordpress.com/2013/07/zeroconf.png?w=625&quot; width=&quot;625&quot; height=&quot;337&quot; /&gt;&lt;/a&gt;
+
+&lt;h2&gt;Customizing our ZeroConf scripts&lt;/h2&gt;
+
+As you can see in the picture, in order to customize the ZeroConf scripts, you have to create your own subclasses and overriding the correct hooks.
+
+&lt;h3&gt;Customizing an image script&lt;/h3&gt;
+A custom image script is defined by a subclass of ZeroConfImageScript. ZeroConfImageScript already defines some image common behavior, such as the &lt;strong&gt;release&lt;/strong&gt; number, which we will use in our script.
+
+[code language=&quot;ruby&quot;]
+ZeroConfImageScript subclass: #OzZeroConfImageScript
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'OurZeroConf'
+[/code]
+
+Then we override the methods that tell some information about the files to download:
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;OzZeroConfImageScript&amp;gt;&amp;gt;imageName&lt;/strong&gt;: The name of the image and changes files&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;OzZeroConfImageScript&amp;gt;&amp;gt;imageUrl&lt;/strong&gt;: The url of the image zip, instance of ZnUrl&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;OzZeroConfImageScript&amp;gt;&amp;gt;defaultBaseName&lt;/strong&gt;: The baseName of the script&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;OzZeroConfImageScript class&amp;gt;&amp;gt;baseUrl&lt;/strong&gt;: The base url where the scripts are found, instance of ZnUrl&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;OzZeroConfImageScript class&amp;gt;&amp;gt;fileBaseUrl&lt;/strong&gt;: The base url where the files the scripts will download are found, instance of ZnUrl&lt;/li&gt;
+&lt;/ul&gt;
+
+I implemented them in my class as follows
+[code language=&quot;ruby&quot;]
+OzZeroConfImageScript&amp;gt;&amp;gt;imageName
+	^'Oz'
+
+OzZeroConfImageScript&amp;gt;&amp;gt;imageUrl
+	^ self fileBaseUrl / 'image' / self release asString / self imageFileName / 'download'
+
+OzZeroConfImageScript&amp;gt;&amp;gt;imageFileName
+	^'Oz-image-', self release asString , '.zip'
+
+OzZeroConfImageScript&amp;gt;&amp;gt;defaultBasename
+	^ self imageName, self release
+
+OzZeroConfImageScript class&amp;gt;&amp;gt;fileBaseUrl
+	^ 'https://sourceforge.net/projects/ozobjectspaces/files' asZnUrl
+
+OzZeroConfImageScript class&amp;gt;&amp;gt;baseUrl
+	^ self fileBaseUrl / 'get'
+[/code]
+
+I also extended my script so it generates a custom html title and uses my combining script when combining:
+[code language=&quot;ruby&quot;]
+OzZeroConfImageScript&amp;gt;&amp;gt;htmlTitle
+	^ self imageName, ' Zeroconf Script'
+
+OzZeroConfImageScript&amp;gt;&amp;gt;defaultCombiningScript
+	^ OzZeroConfCombinedScript
+[/code]
+
+Finally, I created a convenience method for creating a script corresponding to the 1.0 version of my custom image.
+[code language=&quot;ruby&quot;]
+OzZeroConfImageScript class&amp;gt;&amp;gt;oz10
+	^self new
+		release: '1.0';
+		yourself
+[/code]
+
+Now you can try generating your script in a workspace,
+[code language=&quot;ruby&quot;]
+OzZeroConfImageScript oz10 generate
+[/code]
+
+and see the generated results in your working directory!
+
+&lt;h3&gt;Customizing a vm script&lt;/h3&gt;
+A custom vm script is defined by a subclass of ZeroConfVMScript. ZeroConfVMScript defines, as its image friend, some vm common behavior, such as the &lt;strong&gt;release&lt;/strong&gt; number and virtual machine &lt;strong&gt;type&lt;/strong&gt;(i.e., if it is a jitted vm or not), which we will use in our script.
+
+[code language=&quot;ruby&quot;]
+ZeroConfVMScript subclass: #OzZeroConfVMScript
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'OurZeroConf'
+[/code]
+
+Then we override the methods that tell some information about the files to download:
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;OzZeroConfVMScript&amp;gt;&amp;gt;binaryName&lt;/strong&gt;: The name of the vm binary name&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;OzZeroConfVMScript&amp;gt;&amp;gt;binaryNameLinux&lt;/strong&gt;: The name of the vm binary name in linux, which tends to be different&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;OzZeroConfVMScript&amp;gt;&amp;gt;vmUrl&lt;/strong&gt;: The url of the vm zip, instance of ZnUrl&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;OzZeroConfVMScript&amp;gt;&amp;gt;defaultBaseName&lt;/strong&gt;: The baseName of the script&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;OzZeroConfVMScript class&amp;gt;&amp;gt;baseUrl&lt;/strong&gt;: The base url where the scripts are found, instance of ZnUrl&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;OzZeroConfVMScript class&amp;gt;&amp;gt;fileBaseUrl&lt;/strong&gt;: The base url where the files the scripts will download are found, instance of ZnUrl&lt;/li&gt;
+&lt;/ul&gt;
+
+I implemented them in my class as follows
+[code language=&quot;ruby&quot;]
+OzZeroConfVMScript&amp;gt;&amp;gt;binaryName
+	^'ozstack'
+
+OzZeroConfVMScript&amp;gt;&amp;gt;binaryNameLinux
+	^self binaryName
+
+OzZeroConfVMScript&amp;gt;&amp;gt;vmUrl
+	^self fileBaseUrl asString, '/vm/', self release asString,'/', self vmFileName, '/download'
+
+OzZeroConfVMScript&amp;gt;&amp;gt;vmFileName
+	^'OzVm-${OS}-', self release asString , '.zip'
+
+OzZeroConfVMScript class&amp;gt;&amp;gt;fileBaseUrl
+	^ 'https://sourceforge.net/projects/ozobjectspaces/files' asZnUrl
+
+OzZeroConfVMScript class&amp;gt;&amp;gt;baseUrl
+	^ self fileBaseUrl / 'get'
+[/code]
+
+I also extended my script so it uses my combining script when combining:
+[code language=&quot;ruby&quot;]
+OzZeroConfVMScript&amp;gt;&amp;gt;defaultCombiningScript
+	^ OzZeroConfCombinedScript
+[/code]
+
+Finally, I created a convenience method for creating a script corresponding to the 1.0 version of my custom vm.
+[code language=&quot;ruby&quot;]
+OzZeroConfVMScript class&amp;gt;&amp;gt;ozvm10
+	^self new
+		type: 'oz';
+		release: '1.0';
+		yourself
+[/code]
+
+Now you can try generating your script in a workspace,
+[code language=&quot;ruby&quot;]
+OzZeroConfVMScript ozvm10 generate
+[/code]
+
+and see the generated results in your working directory!
+
+&lt;h3&gt;Customizing a combined script&lt;/h3&gt;
+A combined script is the one we use to combine several scripts. It is defined by a subclass of ZeroConfCombinedScript.
+
+[code language=&quot;ruby&quot;]
+ZeroConfCombinedScript subclass: #OzZeroConfCombinedScript
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'OurZeroConf'
+[/code]
+
+Then we override the methods that tell some information about the files to download:
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;OzZeroConfCombinedScript class&amp;gt;&amp;gt;baseUrl&lt;/strong&gt;: The base url where the scripts are found, instance of ZnUrl&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;OzZeroConfCombinedScript class&amp;gt;&amp;gt;fileBaseUrl&lt;/strong&gt;: The base url where the files the scripts will download are found, instance of ZnUrl&lt;/li&gt;
+&lt;/ul&gt;
+
+I implemented them in my class as follows
+[code language=&quot;ruby&quot;]
+OzZeroConfCombinedScript class&amp;gt;&amp;gt;fileBaseUrl
+	^ 'https://sourceforge.net/projects/ozobjectspaces/files' asZnUrl
+
+OzZeroConfCombinedScript class&amp;gt;&amp;gt;baseUrl
+	^ self fileBaseUrl / 'get'
+[/code]
+
+As you can see, my methods baseUrl and fileBaseUrl are always the same in all scripts. I extracted them into another class later, but keep the code here as is for clarity.
+
+I also extended my script so it uses my combining script when combining and the html title:
+[code language=&quot;ruby&quot;]
+OzZeroConfCombinedScript&amp;gt;&amp;gt;defaultCombiningScript
+	^ OzZeroConfCombinedScript
+
+OzZeroConfCombinedScript&amp;gt;&amp;gt;htmlTitle
+	^ self scripts first htmlTitle
+[/code]
+
+&lt;h2&gt;Integrating everything and automating generation&lt;/h2&gt;
+
+As I already showed you, every script understands the message &lt;strong&gt;#generate&lt;/strong&gt; to generate itself. However, we may want to generate many scripts, and combine them. The ZeroConf infrastructure already provides for that the ZeroConfCommandLineHandler. The ZeroConfCommandLineHandler is a command line handler that knows which are the scripts we want to generate, combines them appropriately and generates them. So we will subclass from ZeroConfCommandLineHandler and specialize it to fulfill our needs.
+
+[code language=&quot;ruby&quot;]
+ZeroConfCommandLineHandler subclass: #OzZeroConfCommandLineHandler
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'OzZeroConf'
+[/code]
+
+Once we have it, we configure it as a command line handler specifying its command name and description:
+[code language=&quot;ruby&quot;]
+OzZeroConfCommandLineHandler class&amp;gt;&amp;gt;commandName
+	^ 'ozzeroconf'
+
+OzZeroConfCommandLineHandler class&amp;gt;&amp;gt;description
+	^ 'Generate Oz zeroconf bash scripts'
+[/code]
+
+And finally we specialize it to tell it about our scripts:
+[code language=&quot;ruby&quot;]
+OzZeroConfCommandLineHandler&amp;gt;&amp;gt;defaultScript
+	^ self defaultImage, self defaultVM
+
+OzZeroConfCommandLineHandler&amp;gt;&amp;gt;defaultImage
+	^ OzZeroConfImageScript oz10
+
+OzZeroConfCommandLineHandler&amp;gt;&amp;gt;defaultVM
+	^ OzZeroConfVMScript ozvm10
+
+OzZeroConfCommandLineHandler&amp;gt;&amp;gt;imageScripts
+	^ { 
+		OzZeroConfImageScript oz10.
+	}
+
+OzZeroConfCommandLineHandler&amp;gt;&amp;gt;vmScripts
+	^ { 
+		OzZeroConfVMScript ozvm10
+	}
+
+OzZeroConfCommandLineHandler&amp;gt;&amp;gt;indexScriptExamplesHtml
+	^ ''
+[/code]
+
+Now we have our command line handler, we can test it and make it generate our scripts:
+
+[code language=&quot;ruby&quot;]
+OzZeroConfCommandLineHandler new
+	commandLine: CommandLineArguments new;
+	generateScripts
+[/code]
+
+Finally, if you have all this code in your image, you can just activate it through the command line thanks to the command line handler!
+
+[code language=&quot;bash&quot;]
+./pharo PharoMyZeroConf.image ozzeroconf
+[/code]
+
+And look at the results. Upload your files, archive them, and use them :).
+
+Guille
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Installing Pharo in many flavors</title>
+   <link href="http://guillep.github.io/pharo/software%20engineering/2013/07/23/installing-pharo-in-many-flavors"/>
+   <updated>2013-07-23T00:00:00+02:00</updated>
+   <id>http://guillep.github.io/pharo/software%20engineering/2013/07/23/installing-pharo-in-many-flavors</id>
+   <content type="html">Buon giorno!
+
+In the recent times, there appeared many many ways to leverage the installation and deploy of &lt;a href=&quot;http://www.pharo-project.org/home&quot;&gt;Pharo&lt;/a&gt; applications. These installation approaches enhance significantly the experience of using Pharo, by simplifying either dependency management with OS libraries, enabling to write deploy bash scripts or loading prebuilt images for any (and many) taste(s).
+
+However, if you are not in the &lt;a href=&quot;http://www.pharo-project.org/community&quot;&gt;Pharo mailing lists&lt;/a&gt;, you probably have not heard about many of these installation mechanisms, and therefore, you cannot enjoy them. So, let's summarize a bit some of these mechanisms, at least the ones I know. If you know some more, contact me so we can include it.
+&lt;h3&gt;Manual download from the webpage&lt;/h3&gt;
+Downloading Pharo manually is the easiest but more primitive approach. Proceed to the download page [1] and download the flavor of Pharo you like the most. You will find in here the 1.3, 1.4 and 2.0 releases, plus the option to load the latest (still in development) version of Pharo 3.0.
+
+Focusing on what is available for Pharo 2.0, you can either install
+&lt;ul&gt;
+	&lt;li&gt;&lt;strong&gt;under the category &quot;Pharo Installers&quot;:&lt;/strong&gt; a package specific for your operative system containing both v&lt;em&gt;irtual machine&lt;/em&gt; and the &lt;em&gt;image&lt;/em&gt; with the runtime and development environment&lt;/li&gt;
+	&lt;li&gt;&lt;strong&gt;under the category &quot;Custom Downloads&quot;:&lt;/strong&gt; the possibility to download them by separate. This option is useful if you already have a &lt;em&gt;virtual machine&lt;/em&gt; and only want a new&lt;em&gt; image&lt;/em&gt; to play with.&lt;/li&gt;
+&lt;/ul&gt;
+[1] &lt;a href=&quot;http://www.pharo-project.org/pharo-download&quot;&gt;http://www.pharo-project.org/pharo-download&lt;/a&gt;
+&lt;h3&gt;Manual download from the file server&lt;/h3&gt;
+In the Pharo file server[2] you will find available the virtual machine and image releases as well as other resources to download. You can use these urls to create your custom download scripts.
+
+[2] &lt;a href=&quot;http://files.pharo.org/&quot;&gt;http://files.pharo.org/&lt;/a&gt;
+&lt;h3&gt;Virtual Machine PPA for Ubuntu linux&lt;/h3&gt;
+There is a PPA available for Ubuntu users (probably it works also for any distribution using apt-get package manager) which is in charge of downloading the &lt;em&gt;virtual machine&lt;/em&gt; and its dependencies, simplifying its installation and deploy. We thank Damien Cassou for taking finally the initiative of creating the PPA!
+
+[code language=&quot;bash&quot;]
+#install the PPA repository
+sudo add-apt-repository ppa:pharo/stable
+sudo apt-get update
+
+#install pharo vm core
+sudo apt-get install pharo-vm-core
+
+#install pharo vm for desktop (with graphical dependencies)
+sudo apt-get install pharo-vm-desktop
+[/code]
+&lt;h3&gt;ZeroConf scripts&lt;/h3&gt;
+The ZeroConf scripts[3] are already built bash scripts easing the download and installation of pharo. They are scripts served by get.pharo.org which can be parameterized for getting the pair vm/image you want.
+
+Their usage, as written in the ZeroConf webpage can be resumed as
+
+[code language=&quot;bash&quot;]
+curl url | bash
+#or if curl is not available:
+wget -O- url | bash
+[/code]
+
+where url is replaced by the formula vmVersion|imageVersion|vmVersion+imageVersion
+
+For example, some valid usages of ZeroConf are
+
+[code language=&quot;bash&quot;]
+#downloading latest 3.0
+curl get.pharo.org/alpha | bash
+
+#downloading stable 2.0 + vm
+curl get.pharo.org/20+vm | bash
+
+#downloading latest non stable vm
+curl get.pharo.org/vmLatest | bash
+[/code]
+
+You can look for the valid values in the ZeroConf page [3]. These scripts are currently heavily used by the &lt;a href=&quot;https://ci.inria.fr/pharo/&quot;&gt;ci infrastructure of pharo&lt;/a&gt;. We thank Camillo Bruni for pushing this harder!
+
+In fact, this is the way I download my own images right now, because the url is easy to memorize and using the terminal is pretty straightforward.
+
+[3] &lt;a href=&quot;http://get.pharo.org/&quot;&gt;http://get.pharo.org/&lt;/a&gt;
+&lt;h3&gt;Pharo Launcher&lt;/h3&gt;
+The Pharo Launcher is an application to download and manage prebuilt and custom Pharo images. Below I paste the release notes from the first release:
+
+&quot;Erwan and I are proud to announce the first release of the Pharo
+Launcher, a cross-platform application that
+
+- lets you manage your Pharo images (launch, rename, copy and delete);
+- lets you download image templates (i.e., zip archives) from many
+different sources (Jenkins, files.pharo.org, and your local cache);
+- lets you create new images from any template.
+
+The idea behind the Pharo Launcher is that you should be able to
+access it very rapidly from your OS application launcher. As a result,
+launching any image is never more than 3 clicks away.
+
+Download: https://ci.inria.fr/pharo-contribution/job/PharoLauncher/PHARO=30,VERSION=bleedingEdge,VM=vm/lastSuccessfulBuild/artifact/PharoLauncher.zip
+
+Please report bugs on the 'Launcher' project at https://pharo.fogbugz.org
+
+You can contribute to this project. All classes and most methods are
+commented. There are unit tests. Please contribute!
+
+Source code: http://www.smalltalkhub.com/#!/~Pharo/PharoLauncher
+CI: https://ci.inria.fr/pharo-contribution/job/PharoLauncher
+&quot;
+
+[caption id=&quot;attachment_254&quot; align=&quot;alignright&quot; width=&quot;625&quot;]&lt;a href=&quot;http://playingwithobjects.files.wordpress.com/2013/07/launcher_screenshot.png&quot;&gt;&lt;img class=&quot;size-large wp-image-254&quot; alt=&quot;Pharo Launcher screenshot&quot; src=&quot;http://playingwithobjects.files.wordpress.com/2013/07/launcher_screenshot.png?w=625&quot; width=&quot;625&quot; height=&quot;391&quot; /&gt;&lt;/a&gt; Pharo Launcher screenshot[/caption]
+
+The Pharo launcher is an initiative of Erwan Douaille and Damien Cassou. And of course, you can contribute to it. In their release notes they added some points they would like to enhance in this project:
+&lt;ul&gt;
+	&lt;li&gt;check if a template is already downloaded before downloading it&lt;/li&gt;
+	&lt;li&gt;add a preference mechanism (for, e.g., quit after launch, definition of your own template groups, location of downloaded templates and images)&lt;/li&gt;
+	&lt;li&gt;put the launcher in the Pharo Ubuntu package so that the launcher becomes a registered application of the system (https://launchpad.net/~pharo/+archive/stable)&lt;/li&gt;
+	&lt;li&gt;make sure the pharo launcher does not load your personal scripts (like fonts and MC configuration)&lt;/li&gt;
+	&lt;li&gt;add a toolbar to enhance the discoverability of the features (currently everything is in contextual menus)&lt;/li&gt;
+	&lt;li&gt;make sure rename and copy actions propose default values&lt;/li&gt;
+	&lt;li&gt;make sure no debugger pops up when a user press cancels or enter an invalid name&lt;/li&gt;
+	&lt;li&gt;propose multiple kinds of sorting (last used, most frequently used, alphabetically on the name)&lt;/li&gt;
+	&lt;li&gt;give some information about each template (build date, pharo version)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Conclusion&lt;/h3&gt;
+Pharo is growing, and getting sexy. And now you have easy deploy, and it will get only easier in the future. What are you waiting?
+
+[code language=&quot;bash&quot;]
+#Just do this!
+curl get.pharo.org/20+vm | bash
+./pharo-ui Pharo.image
+[/code]
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Bootstrap revival - the basics</title>
+   <link href="http://guillep.github.io/pharo/smalltalk/2013/05/06/bootstrap-revival-the-basics"/>
+   <updated>2013-05-06T00:00:00+02:00</updated>
+   <id>http://guillep.github.io/pharo/smalltalk/2013/05/06/bootstrap-revival-the-basics</id>
+   <content type="html">In the last time I was working on the system bootstrap again, trying to enhance the process, lower the imposed limitations... And I have a pretty new version. I'll present here a summary of what I've learnt in the last time:
+&lt;ul&gt;
+	&lt;li&gt;A review on the process steps, with exemplar code snippets&lt;/li&gt;
+	&lt;li&gt;Some of the new key ideas and new infrastructure&lt;/li&gt;
+	&lt;li&gt;And improvements over the last version :)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;What are we going to bootstrap&lt;/h2&gt;
+For the sake of simplicity, we will not bootstrap a full Pharo (because that would include preparing for example Morphic to be bootstrapped, or to be loaded/unloaded). Instead, we will bootstrap an adapted version of MicroSqueak from John Maloney, which we re-baptized as &lt;a href=&quot;https://github.com/guillep/PharoCandle/tree/master/source/&quot;&gt;Pharo Candle&lt;/a&gt;. Pharo Candle has only 50 classes, as you can see in the Github repo, and limited features. All classes from Pharo Candle has a PC prefix, which is not important for the bootstrap, since it will not let be name collisions.
+
+To understand the rest of the post, the following is important: we will take a textual and static definition of the system (methods, classes...), and load it into our image. For that we will parse the files and include them as definition objects. These definition objects will ease the access to the data needed instead of accessing lots of lookup and symbol tables and stuff in a procedural way...
+
+&lt;h2&gt;Some infrastructure basics&lt;/h2&gt;
+The last bootstrap implementation was very coupled to Pharo and its internal implementation. To create objects, to initialize classes, we relied on the existing system, on sending messages, on the VirtualMachine interpreter and infrastructure. So the first step for this new version was to decouple that. Decoupling the existing system from the new system that is about to be created. To do that we encapsulate the state of the new system inside an object, which we call an &lt;strong&gt;object space&lt;/strong&gt;.
+
+An object space reifies the new system. It is an object that understand messages such as &quot;create an object&quot;, &quot;translate this string to a string of the new system&quot;, &quot;register this object as a class in yourself&quot; or even &quot;execute this piece of code&quot;. This object space lets us structure the creation of the new system in a more comfortable way.
+
+Our next concern, is not installing objects from the existing system into the new system. We want the new system to be transitively closed. So, the best is not to have direct references from the existing system to the new one. The best is to control those references carefully. Then, every time an object space gives you a reference to one of his objects, he really gives you a proxy. That proxy allows you to manipulate, at some level, the object inside the object space. A proxy can give and revoke permissions on the inner object, and make transformations or validations when necessary to keep the model consistent. Since these proxys may perform meta-operations on the new system objects, we end up calling them mirrors at some point.
+
+Finally there are &lt;a title=&quot;The Bootstrap Chronicles Chapter 2 – Do not mess with the VM&quot; href=&quot;http://playingwithobjects.wordpress.com/2012/06/11/the-bootstrap-chronicles-chapter-2-do-not-mess-with-the-vm/&quot;&gt;VirtualMachine limitations&lt;/a&gt; when executing code on the new space. We introduced a new piece in the puzzle to overcome them: our own language-level interpreter. In this particular case, we are using an AST interpreter, but we could, if available, use any other kind of interpreter. The important thing about using our own interpreter is controlling the semantics of the new system, and leverage the VM's limitations.
+&lt;h2&gt;Where do we start?&lt;/h2&gt;
+When the bootstrap starts, there is nothing. There are no objects, no structures, nothing. So we have to build everything from the start. And the question is... where do we start?
+
+Our system is composed by objects, and thus, we need to create objects. And every new object may have pointers, which are initially pointing to &lt;strong&gt;nil&lt;/strong&gt;. But what if there is no &lt;strong&gt;nil&lt;/strong&gt; in our system? So, let's build a first &lt;strong&gt;nil&lt;/strong&gt;, so all objects created later can point to this &lt;strong&gt;nil&lt;/strong&gt; object.
+&lt;h2&gt;Creating the first object&lt;/h2&gt;
+As we decided before, we create our first &lt;strong&gt;nil&lt;/strong&gt; object. However, there is a question that arises when we try to create nil. How can we create an object without a class? The answer is, so far, that until we have classes we will create objects without classes. We will not care about their classes and we will solve that later, once classes are created. Fortunately, this problem is present with very few objects.
+
+[sourcecode language=&quot;ruby&quot;]
+theNil := objectSpace 
+    createObjectWithFormat: undefinedObjectDefinition nilFormat.
+[/sourcecode]
+
+Since we have no class to create nil, we have to specify the format of this object. That is, the amount of memory to be allocated for it, the amount of slots, and if they are pointers or bytes or what. The format is known by the definition of undefined object. 
+
+Fortunately, nil has no pointers to other objects, except for his class, simplifying the process. We will set nil's class once we create it later.
+&lt;h2&gt;We create the classes&lt;/h2&gt;
+Creating a class is a complex operation. A class has a metaclass. And it has a name which is a symbol (unique in the system). And it has a superclass, which may have not been created yet. And it has a dictionary of class variables. And... a lot of stuff.
+
+Our objective is to keep this bootstrap the simplest. And for that, we will delay all the complex operations to the moment when they are not so complex. In this step we create empty classes. We only initialize their format with a SmallInteger, and we let the rest of their pointers pointing to nil.
+
+The first step for creating a class, is to create its metaclass. And to create a metaclass, we need the class Metaclass. This Metaclass, in a ST-80 like model, follows the Metaclass&amp;lt;-&amp;gt;Metaclass class loop. &lt;span style=&quot;line-height:1.714285714;font-size:1rem;&quot;&gt;That is, Metaclass is an instance of Metaclass class, and Metaclass class is an instance of Metaclass, as shown in blue in the following figure.&lt;/span&gt;
+
+&lt;a href=&quot;http://playingwithobjects.files.wordpress.com/2013/05/smalltalkmetaclasses.png&quot;&gt;&lt;img class=&quot;alignright size-large wp-image-236&quot; alt=&quot;SmalltalkMetaclasses&quot; src=&quot;http://playingwithobjects.files.wordpress.com/2013/05/smalltalkmetaclasses.png?w=625&quot; width=&quot;625&quot; height=&quot;447&quot; /&gt;&lt;/a&gt;We create the first Metaclass and Metaclass class as objects without class, and then we make each one an instance of the other.
+
+[sourcecode language=&quot;ruby&quot;]
+metaclassMirror := objectSpace
+    createClassWithFormat: classFormat
+    forInstancesOfFormat: metaclassFormat.
+metaclassClassMirror := objectSpace
+    createClassWithFormat: metaclassFormat
+    forInstancesOfFormat: classFormat.
+
+metaclassMirror 		setClass: metaclassClassMirror.
+metaclassClassMirror 	setClass: metaclassMirror.
+[/sourcecode]
+
+Once we have the first metaclass, we can create all the classes.
+
+[sourcecode language=&quot;ruby&quot;]
+self behaviorDefinitions do: [ :aClassDefinition |
+	| newClass newClassMetaclassMirror theMetaclassMirror |
+	theMetaclassMirror := objectSpace classNamed: #PCMetaclass.
+	newMetaclassMirror := theMetaclassMirror basicNew asClassMirror.
+	newMetaclassMirror format: aClassDefinition classSide format.
+
+	newClass := newClassMetaclassMirror basicNew asClassMirror.
+	newClass format: aClassDefinition format.
+	]
+]
+[/sourcecode]
+
+At this point, the classes only have set their format, and their class. All other slots have pointers to the nil object we created at the beginning.
+&lt;h2&gt;Fix nil, create true and false!&lt;/h2&gt;
+Now we created all the classes, even if they are empty, we can fix the &quot;classless&quot; &lt;strong&gt;nil&lt;/strong&gt; and create our &lt;strong&gt;true&lt;/strong&gt; and &lt;strong&gt;false&lt;/strong&gt; objects.
+
+[sourcecode language=&quot;ruby&quot;]
+theNil setClass: (objectSpace classNamed: #PCUndefinedObject).
+theTrue := (objectSpace classNamed: #PCTrue) basicNew.
+theFalse := (objectSpace classNamed: #PCFalse) basicNew.
+[/sourcecode]
+&lt;h2&gt;Initialize the classes state&lt;/h2&gt;
+Now we have all classes created, and the three basic objects we need (nil, true and false). So now we can start initializing all our classes. This initialization consists for each class in:
+&lt;ul&gt;
+	&lt;li&gt;Set the superclass of the class. The root of the hierarchy should be nil.&lt;/li&gt;
+[sourcecode language=&quot;ruby&quot;]
+classDefinition superclass isEndOfHierarchy ifFalse: [
+    superclassMirror := objectSpace
+        classNamed: classDefinition superclass name.
+] ifTrue: [
+    superclassMirror := objectSpace nilObject.
+].
+classMirror superclass:superclassMirror.
+[/sourcecode]
+	&lt;li&gt;Set the class name&lt;/li&gt;
+[sourcecode language=&quot;ruby&quot;]
+classMirror className: classDefinition name.
+[/sourcecode]
+	&lt;li&gt;Set the collection of instance variables of the class&lt;/li&gt;
+[sourcecode language=&quot;ruby&quot;]
+classMirror instanceVariables: classDefinition instanceVariables.
+[/sourcecode]
+	&lt;li&gt;Set the superclass of the metaclass. The root of the hierarchy should be PCClass.&lt;/li&gt;
+[sourcecode language=&quot;ruby&quot;]
+metaclassMirror := classMirror classSide.
+classDefinition superclass isEndOfHierarchy ifFalse: [
+    metaclassMirror superclass: superclassMirror classSide.
+] ifTrue: [
+    metaclassMirror superclass: (objectSpace classNamed: #PCClass).
+].
+[/sourcecode]
+	&lt;li&gt;Set the instance side relationship of the metaclass&lt;/li&gt;
+[sourcecode language=&quot;ruby&quot;]
+metaclassMirror := classMirror classSide.
+metaclassMirror
+    instanceSideClass: classMirror.
+[/sourcecode]
+	&lt;li&gt;Set the collection of instance variables of the metaclass&lt;/li&gt;
+[sourcecode language=&quot;ruby&quot;]
+metaclassMirror := classMirror classSide.
+metaclassMirror
+    instanceVariables: classDefinition classSide instanceVariables.
+[/sourcecode]
+&lt;/ul&gt;
+
+
+After this initial initialization is performed for every class, we finish by initializing the class variables. Class variables are represented by a Dictionary object. A dictionary object is an object with a complex structure, and the way to manipulate it depends on the nature of the system we are bootstrapping. The solution, so far, is to delegate the initialization of the dictionary to the dictionary itself. 
+
+For that we use a combination of the code of the dictionary and an AST interpreter. An AST interpreter needs to be initialized before its usage so later, all class variables can be initialized. As you can see in the code below, the AST interpreter usage is hidden inside the mirror implementation :).
+
+[sourcecode language=&quot;ruby&quot;]
+objectSpace initializeInterpreterForCodeProvider: self kernelSpec.
+self behaviorDefinitions do: [ :classDefinition |
+    | classMirror |
+    classMirror := objectSpace
+        classNamed: classDefinition name.
+    classMirror
+        classVariables: classDefinition classVariables.
+].
+[/sourcecode]
+
+&lt;h2&gt;Install methods&lt;/h2&gt;
+Now we have all classes of the new system created and initialized. We can start installing all their methods. Before, we should declare all global variables of the system, so the compiler knows how to bind them correctly. After that, we take the source code of all methods from the system description and compile them. The compilation gives us as result the bytecode of the method + the literals. This method is then translated to a method in the new world, and installed into the new system.
+
+The globals initialization looks like:
+
+[sourcecode language=&quot;ruby&quot;]
+objectSpace environment
+            addGlobal: #Processor
+            pointingTo: objectSpace nilObject.
+[/sourcecode]
+
+Then, for each class, we have the following code to create and install the methods:
+
+[sourcecode language=&quot;ruby&quot;]
+&amp;quot;build the methods as instances of this system&amp;quot;
+newMethods := aMethodBuilder
+    methodsForBehavior: mirror
+    fromDefinition: aBehaviorDefinition.
+
+&amp;quot;create a method dictionary of the new system&amp;quot;
+newMethodDict := objectSpace createMethodDictionary: newMethods size.
+newMethods do: [ :m |
+    &amp;quot;install a method from this system to the other&amp;quot;
+    &amp;quot;the translation to a method to the other side is made inside&amp;quot;
+    newMethodDict installMethod: m
+].
+&amp;quot;we set the method dictionary to our class&amp;quot;
+mirror methodDictionary: newMethodDict.
+[/sourcecode]
+&lt;h2&gt;Initialize the system state&lt;/h2&gt;
+Finally, we initialize the system state, with the aid of the AST interpreter. This last step consists mainly in:
+&lt;ul&gt;
+	&lt;li&gt;execute the initialize class side methods&lt;/li&gt;
+	&lt;li&gt;set up the process scheduler of the system and install its processes&lt;/li&gt;
+&lt;/ul&gt;
+[sourcecode language=&quot;ruby&quot;]
+objectSpace interpreter evaluateCode: 'PCCharacter initialize'.
+objectSpace interpreter evaluateCode: 'PCString initialize'.
+objectSpace interpreter evaluateCode: 'PCFloat initialize'.
+
+objectSpace interpreter evaluateCode: '
+    Processor := PCProcessorScheduler basicNew.
+    Processor initProcessLists.'.
+
+process := objectSpace
+        createProcessWithPriority: 3
+        doing: 'PCSystem start'.
+objectSpace installAsActiveProcess: process.
+[/sourcecode]
+
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+Bootstrap: achieved.
+
+With our new pieces into the game, we were able to overcome the virtual machine limitations, and have a in-image full bootstrap. The next steps go in the way to:
+&lt;ul&gt;
+  &lt;li&gt;serialize this object graph into an image file, so it becomes autonomous&lt;/li&gt;
+  &lt;li&gt;test the bootstrapped system while still living along with the original system, without serializing it. I mean, run it into the same VM without AST interpreter.&lt;/li&gt;
+&lt;/ul&gt;
+
+I hope I explained myself well.
+Arrivederci!!
+Guille
+</content>
+ </entry>
+ 
+ <entry>
+   <title>When optimal matters</title>
+   <link href="http://guillep.github.io/software%20engineering/2013/03/23/when-optimal-matters"/>
+   <updated>2013-03-23T00:00:00+01:00</updated>
+   <id>http://guillep.github.io/software%20engineering/2013/03/23/when-optimal-matters</id>
+   <content type="html">This last week I've been involved somehow in several discussions which, although not explicitly, talked about optimizations. In particular, premature optimizations. Of course, we all know they are evil. Do we? I'll not discuss today on optimization techniques, but on what should an IT professional think about when thinking about optimizations in his programs.
+
+The main arguments I heard this week of people supporting premature organizations were:
+&lt;ul&gt;
+	&lt;li&gt;&lt;span style=&quot;line-height:14px;&quot;&gt;A guy using some technology X, should know the underlying details of X, or he will fail. Let's say, if you are a Java programmer, you &lt;strong&gt;must&lt;/strong&gt; not only know there is a &lt;a href=&quot;http://en.wikipedia.org/wiki/Garbage_collection_(computer_science)&quot;&gt;GC&lt;/a&gt;, but also how it works.&lt;/span&gt;&lt;/li&gt;
+	&lt;li&gt;A tech guy should be always conscious of the resources used. i.e., not to store a lot of objects in caches because memory is a finite resource.&lt;/li&gt;
+	&lt;li&gt;Assumptions on what should be faster. Using or not a macro in C for example.&lt;/li&gt;
+&lt;/ul&gt;
+And these arguments are not even totally wrong. But they are not so totally true as they were stated.
+&lt;blockquote&gt;Premature optimization is the root of all evil&lt;/blockquote&gt;
+You know Donald Knuth? This phrase (attributed to C.A.R. Hoare, btw) became famous because of &lt;a href=&quot;http://pplab.snu.ac.kr/courses/adv_pl05/papers/p261-knuth.pdf&quot;&gt;this paper&lt;/a&gt; he authored. The interesting thing is that this phrase, when used, is taken out from context. The original phrase is:
+&lt;blockquote&gt;Programmers waste enormous amounts of time thinking about, or worrying about, the speed of noncritical parts of their programs, and these attempts at efficiency actually have a strong negative impact when debugging and maintenance are considered. We &lt;em&gt;should&lt;/em&gt; forget about small efficiencies, say about 97% of the time: &lt;strong&gt;premature optimization is the root of all evil.&lt;/strong&gt; Yet we should not pass up our opportunities in that critical 3%.&lt;/blockquote&gt;
+&lt;h2&gt;Being optimal is not all that matters&lt;/h2&gt;
+When writing software, running optimal is not the only variable to analyze. We want programs to be debuggeable, understandable, extendable, maintainable. And sometimes, optimal code can be ugly, and can be hard to change, or to fix bugs on it.
+
+So, let's look at this piece of code written for &lt;a title=&quot;Pharo 2.0 Released&quot; href=&quot;http://playingwithobjects.wordpress.com/2013/03/18/pharo-2-0-released/&quot;&gt;Pharo&lt;/a&gt;. This piece of code takes a string, splits the substrings taking the space character as separator, excludes the substrings that do not exist as symbols in the system, and then it converts them to symbols.
+
+[code language=&quot;ruby&quot;]
+aString := 'aaaaa bbb Class cccc ddd'.
+((aString splitOn: Character space)
+    reject: [ :each| Symbol lookup: each  ])
+    collect: #asSymbol
+[/code]
+
+Kind of understandable piece of code. But what goes on behind scenes?
+&lt;ul&gt;
+	&lt;li&gt;&lt;span style=&quot;line-height:14px;&quot;&gt;&lt;strong&gt;splitOn:&lt;/strong&gt; creates a new (and temporary) collection. It also creates strings for each substrings and copy all the contents into those strings;&lt;/span&gt;&lt;/li&gt;
+	&lt;li&gt;&lt;strong&gt;reject:&lt;/strong&gt; iterates over the result of #splitOn:, creates a new (temporary again) collection;&lt;/li&gt;
+	&lt;li&gt;&lt;strong&gt;collect: &lt;/strong&gt;iterates over the result of #reject:, creates a new collection to put the results of #asSymbol&lt;/li&gt;
+&lt;/ul&gt;
+Finally, there are two intermediate collections that are discarded, some substrings are created by copying all the contents and finally discarded (cause we only care about the symbols). Yes, that is inefficient: lots of temporary allocations that could launch the GC, several iterations over collections... we could do better. Let's see an alternative version Camillo Bruni (&lt;a href=&quot;http://rmod.lille.inria.fr/web/&quot;&gt;Rmod, Inria&lt;/a&gt;) suggested to improve in terms of speed and memory usage:
+
+[code language=&quot;ruby&quot;]
+Array streamContents: [ :s|
+    aString
+        splitOn: Character space
+        indicesDo: [ :start :end|
+            aString asSymbolFrom: start to: end ifPresent: [ :symbol|
+            s nextPut: symbol]]
+[/code]
+
+This new version, which btw ends up with the same result, is pretty much more efficient:
+&lt;ul&gt;
+	&lt;li&gt;&lt;span style=&quot;line-height:14px;&quot;&gt;Streaming on the result causes only one collection allocation without temporal ones;&lt;/span&gt;&lt;/li&gt;
+	&lt;li&gt;Some special methods introduced into String to avoid extra collection allocation, and substring copies;&lt;/li&gt;
+	&lt;li&gt;One collection means only one iteration :)&lt;/li&gt;
+&lt;/ul&gt;
+But wow, the code became much more complicated (given the simplicity of the example), and less object oriented. We do not manipule so easily the substrings by sending messages to them, we have instead the indices into the source string. Our code is much more aware of the problems we stated before, and recurring to lower level APIs to avoid them.
+
+Now, extend these ideas to a whole large application. Hundreds or thousands of classes written this way. We write methods of tens (or hundreds, why not?) of lines of code to avoid message sends (and therefore method lookups), we avoid at the maximum object allocation and go for an &lt;em&gt;if&lt;/em&gt; based solution... and soon we will have lots of duplicated code, stringy code everywhere... And yet I can tell you (just guessing :^) your program will not be tons more optimal. What? Now my code is so hard to maintain and not very much faster? Not cool...
+&lt;h2&gt;Being optimal when optimal matters&lt;/h2&gt;
+So let's say we have this function that takes 100.000 database rows, makes some calculations, and show a simple result to a user. It takes 1 second, which is a lot for a nowadays machine. But this function is used once per hour...
+
+Now take the code that evaluates the bytecode that access an object's field. It gets executed maybe some lots of thousands of times per second? So, if this operation starts to take 1 second... :)
+
+Or take this application that stores data on background, but when restoring wants to be as fast as possible to give a really good user experience. Will you care how much it takes the storing operation?
+
+Do we really have to spend a lot of time optimizing code that is almost not used? Or code that does not need to run &lt;em&gt;that fast&lt;/em&gt;? Wait! My application runs ok, &lt;em&gt;&lt;strong&gt;do I really have to optimize something?&lt;/strong&gt;&lt;/em&gt;
+
+As Knuth says, 97% of the code is not critical. Only 3% deserves to be optimized.
+&lt;h2&gt;Understand when and where optimal matters&lt;/h2&gt;
+So now you know the key point (optimizing when it matters), and you understood it mattered in your case. Time to find that 3%. And it may be not so obvious...
+
+&lt;strong&gt;Thanks engineers invented profiling! &lt;/strong&gt; Just look a bit around, there are tons of tools to help you understand what you're doing wrong: where is memory allocated?, and of which type?, is the GC launched so often? is a time consuming function executed too many times? Profiling is a technique that should be on every software engineer tool-case.
+&lt;h2&gt;&lt;span style=&quot;font-size:1.285714286rem;line-height:1.6;&quot;&gt;The rules of optimization&lt;/span&gt;&lt;/h2&gt;
+As a conclusion, today I found this link I want to share about the &lt;a href=&quot;http://c2.com/cgi/wiki?RulesOfOptimization&quot;&gt;rules of optimization&lt;/a&gt;. And I think they are a pretty good guideline. When you are thinking on making an optimization:
+&lt;ul&gt;
+	&lt;li&gt;&lt;span style=&quot;line-height:14px;&quot;&gt;First time: Don't do it!&lt;/span&gt;&lt;/li&gt;
+	&lt;li&gt;Second time: Don't do it yet!&lt;/li&gt;
+	&lt;li&gt;Third time: Ok, but you first profile and measure, and then optimize&lt;/li&gt;
+&lt;/ul&gt;
+There is much to lose when only thinking on the optimal solution to a problem in terms of machine resources. Remember people's time to understand the written code, to adapt it to new situations and to fix bugs on it is also a valuable resource.
+
+Guille
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Keymappings 101 - for Pharo 2.0</title>
+   <link href="http://guillep.github.io/pharo/smalltalk/2013/03/19/keymappings-101-for-pharo-2-0"/>
+   <updated>2013-03-19T00:00:00+01:00</updated>
+   <id>http://guillep.github.io/pharo/smalltalk/2013/03/19/keymappings-101-for-pharo-2-0</id>
+   <content type="html">&lt;p&gt;&lt;img alt='Pharo' height='210' src='http://playingwithobjects.files.wordpress.com/2013/03/sans-titre-1.png?w=300' width='210' /&gt;&lt;/p&gt;
+
+&lt;p&gt;Pharo 2.0 release includes the Keymappings library. Keymappings is a library for configuring shortcuts for the current UI library (Morphic). It models concepts like: shortcuts, key combinations, event bubbling. It is a very simple library which I’ll introduce gradually in this post.&lt;/p&gt;
+
+&lt;h2 id=&quot;key_combinations&quot;&gt;Key combinations&lt;/h2&gt;
+
+&lt;p&gt;Keymappings main task is it’s ability to associate a key combination to an action. So we have to build up those key combinations. The simplest key combination is the one that gets activated when a single key is pressed. We call these combinations &lt;strong&gt;single key combinations&lt;/strong&gt;&lt;strong&gt;:&lt;/strong&gt;&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='smalltalk'&gt;&lt;span class='sc'&gt;$a&lt;/span&gt; &lt;span class='nf'&gt;asKeyCombination&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt; &lt;span class='err'&gt;-&amp;gt;&lt;/span&gt; &lt;span class='c'&gt;&amp;quot;single key combination for A key.&amp;quot;&lt;/span&gt;
+&lt;span class='nc'&gt;Character&lt;/span&gt; &lt;span class='nf'&gt;cr&lt;/span&gt; &lt;span class='nf'&gt;asKeyCombination&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt; &lt;span class='err'&gt;-&amp;gt;&lt;/span&gt; &lt;span class='c'&gt;&amp;quot;single key combination for  key.&amp;quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Although, usually key combinations get a bit more complex. It is very common to combine single keys with &lt;strong&gt;meta keys or modifiers&lt;/strong&gt;. These meta keys or modifiers are the well known ctrl, shift, alt and command keys. To build a &lt;strong&gt;modified key combination&lt;/strong&gt; we can do as follows:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='smalltalk'&gt;&lt;span class='sc'&gt;$a&lt;/span&gt; &lt;span class='nf'&gt;ctrl&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt; &lt;span class='err'&gt;-&amp;gt;&lt;/span&gt; &lt;span class='c'&gt;&amp;quot;a modified key combination for Ctrl+A&amp;quot;&lt;/span&gt;
+&lt;span class='sc'&gt;$a&lt;/span&gt; &lt;span class='nf'&gt;ctrl&lt;/span&gt; &lt;span class='nf'&gt;shift&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt; &lt;span class='err'&gt;-&amp;gt;&lt;/span&gt; &lt;span class='c'&gt;&amp;quot;a modified key combination for Ctrl+Shift+A&amp;quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;address&gt;It is important to notice that all key combinations are not case sensitive. It takes &lt;strong&gt;a&lt;/strong&gt; and &lt;strong&gt;A&lt;/strong&gt; characters as the same, since they are &lt;strong&gt;the same key&lt;/strong&gt;.&lt;/address&gt;
+&lt;p&gt;Have you ever used emacs, Eclipse or Visual Studio? Then you probably know sequences of key combinations that launch one only action. Like &lt;strong&gt;Alt+Shift+X, T &lt;/strong&gt;(to run JUnit tests in eclipse)? So keymappings can do that too:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='smalltalk'&gt;&lt;span class='sc'&gt;$a&lt;/span&gt; &lt;span class='nf'&gt;command&lt;/span&gt; &lt;span class='nf'&gt;shift,&lt;/span&gt; &lt;span class='sc'&gt;$b&lt;/span&gt; &lt;span class='nf'&gt;shift&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt; &lt;span class='err'&gt;-&amp;gt;&lt;/span&gt; &lt;span class='c'&gt;&amp;quot;key sequence (Cmd+Shift+A, Shift+B)&amp;quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Sometimes, you want to configure an action to be activated in two different cases. Those are Keymapping &lt;strong&gt;options&lt;/strong&gt;, and get activated when one of the options gets activated:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='smalltalk'&gt;&lt;span class='sc'&gt;$a&lt;/span&gt; &lt;span class='nf'&gt;command&lt;/span&gt; &lt;span class='nf'&gt;|&lt;/span&gt; &lt;span class='sc'&gt;$b&lt;/span&gt; &lt;span class='nf'&gt;command&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt; &lt;span class='err'&gt;-&amp;gt;&lt;/span&gt; &lt;span class='c'&gt;&amp;quot;key combination (Cmd+A or Cmd+B)&amp;quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Finally, since Pharo is a cross platform system and it is important to provide a good user experience by with the most suitable shortcut layout, keymapping implements &lt;strong&gt;platform specific shortcuts&lt;/strong&gt;, which get activated only when running in the specific platform:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='smalltalk'&gt;&lt;span class='sc'&gt;$a&lt;/span&gt; &lt;span class='nf'&gt;command&lt;/span&gt; &lt;span class='nf'&gt;win&lt;/span&gt; &lt;span class='nf'&gt;|&lt;/span&gt; &lt;span class='sc'&gt;$b&lt;/span&gt; &lt;span class='nf'&gt;command&lt;/span&gt; &lt;span class='nf'&gt;unix&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt; &lt;span class='err'&gt;-&amp;amp;&lt;/span&gt;&lt;span class='nv'&gt;gt&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt; &lt;span class='nf'&gt;&amp;amp;&lt;/span&gt;&lt;span class='nv'&gt;quot&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;&lt;span class='nf'&gt;Cmd+&lt;/span&gt;&lt;span class='nc'&gt;A&lt;/span&gt; &lt;span class='nf'&gt;on&lt;/span&gt; &lt;span class='nf'&gt;windows,&lt;/span&gt; &lt;span class='nv'&gt;but&lt;/span&gt; &lt;span class='nf'&gt;Cmd+&lt;/span&gt;&lt;span class='nc'&gt;B&lt;/span&gt; &lt;span class='nf'&gt;on&lt;/span&gt; &lt;span class='nf'&gt;unix&amp;amp;&lt;/span&gt;&lt;span class='nv'&gt;quot&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2&gt;Shortcut configurations&lt;/h2&gt;
+&lt;p&gt;Now you know how to build key combinations for your purposes, you probably want to go to the action. Map those combinations to actions and make them work!&lt;/p&gt;
+&lt;h3&gt;Single shortcut configuration&lt;/h3&gt;
+&lt;p&gt;The simplest way to attach a shortcut to a morph is by sending him the #on:do: message. The first argument expected is a key combination and the second one is an action. In the example below, a workspace is created with two shortcuts: -&lt;span style='line-height:14px;'&gt;when Cmd+Shift+A is pressed, the workspace is deleted&lt;/span&gt; -when Cmd+Shift+D is pressed, an information growl should appear yelling ‘this shortcut works!’&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='smalltalk'&gt;&lt;span class='err'&gt;w&lt;/span&gt;&lt;span class='o'&gt;:=&lt;/span&gt; &lt;span class='nc'&gt;Workspace&lt;/span&gt; &lt;span class='nb'&gt;new&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;
+&lt;span class='nv'&gt;morph&lt;/span&gt; &lt;span class='o'&gt;:=&lt;/span&gt; &lt;span class='nv'&gt;w&lt;/span&gt; &lt;span class='nf'&gt;openLabel:&lt;/span&gt; &lt;span class='s'&gt;&amp;#39;keymapping test&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;
+&lt;span class='nv'&gt;morph&lt;/span&gt; &lt;span class='nf'&gt;on:&lt;/span&gt; &lt;span class='sc'&gt;$a&lt;/span&gt; &lt;span class='nf'&gt;shift&lt;/span&gt; &lt;span class='nf'&gt;command&lt;/span&gt; &lt;span class='nf'&gt;do:&lt;/span&gt; [ &lt;span class='nv'&gt;morph&lt;/span&gt; &lt;span class='nf'&gt;delete&lt;/span&gt; ]&lt;span class='p'&gt;.&lt;/span&gt;
+&lt;span class='nv'&gt;morph&lt;/span&gt; &lt;span class='nf'&gt;on:&lt;/span&gt; &lt;span class='sc'&gt;$d&lt;/span&gt; &lt;span class='nf'&gt;shift&lt;/span&gt; &lt;span class='nf'&gt;command&lt;/span&gt; &lt;span class='nf'&gt;do:&lt;/span&gt; [ &lt;span class='nc'&gt;UIManager&lt;/span&gt; &lt;span class='nf'&gt;default&lt;/span&gt; &lt;span class='nf'&gt;inform:&lt;/span&gt; &lt;span class='s'&gt;&amp;#39;this shortcut works!&amp;#39;&lt;/span&gt; ]&lt;span class='p'&gt;.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Easy, huh? So let’s move on&lt;/p&gt;
+&lt;h3&gt;Shortcut categories&lt;/h3&gt;
+&lt;p&gt;Sometimes you want to group and organize shortcuts in a meaningful way and apply them all together on a morph. Sometimes you want some morphs from different hierarchies to share the same group of shortcuts easily. Those groups of shortcuts are what keymapping calls &lt;b&gt;Categories&lt;/b&gt;. A category is a group of shortcuts, so far (will change in the future) defined statically by using a &lt;b&gt;keymap&lt;/b&gt; pragma on class side:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='smalltalk'&gt;&lt;span class='err'&gt;&amp;amp;&lt;/span&gt;&lt;span class='nv'&gt;quot&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;&lt;span class='nf'&gt;defining&lt;/span&gt; &lt;span class='nf'&gt;a&lt;/span&gt; &lt;span class='nf'&gt;category&amp;amp;&lt;/span&gt;&lt;span class='nv'&gt;quot&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+&lt;span class='nf'&gt;SystemWindow&lt;/span&gt; &lt;span class='nf'&gt;class&amp;amp;&lt;/span&gt;&lt;span class='nv'&gt;gt&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;&lt;span class='nf'&gt;&amp;amp;&lt;/span&gt;&lt;span class='nv'&gt;gt&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;&lt;span class='nf'&gt;buildShortcutsOn:&lt;/span&gt; &lt;span class='nv'&gt;aBuilder&lt;/span&gt;
+    &lt;span class='nf'&gt;&amp;amp;&lt;/span&gt;&lt;span class='nv'&gt;lt&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;&lt;span class='nf'&gt;keymap&amp;amp;&lt;/span&gt;&lt;span class='nv'&gt;gt&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;A class side method marked as &amp;lt;keymap&amp;gt; will be called with a builder object, which can be used to define a named set of shortcuts:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='smalltalk'&gt;&lt;span class='nc'&gt;SystemWindow&lt;/span&gt; &lt;span class='nf'&gt;class&amp;gt;&amp;gt;buildShortcutsOn:&lt;/span&gt; &lt;span class='nv'&gt;aBuilder&lt;/span&gt;
+    &lt;span class='err'&gt;&amp;lt;&lt;/span&gt;&lt;span class='nv'&gt;keymap&lt;/span&gt;&lt;span class='nf'&gt;&amp;gt;&lt;/span&gt;
+    (&lt;span class='nv'&gt;aBuilder&lt;/span&gt; &lt;span class='nf'&gt;shortcut:&lt;/span&gt; &lt;span class='ss'&gt;#close&lt;/span&gt;)
+        &lt;span class='nf'&gt;category:&lt;/span&gt; &lt;span class='ss'&gt;#WindowShortcuts&lt;/span&gt;
+        &lt;span class='nf'&gt;default:&lt;/span&gt; &lt;span class='sc'&gt;$w&lt;/span&gt; &lt;span class='nf'&gt;ctrl&lt;/span&gt; &lt;span class='nf'&gt;|&lt;/span&gt; &lt;span class='sc'&gt;$w&lt;/span&gt; &lt;span class='nf'&gt;command&lt;/span&gt; &lt;span class='nf'&gt;mac&lt;/span&gt;
+        &lt;span class='nf'&gt;do:&lt;/span&gt; [ &lt;span class='o'&gt;:&lt;/span&gt;&lt;span class='nv'&gt;target&lt;/span&gt; &lt;span class='o'&gt;|&lt;/span&gt; &lt;span class='nv'&gt;target&lt;/span&gt; &lt;span class='nf'&gt;delete&lt;/span&gt; ]
+        &lt;span class='nf'&gt;description:&lt;/span&gt; &lt;span class='s'&gt;&amp;#39;Close this window&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Shortcuts defined through the builder specify the name of the category they belong to, a default key combination, an action, and a description. All this metadata is there to be used as settings in the future.&lt;/p&gt;
+
+&lt;p&gt;Finally in order to get your morph handle those shortcuts you can use the #attachKeymapCategory: message as in:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='smalltalk'&gt;&lt;span class='err'&gt;w&lt;/span&gt;&lt;span class='o'&gt;:=&lt;/span&gt; &lt;span class='nc'&gt;Workspace&lt;/span&gt; &lt;span class='nb'&gt;new&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;
+&lt;span class='nv'&gt;morph&lt;/span&gt; &lt;span class='o'&gt;:=&lt;/span&gt; &lt;span class='nv'&gt;w&lt;/span&gt; &lt;span class='nf'&gt;openLabel:&lt;/span&gt; &lt;span class='s'&gt;&amp;#39;keymapping test&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;
+&lt;span class='nv'&gt;morph&lt;/span&gt; &lt;span class='nf'&gt;attachKeymapCategory:&lt;/span&gt; &lt;span class='ss'&gt;#Growling&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2&gt;Bubbling&lt;/h2&gt;
+&lt;p&gt;Keymappings’ shortcuts bubble to their parent if not handled, up until the main world morph. That has two main consequences: -Shortcuts for your application can be designed in a hierarchical way and; -Every time a shortcut does not work for you, it means that a morph below you has handled it ;) (be careful with text editors that handle loooots of key combinations)&lt;/p&gt;
+&lt;h2&gt;Future work&lt;/h2&gt;
+&lt;p&gt;So far, so good, but there is some plan on Keymappings for Pharo 3.0 development, which I can anticipate: -&lt;span style='line-height:1.714285714;font-size:1rem;'&gt;Some API changes: #on:do: can be confused with exception or announcement handling. #asShortcut will probably be properly renamed as #asKeyCombination. There is an inconsistency between the #command and #ctrl messages&lt;/span&gt; -&lt;span style='line-height:1.714285714;font-size:1rem;'&gt;A lot of renames and new comments :)&lt;/span&gt; -&lt;span style='line-height:1.714285714;font-size:1rem;'&gt;Spread it all over the system&lt;/span&gt; -&lt;span style='line-height:1.714285714;font-size:1rem;'&gt;Make keymap categories first class objects, not any more a symbol ;)&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;à la prochain! Guille&lt;/p&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>Pharo 2.0 Released</title>
+   <link href="http://guillep.github.io/pharo/2013/03/18/pharo-2-0-released"/>
+   <updated>2013-03-18T00:00:00+01:00</updated>
+   <id>http://guillep.github.io/pharo/2013/03/18/pharo-2-0-released</id>
+   <content type="html">&lt;a href=&quot;http://www.pharo-project.org/&quot;&gt;&lt;img class=&quot;wp-image alignright&quot; id=&quot;i-143&quot; alt=&quot;Pharo Project&quot; src=&quot;http://playingwithobjects.files.wordpress.com/2013/03/sans-titre-1.png?w=487&quot; width=&quot;167&quot; height=&quot;167&quot; /&gt;&lt;/a&gt;
+
+Aaaand, a new version of the Pharo project cames out. It ressembles the version 2.0 of this dynamically typed object-oriented programming language and environment. This release includes &lt;a href=&quot;https://code.google.com/p/pharo/wiki/ActionsInPharo20&quot;&gt;many cool stuff&lt;/a&gt; improving a lot the infrastructure of the system, adding new core libraries and lots of cleansing and improvements. Let's make some remarks on this release.
+&lt;h2&gt;Cool Development Tools, all by default&lt;/h2&gt;
+Pharo's default browser is now Nautilus by Benjamin Van Ryseghem. Nautilus has lots of cool features, like an alternative Group view, a plugin architecture, and integration with Monticello, refactorings and the Critics browser. Yes! Now by default Pharo includes refactorings, since they are one of the cornerstones of the development activities. Critics browser is also included, so the code quality can only improve :).
+
+Auto completion has also seen lots of changes: default completion is &amp;lt;enter&amp;gt;, press &amp;lt;tab&amp;gt; to complete word per word á la command line, and it has also been revisited to provide better and more meaningful results.
+
+Finally, if you press &amp;lt;shift+enter&amp;gt; you'll see on the right upper corner the Spotlight by Esteban Lorenzano. A simple but powerful way tool to quickly browse a class or method.
+&lt;h2&gt;Boosted by NativeBoost and Fuel&lt;/h2&gt;
+Pharo wants to be fast. And that's something NativeBoost and Fuel achieve. That's why you can find them included by default in the system. &lt;a href=&quot;https://code.google.com/p/nativeboost/&quot;&gt;NativeBoost&lt;/a&gt; (by Igor Stasenko) gives us the ability to execute machine code from the language side, and a new generation FFI with callbacks. Use it with caution :). &lt;a href=&quot;http://rmod.lille.inria.fr/web/pier/software/Fuel&quot;&gt;Fuel&lt;/a&gt;, written by Mariano Martinez Peck and Martin Dias, is a cool object serializer focusing on &lt;strong&gt;fast deserialization (materialization)&lt;/strong&gt;, and the ability to serialize any kind of objects: Block closures? yes. Contexts? yes. Complete debuggers so we can restore them and debug failures in other environments? &lt;a href=&quot;http://marianopeck.wordpress.com/2012/01/19/moving-contexts-and-debuggers-between-images-with-fuel/&quot;&gt;YES&lt;/a&gt;.
+&lt;h2&gt;UI Front - Spec and Keymappings&lt;/h2&gt;
+Pharo 2.0 includes two new cool libraries on the UI front: Spec and Keymappings.
+
+Spec is a framework, mainly work of Benjamin Van Ryseghem under the tutelage of Stéphane Ducasse, to build UI components declaratively. It puts its main focus on component reuse and ability to be composed. Spec was included into Pharo 2.0 and some tools were reimplemented to use it. How do you give it a try?
+&lt;ul&gt;
+	&lt;li&gt;&lt;a href=&quot;http://hal.inria.fr/docs/00/70/80/67/PDF/SpecTechReport.pdf&quot;&gt;Tech Report on Spec&lt;/a&gt;&lt;/li&gt;
+	&lt;li&gt;&lt;a href=&quot;http://www.esug.org/wiki/pier/Conferences/2012/International-Workshop---IWST-2012/Proceedings.pdf?_k=59sK_AnR-5_4uo42&amp;amp;view=PRDownloadView&amp;amp;_n&amp;amp;25&quot;&gt;Paper explaining Spec basics&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+On the other side, Keymappings is a shortcut library mostly re-written by me (Guille Polito) to adapt it to Pharo. It's main objective is to provide common shortcut semantics for desktop UIs, and remove hardcoded semantics spread all over the system. Pharo 2.0 includes Keymappings and has already replaced some users of the old-fashioned(harwiredandmessy cof cof) shortcut declaration by nice keymapping ones. On the documentation side, I owe it to you :). I promise to a nice tutorial-post this week!
+&lt;h2&gt;System changes - System Announcements, RPackage, FileSystem, branded VM&lt;/h2&gt;
+On the internals of the system, the notification of system events was replaced by System Announcements, RPackage was introduced so the old and ugly packaging system can be slowly migrated, and the old FileDirectory was tackled down and all its usages were replaced by the new cool FileSystem library (already there in 1.4).
+
+Also, the Pharo VM is now branded, and includes many fixes and bundled libraries (nativeBoost and SSL plugins, cairo, freetype). You should run your Pharo images on a Pharo VM, which you will identify by a nice Pharo icon ;).
+
+And of course there are lots of other clean and cool new stuff to see like SSL, command line tools, non UI blocking notifications... A more detailed list is &lt;a href=&quot;https://code.google.com/p/pharo/wiki/ActionsInPharo20&quot;&gt;here&lt;/a&gt;. So take Pharo, have a look, enjoy, and give feedback. Remember that any contribution is valuable, as small as it looks.
+
+&lt;a href=&quot;http://www.pharo-project.org/pharo-download/release-2-0&quot;&gt;Download Pharo&lt;/a&gt;
+&lt;a href=&quot;http://www.pharo-project.org/home&quot;&gt;Pharo website
+&lt;/a&gt;&lt;a href=&quot;http://www.pharo-project.org/community&quot;&gt;Joining and helping&lt;/a&gt;&lt;a href=&quot;http://www.pharo-project.org/home&quot;&gt;
+&lt;/a&gt;&lt;a href=&quot;http://www.pharobyexample.org&quot;&gt;Pharo By Example book (available as a free PDF)&lt;/a&gt;&lt;a href=&quot;http://bit.ly/HNkEru&quot;&gt;
+Screencasts!
+Reporting problems
+Pharo vision document
+&lt;/a&gt;
+
+Chaus, Guille
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Left</title>
+   <link href="http://guillep.github.io/posts/2012/12/12/left"/>
+   <updated>2012-12-12T00:00:00+01:00</updated>
+   <id>http://guillep.github.io/posts/2012/12/12/left</id>
+   <content type="html">&lt;p&gt;Left is a clean, whitespace-happy layout for &lt;a href=&quot;https://github.com/mojombo/jekyll&quot;&gt;Jekyll&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;This is designed to be an easy layout to modify for your own blog. It was extracted from &lt;a href=&quot;http://zachholman.com&quot;&gt;zachholman.com&lt;/a&gt;, which means it was battle-hardened from years of posting serious blog posts about emoji and swear words.&lt;/p&gt;
+
+&lt;p&gt;You’re actually reading an example post right now. See how cool it is? Oh, be quiet, you’re making me blush.&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;You’ll want to &lt;a href=&quot;https://github.com/holman/left#readme&quot;&gt;get the code&lt;/a&gt; and read the README to learn how to install and set up Left for your own purposes.&lt;/p&gt;
+
+&lt;p&gt;If you have any questions, follow and ping me on Twitter- I’m &lt;a href=&quot;https://twitter.com/holman&quot;&gt;@holman&lt;/a&gt;.&lt;/p&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>The Bootstrap Chronicles - The end of a phase</title>
+   <link href="http://guillep.github.io/gsoc/pharo/smalltalk/2012/08/22/the-bootstrap-chronicles-the-end-of-a-phase"/>
+   <updated>2012-08-22T00:00:00+02:00</updated>
+   <id>http://guillep.github.io/gsoc/pharo/smalltalk/2012/08/22/the-bootstrap-chronicles-the-end-of-a-phase</id>
+   <content type="html">As some of you already know, the GSOC project edition 2012 is coming to an end.  And along with it, the bootstrap project reaches a checkpoint. This post covers is the news since the last chapter, and discusses about the future steps. In a next post I'll document  the details of the project deliverables.
+&lt;h2&gt;Where we where?&lt;/h2&gt;
+The first product of this project was a renewal of an image serializer: the SystemTracer. It takes an object graph and serializes it into the image format a vm works with. The System tracer was refactored reifying the memory object formats and updated to write Cog images.
+
+The second step was to work on bootstrapping. And it was successful.  Hazelnut, the bootstrap process tool, is able to build a smalltalk image from a description. To ensure the quality and health of these newly created images I set up jenkins jobs loading different packages on top of them, and running tests over them.
+&lt;h2&gt;What happened since last time: Declarative kernel descriptions&lt;/h2&gt;
+A kernel definition has two main parts:
+&lt;ul&gt;
+	&lt;li&gt;the code and definitions of the entities of that kernel&lt;/li&gt;
+	&lt;li&gt;a definition on how to build the basic model of that kernel and how to initialize it finally&lt;/li&gt;
+&lt;/ul&gt;
+The first one can take the form of source files like in &lt;a href=&quot;https://github.com/guillep/PharoKernel&quot;&gt;https://github.com/guillep/PharoKernel&lt;/a&gt;, which is the source code Hazelnut actually uses to bootstrap Pharo images. The second part of the kernel definition contains some imperative parts, and by now they are declared in simple pharo classes you download from Monticello.
+
+So now, the bootstrap loads the kernel definition from those source files, generates the bootstrapped environment, and serializes it into a new image file.
+&lt;h2&gt;The future of bootstrapping pharo&lt;/h2&gt;
+Since our goal is to bootstrap pharo to support it's modularity and  evolution, there are some keypoints to attack in the near future:
+&lt;ul&gt;
+	&lt;li&gt;getting the pharo sourcecode in sync with this bootstrap representation&lt;/li&gt;
+	&lt;li&gt;choosing the really important parts for a kernel. What should be and what should not in those source files? Where do we package what's not going kernel?&lt;/li&gt;
+	&lt;li&gt;building pharo from bootstrapped images.&lt;/li&gt;
+&lt;/ul&gt;
+Even, when looking at the upcoming pharo changes like first class slots and class layouts, or the new Tanker package manager, the bootstrap will need for sure some updates.
+&lt;h2&gt;Conclusions&lt;/h2&gt;
+I hope this project makes pharo grow and get better! We can now generate images with the source code defined statically in source files, so for the GSOC program the scope has been fulfilled.
+
+See you in a next post documenting the project!
+
+Salut!
+</content>
+ </entry>
+ 
+ <entry>
+   <title>The Bootstrap Chronicles Chapter 4 – Pump up with Fuel</title>
+   <link href="http://guillep.github.io/gsoc/pharo/smalltalk/2012/06/30/the-bootstrap-chronicles-chapter-4"/>
+   <updated>2012-06-30T00:00:00+02:00</updated>
+   <id>http://guillep.github.io/gsoc/pharo/smalltalk/2012/06/30/the-bootstrap-chronicles-chapter-4</id>
+   <content type="html">Last time we were generating a new image with useful information.  This post tells the story after that first bootstrap: How we ensure that little monster is healthy, and how we ensure that our process is flexible and robust enough, and how does it help pharo in the modularization cruzade.
+&lt;h2&gt;Fuel - The modularization sword&lt;/h2&gt;
+Probably some of you already know about Fuel: a fast object serializer written by Mariano Peck and Martín Dias. And maybe you are also aware of another Google Summer of Code Martín is working on: a Binary Package manager on top of fuel. Mariano showed us already a first proof of concept of that idea in this post: &lt;a href=&quot;http://marianopeck.wordpress.com/2011/09/24/importing-and-exporting-packages-with-fuel/&quot;&gt;http://marianopeck.wordpress.com/2011/09/24/importing-and-exporting-packages-with-fuel/&lt;/a&gt;.
+
+So, I want to work on building stuff on top of my little bootstrapped image.  And I thought Fuel was a nice gun to attack that problem.
+&lt;h2&gt;Detecting illnesses&lt;/h2&gt;
+In my last post about the bootstrap I've already shown you how to get a list of broken/uninitialized stuff. That gives us an idea of how healthy our image is.  But there are other tools that we already use for that: tests.
+
+So, Can we run SUnit on the bootstrap? Yes.
+
+When I thought about Fuel and the bootstrap, I thought Fuel should be included by default, otherwise it should be difficult make it grow.  Of course I could've chosen the compiler for the same purpose.  But I'd like to enable modularization with binary packages.
+
+So, what about exporting sunit as a binary package, and import it in the bootstrap? And what if we also export the tests over sunit, and include them also? Then we should be able to run the tests of sunit. Nice. Then this same idea can be applied to tests the kernel, or the compiler...
+
+And I did it :)
+&lt;h2&gt;Completeness (or &quot;does it have all its essential parts?&quot;)&lt;/h2&gt;
+Another thing we can think on is testing the completeness.  When should you consider that the bootstrap is complete? A fun definition could be &quot;when it is able to define itself&quot;. Ok, let's export the bootstrapping code with fuel, and import it in the bootstrapped image, and let's try to bootstrap from the bootstrap. And do it again, just for fun.
+
+Once the bootstrap bootstrap was working, I put the tests to work on the last generation of bootstraps.
+&lt;h2&gt;The results&lt;/h2&gt;
+I've created some Jobs to test all this stuff in the &lt;a href=&quot;http://car.mines-douai.fr/ci/view/Seed%20Tests/&quot;&gt;Ecole de Mines' Jenkins&lt;/a&gt;.
+
+The test results are exported in JUnit format, so we can tell what's broken and look at the stack trace.  All this jobs are working on the bleeding edge of the project using latest Pharo image and latest CogVM.
+
+Have Fun!
+
+Guille
+</content>
+ </entry>
+ 
+ <entry>
+   <title>The Bootstrap Chronicles Chapter 3 - It's Alive!</title>
+   <link href="http://guillep.github.io/gsoc/pharo/2012/06/17/the-bootstrap-chronicles-chapter-3-its-alive"/>
+   <updated>2012-06-17T00:00:00+02:00</updated>
+   <id>http://guillep.github.io/gsoc/pharo/2012/06/17/the-bootstrap-chronicles-chapter-3-its-alive</id>
+   <content type="html">So now that you now a bit what the bootstrap is about and what are some of the problems to face.  I'll show you some solutions and progress for &lt;strong&gt;real&lt;/strong&gt;.
+&lt;h2&gt;How does the bootstrap implementation work&lt;/h2&gt;
+To bootstrap a Smalltalk environment, you need to create a new environment, with it's classes and objects, and initialize some state in them. I could have done that in C, using mallocs and initializing everything by hand using plain memory :). But doing it in smalltalk is easier: you have late binding, polymorphism, closures...  Even, once you have done your first steps in the bootstrap, you can send messages to your objects. THAT is nice.
+
+So, that is the way we cho0se to go: A new environment is created (a guest) into the current environment (the host).  The guest will have it's own classes and objects.
+
+What about the special objects of the vm?  We share them with the host environment, because if not, out new image will not be able to run... Afterwards, when this new image is written into an image file, we will swap references to point to our own new special objects array.
+
+Here is a picture of how it looks like:
+
+&lt;a href=&quot;http://playingwithobjects.files.wordpress.com/2012/06/bootstrap-strategy.png&quot;&gt;&lt;img class=&quot;aligncenter size-medium wp-image-87&quot; title=&quot;Bootstrap Stragegy&quot; src=&quot;http://playingwithobjects.files.wordpress.com/2012/06/bootstrap-strategy.png?w=300&quot; alt=&quot;How the host and guest are related&quot; width=&quot;300&quot; height=&quot;223&quot; /&gt;&lt;/a&gt;
+&lt;h2&gt;The Current Version&lt;/h2&gt;
+I've been through several versions of the image with different capabilities, sizes, correctness. You have to know, everything you forgot to initialize, or initialize in a wrong order, or if you took an extra object you do not need, you will have a not running image, or one that carries all the objects in the host also...
+
+Another thing is that current version takes a sample of the objects in the host to build the guest. I'm already working on starting from scratch + source code, but that is the future and I like enjoying the present :).
+&lt;h3&gt;So, how do you load the current code?&lt;/h3&gt;
+[sourcecode language=&quot;ruby&quot;]
+Gofer it
+    url: 'http://www.smalltalkhub.com/mc/Guille/Seed/main';
+    package: 'ConfigurationOfHazelnut';
+    load.
+
+(ConfigurationOfHazelnut project version: '1.3') load.
+[/sourcecode]
+
+Also, as the code is very sensitive on what you do,  it is also sensitive on what image you're running it on.  If you play with it in a wrong/different image, you will have different/unexpected results.  So, I suggest you to use the same image as me for testing it: &lt;strong&gt;Latest Pharo 2.0&lt;/strong&gt;.  In particular, I've tested it on versions 20133 and 20134.
+
+Do not scare when loading the configuration on Pharo 2.0 for the first time It will raise an error. It is an issue related with unzipping old mcz in Pharo (http://code.google.com/p/pharo/issues/detail?id=6054) which will fortunately fixed soon. Just close the debugger, try again, and get the project working.
+&lt;h3&gt;And, How do I try these weird stuff?&lt;/h3&gt;
+With Nicolas Petton, we have written some examples in the class named &lt;strong&gt;HazelBuilderExamples&lt;/strong&gt;.
+
+To run them, you can try the following scripts:
+&lt;code&gt;&lt;/code&gt;
+
+[sourcecode language=&quot;ruby&quot;]
+&amp;quot;Writes an image which when opened prints a spaceTally on fileok.txt&amp;quot;
+HazelBuilderExample new buildImageWithSpaceTally
+
+&amp;quot;Writes an image which when opened prints a report on all the packaging/initialization deficiencies of the image on fileok.txt&amp;quot;
+HazelBuilderExample new buildImageWithBrokenReferencesReport
+
+&amp;quot;Writes an image which when opened prints a report on all the packaging/initialization deficiencies of the image on fileok.txt. The report is written in the xml format Jenkins Junit plugin likes.&amp;quot;
+HazelBuilderExample new buildImageWithBrokenReferencesReportForJenkins
+[/sourcecode]
+
+After evaluating this code, you'll have some &lt;em&gt;bootstrapped&lt;/em&gt; image and changes files. Open that file with your CogVM and wait until it closes.  Then have a look at the &lt;em&gt;fileok.txt&lt;/em&gt; file :).
+
+Of couse you can look at the code in the examples, and try to build your own. Email me if you have ideas to improve this :).
+
+There are also probably some problems with file overwritting that came with some latest Pharo changes with the file management.  Please, if you notice this, just remove the bootstrapped* files from the folder where your image is and try again.
+&lt;h3&gt;Hey! How is this thingy useful?&lt;/h3&gt;
+Well, if you've had a look at the examples, the three examples I've shown you are very useful:
+&lt;ul&gt;
+	&lt;li&gt;The first one tells you how the space is distributed in the new image. You can use this knowledge to attack space problems if you want an even smaller image.&lt;/li&gt;
+	&lt;li&gt;The second one is used to detect bugs in the pharo Packaging or in the initialization process: You have not initialized some classes, or the have been initialized but the initialization code does not initialize all the variables.&lt;/li&gt;
+	&lt;li&gt;The third one is the same as the second, but adapted to have this kind of CI integration: http://car.mines-douai.fr/ci/job/Seed%20Broken%20References%20Report/&lt;/li&gt;
+&lt;/ul&gt;
+Nice huh? Now we can use jenkins to validate the core of Pharo is well initialized and well packaged when that list becomes empty.
+&lt;h2&gt;What's next?&lt;/h2&gt;
+&lt;ul&gt;
+	&lt;li&gt;Each one of those things in the list should be tracked as issues.&lt;/li&gt;
+	&lt;li&gt;continue working on the bootstrap from sourcecode.&lt;/li&gt;
+	&lt;li&gt;Making the fuel seed work so we can install fuel packages on our little image.&lt;/li&gt;
+&lt;/ul&gt;
+Keep u updated!
+
+Hasta Luego!
+
+Guille
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Smalltalk behind the scenes: the meta model</title>
+   <link href="http://guillep.github.io/smalltalk/2012/06/17/smalltalk-behind-the-scenes-the-meta-model"/>
+   <updated>2012-06-17T00:00:00+02:00</updated>
+   <id>http://guillep.github.io/smalltalk/2012/06/17/smalltalk-behind-the-scenes-the-meta-model</id>
+   <content type="html">&lt;p style=&quot;text-align:left;&quot;&gt;Have you ever evaluated this pieces of code in Pharo?&lt;/p&gt;
+
+[sourcecode language=&quot;ruby&quot;]
+ ProtoObject superclass.
+ ProtoObject class superclass.
+ Metaclass class class = Metaclass.
+[/sourcecode]
+&lt;p style=&quot;text-align:left;&quot;&gt;Wait, WTF? How is that ProtoObject superclass is nil? Wait again, and the one of it's superclass is Class? Metaclass class is an instance of Metaclass? Hey, that's kind of the chiken and the egg problem, which one was first?&lt;/p&gt;
+&lt;p style=&quot;text-align:left;&quot;&gt;You know that when you create a class, you specify a superclass for it.  This superclass will specify some other properties and the VM will use it to perform the method lookup.&lt;/p&gt;
+&lt;p style=&quot;text-align:left;&quot;&gt;Also, probably you already know that when a class is created in Smalltalk, a metaclass is created for it implicitly. That metaclass describes the class side behavior: class side methods, class instance variables...&lt;/p&gt;
+&lt;p style=&quot;text-align:left;&quot;&gt;Funny thing about this implicit metamodel, is that a second class hierarchy is built in parallel to the original class hierarchy.&lt;/p&gt;
+
+&lt;pre&gt;&lt;a href=&quot;http://playingwithobjects.files.wordpress.com/2012/06/meta-hierarchy.png&quot;&gt;&lt;img class=&quot;aligncenter&quot; title=&quot;meta hierarchy&quot; src=&quot;http://playingwithobjects.files.wordpress.com/2012/06/meta-hierarchy.png&quot; alt=&quot;&quot; width=&quot;519&quot; height=&quot;387&quot; /&gt;&lt;/a&gt;&lt;/pre&gt;
+&lt;p style=&quot;text-align:left;&quot;&gt;Now, if you think about this, you can understand why the method lookup works also in the class side methods, and they are not static like in Java or C# :).&lt;/p&gt;
+&lt;p style=&quot;text-align:left;&quot;&gt;You can have a look at the following invariants:&lt;/p&gt;
+
+[sourcecode language=&quot;ruby&quot;]
+aClass superclass class = aClass class superclass.
+aClass class class = Metaclass.
+[/sourcecode]
+
+Which of course have it's exceptions. The method lookup ends when it reaches a class whose superclass is nil.  And the class side objects also behave like a Class, because they finally inherit from Class. HA! But then the metaclass hierarchy re-enters the non-metaclass hierarchy. Thinking of this in an operational way is kind of meta confusing, isn't it?
+
+But this is not the motivation of this post. The motivation is this: Are we really coupled to that meta model?  How can I create my own?
+&lt;p style=&quot;text-align:left;&quot;&gt;If you remember from my post on &lt;a title=&quot;The Bootstrap Chronicles Chapter 2 – Do not mess with the VM&quot; href=&quot;http://playingwithobjects.wordpress.com/2012/06/11/the-bootstrap-chronicles-chapter-2-do-not-mess-with-the-vm/&quot;&gt;vm limitations I learned during the bootstap&lt;/a&gt;, the vm only expects 3 things from a class:&lt;/p&gt;
+
+&lt;ul&gt;
+	&lt;li&gt;that it's first instance variable is it's superclass.&lt;/li&gt;
+	&lt;li&gt;that it's second instance variable is it's method dictionary.&lt;/li&gt;
+	&lt;li&gt;that it's third instance variable is it's format.&lt;/li&gt;
+&lt;/ul&gt;
+Any object respecting that contract can be treated like a class by the VM.  Then you can think on creating your own metaclass loop, kind of independent from the original one...
+
+[sourcecode language=&quot;ruby&quot;]
+classFormat := ...
+metaclassFormat := ...
+
+&amp;quot;This metaclass defines how our metaclass instances will be.  It is only here to define the first metaclass format, and it will be discarded&amp;quot;
+metaclassClass := Metaclass new.
+metaclassClass
+superclass: Class
+methodDictionary: (MethodDictionary new)
+         format: classFormat.
+
+metaclass := metaclassClass basicNew.
+metaclass instVarAt: 1 put: Metaclass.
+metaclass instVarAt: 2 put: MethodDictionary new.
+metaclass instVarAt: 3 put: metaclassFormat.
+
+metaclassClass := metaclass basicNew.
+metaclassClass instVarAt: 1 put: Metaclass class.
+metaclassClass instVarAt: 2 put: MethodDictionary new.
+metaclassClass instVarAt: 3 put: classFormat.
+
+metaclassClass adoptInstance: metaclass.
+[/sourcecode]
+
+Once you have a metaclass, instantiate it to create your class, and instanciate it to create your little object! That's crafting Smalltalk using Smalltalk. Well, that is bootstrapping the meta model :).
+The only ugly thing is that in order to create a new meta model with different instance variables, you have to create a transient class in the middle, because the VM does not like to have objects with a format X, whose class defines a format Y... So the hack just solves the format problem :).
+
+Now you can think about simpler stuff like a class instance of itself, subclass of nil. Or more complex one :).
+
+You can change it, I told you. Now it's up to you how to use it...
+</content>
+ </entry>
+ 
+ <entry>
+   <title>The Bootstrap Chronicles Chapter 2 - Do not mess with the VM</title>
+   <link href="http://guillep.github.io/gsoc/pharo/smalltalk/vming/2012/06/11/the-bootstrap-chronicles-chapter-2-do-not-mess-with-the-vm"/>
+   <updated>2012-06-11T00:00:00+02:00</updated>
+   <id>http://guillep.github.io/gsoc/pharo/smalltalk/vming/2012/06/11/the-bootstrap-chronicles-chapter-2-do-not-mess-with-the-vm</id>
+   <content type="html">&lt;blockquote&gt;&lt;em&gt;&lt;strong&gt;Everything you want in life has a price connected to it. There’s a price to pay if you want to make things better, a price to pay just for leaving things as they are, a price for everything.&lt;/strong&gt;&lt;/em&gt;
+
+Harry Browne&lt;/blockquote&gt;
+And I found myself trying to bootstrap for real. But of course it was not going to be easy. I had to pay the Iron price.
+
+The VM we use plays a very important role in the day to day development. It is the one in charge of defining the method lookup, garbage collection, some platform dependent code, some optimizations. And as it does some nice things for us, it also puts restrictions on what we do. Have you ever heard about the special objects array? The compact classes array? Primitives? We are going to talk a bit about them and other secrets, and how they bother in the bootstrap process :).
+&lt;h2&gt;The Special Objects Array&lt;/h2&gt;
+The special objects array is an array shared between the VM and the image. This array points to some objects that are important or interesting to the VM, you can have a look at it inspecting the following expression in Pharo:
+
+[sourcecode language=&quot;ruby&quot;]
+Smalltalk specialObjectsArray
+[/sourcecode]
+
+If you have an overview, you will see some things like the Processor instance, the Array, Smalltalk, SmallInteger, Float, Compiled method, Semaphore classes, some Semaphore instances...
+
+What does the vm do with them? It for example introduces hard validations against concrete classes -yeap, like checking if an instance's class is the same as the object in it's slot 20, which BTW is Character...
+
+Ok...
+
+Doing those validations through messages could be too expensive in terms of speed. If you want to be fast, you have to pay some price. If you want to have a tiny mermory footprint, you have to pay some price. There are side effects for decisions in general...
+
+So, some may wonder, Why is this array so important for the bootstrap? Imagine I want to have a new Array class, Class class, Character class, and a new CompiledMethod class.  What should happen if the VM does not recognize them as I would like? CogVM only recognizes one special objects array.
+
+The solution? Hack and cheat.  You choose, you can cheat on the VM side, or in the image side.  Each has a price to pay.  But today is not the day for telling you how I cheated :).
+
+Now, look at the field 29 of the special objects array. It is another array, ...
+&lt;h2&gt;The Compact Classes Array&lt;/h2&gt;
+U remember about compact objects?  If not, you can refresh in here: &lt;a title=&quot;Understanding Object Formats in CogVM&quot; href=&quot;http://playingwithobjects.wordpress.com/2012/05/30/understanding-object-formats-in-cogvm/&quot;&gt;http://playingwithobjects.wordpress.com/2012/05/30/understanding-object-formats-in-cogvm/&lt;/a&gt;.
+
+In two words, compact objects do not have an extra header for the class pointer: they have some bits in it's base header which is an index into this nice compact classes array, where it's class is. This mechanism is normally used for classes with tons of instances, saving 1 header for each object. Complexity against space.
+
+Here again, we have the same problem.  Even worse, having this guy here means that if I have my nice Array' class, which is also compact, and it's compact class index points to the original Array class, the method lookup will end up in the original class instead of mines :(.
+
+The solution? Hack, and cheat.
+&lt;h2&gt;The Primitives&lt;/h2&gt;
+Now think what happens when my bootstrap classes use primitives methods. It's nice because the vm returns me the objects it wants :). It's actually a sinptom of the last two points. But it is good to know that primitives can give you headaches...
+&lt;h2&gt;Other problems? Of course...&lt;/h2&gt;
+&lt;strong&gt;Literals:&lt;/strong&gt; I can't change so easily SmallInteger's class because it is an inmediate object for example. The same happens with the other numbers, or strings, or blocks.  They all give you headaches. Even if I could make it work with the VM, I should change the compiler to use a different set of classes...
+
+&lt;strong&gt;Vm magic assumptions:&lt;/strong&gt; Like class instances' first three instance variables are superclass, method dictionary and format.  In that order. Try changing the order :).  Or doing something like:
+
+[sourcecode language=&quot;ruby&quot;]
+myA := A new.
+A become: 'hello'.
+myA crashTheVM.
+[/sourcecode]
+
+And there are some other like this. So far I know LinkedList, ProcessScheduler, and Class. Find your own Waldo!
+
+You already know what the solution is, do you?
+&lt;h2&gt;HACK AND CHEAT&lt;/h2&gt;
+Yeah, this is what the bootstrap is really about. And learning hardcore stuff too :). Of course I can't tell you every detail because this post will be larger than anyone would care to read.
+
+So, I'll keep you updated, I have now to continue paying the iron price.
+
+$33 ¥0µ £473r!
+
+9µ1££3
+</content>
+ </entry>
+ 
+ <entry>
+   <title>The Bootstrap Chronicles Chapter 1 - Preparing the soil</title>
+   <link href="http://guillep.github.io/gsoc/pharo/smalltalk/2012/06/08/the-bootstrap-chronicles-chapter-1-preparing-the-soil"/>
+   <updated>2012-06-08T00:00:00+02:00</updated>
+   <id>http://guillep.github.io/gsoc/pharo/smalltalk/2012/06/08/the-bootstrap-chronicles-chapter-1-preparing-the-soil</id>
+   <content type="html">In my &lt;a href=&quot;http://playingwithobjects.wordpress.com/2012/06/02/bootstrapping-finding-the-missing-link/&quot;&gt;last post&lt;/a&gt; I briefly explained what a bootstrap is and why it sometimes is necessary or good to have. But bootstrapping a system is not always the panacea: it means that you have to know lots of it's internals, implement hackish stuff, fight against huge walls like the VM restrictions... So, today we will talk a bit about implementation. &lt;strong&gt;&lt;/strong&gt;
+&lt;h2&gt;The First Experiment&lt;/h2&gt;
+I started trying to generate a new image and people pointed to &lt;a href=&quot;http://squeaksource.com/@z-tX0y8Z_DlhaXAp/c_rpul6H&quot;&gt;SystemTracer&lt;/a&gt;.  There was a fork on &lt;a href=&quot;http://squeaksource.com/@z-tX0y8Z_DlhaXAp/kHMQOZJX&quot;&gt;PharoTaskForces&lt;/a&gt; also, and there were some experiments to base my work on. So I had plenty of things to look at. To have an idea of what SystemTracer does:
+&lt;ul&gt;
+	&lt;li&gt;Traces the whole image graph&lt;/li&gt;
+	&lt;li&gt;For each object it reaches, writes a binary version on a file, respecting the object &lt;a title=&quot;Understanding Object Formats in CogVM&quot; href=&quot;http://playingwithobjects.wordpress.com/2012/05/30/understanding-object-formats-in-cogvm/&quot;&gt;format&lt;/a&gt;&lt;/li&gt;
+	&lt;li&gt;Finally, it comes to the start of the file and writes the header the VM needs to start&lt;/li&gt;
+&lt;/ul&gt;
+So my first experiment was based on adapting this SystemTracer guy to write a custom set of objects instead of the whole image. The chosen objects were the ones in the Kernel packages, compiler, files, collections...
+
+&lt;strong&gt;First problem:&lt;/strong&gt; If I cherry pick the stuff I want in the new kernel, and the packaging is crap, my selected classes can point directly or indirectly to objects in the non selected set.
+
+This kind of behavior can mean several things:
+&lt;ul&gt;
+	&lt;li&gt;You picked wrong.  You forgot to pick dependencies that should be there to let the image work. Or you picked stuff you didn't need.&lt;/li&gt;
+	&lt;li&gt;You picked right, but you have bad packaging in the system, and have to fix it.&lt;/li&gt;
+&lt;/ul&gt;
+You can be asking yourself, Why not following dependencies recursively? Because if you do that, you will end up with the the whole system again :), so simple. Then, we needed a way to trace these problems, instead of hiding them behind a carpet, because whatever the cause of the problem is, it is a problem in the original system we have to fix, not in our process.  The chosen solution was to replace rejected objects by a mock ones when writing the image through the SystemTracer. This mock object, which we called MissingVariable could carry some info for debug.
+
+After some trials, I got this little monster alive, compiling stuff, writing to files...
+
+But this is not a bootstrap. Because this process is not to make explicit initializations nor kernel creations. So, my next post will be about the next step: towards creating an image from scratch.
+
+Au revoir!
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Bootstrapping: finding the missing link</title>
+   <link href="http://guillep.github.io/pharo/2012/06/02/bootstrapping-finding-the-missing-link"/>
+   <updated>2012-06-02T00:00:00+02:00</updated>
+   <id>http://guillep.github.io/pharo/2012/06/02/bootstrapping-finding-the-missing-link</id>
+   <content type="html">A few months ago I got involved in some crazy project: bootstrapping Pharo. I took some existing code, played with it, hacked it, modified it, understood it. Now I think I have some idea of what is a bootstrap and what are it's advantages. I'll try to give a brief introduction to the project: what is it about, advantages, an overview of the current military secret results, and an insight of what is to come.
+
+I recommend you to have look at my last post (&lt;a href=&quot;http://playingwithobjects.wordpress.com/2012/06/01/the-image-dilemma/&quot;&gt;the image dilemma&lt;/a&gt;) before reading.
+
+This project is one of the ESUG projects supported this year by the &lt;a href=&quot;http://www.google-melange.com/gsoc/proposal/review/google/gsoc2012/gpolito/1&quot;&gt;google summer of code program&lt;/a&gt;.
+&lt;h2&gt;What is a Bootstrap&lt;/h2&gt;
+The encyclopedic definition: A Bootstrap of system is a process that can generate the smallest subset of that system that may be used to reproduce the complete one.
+
+I mean, you have an explicit process that can generate a the minimal version of your system.
+
+Ok, easier: You kick yourself to get impulse and start from a better place :).
+
+Then, bootstrapping software systems or languages normally means that you will somehow enhance the original process that created the system.
+
+Some examples to clarify:
+&lt;ul&gt;
+	&lt;li&gt;When your computer is turned on, some one has to bootstrap the little program able to load other programs :).&lt;/li&gt;
+	&lt;li&gt;Generating a development environment with very basic tools will improve your work a lot (when you use your development environment).&lt;/li&gt;
+	&lt;li&gt;C compiler is written in C. That means that It somehow compiles itself. Of course if you do not like assembly much, reading the C implementation is a great improvement.&lt;/li&gt;
+	&lt;li&gt;Pharo implements traits and uses them in the core of the system to empower the design.&lt;/li&gt;
+	&lt;li&gt;A big part of Pharo's VM is written in smalltalk!&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;The need of bootstrapping Pharo&lt;/h2&gt;
+Did you know the image you download from the pharo website is the same one that comes from years ago? I mean, not the exactly same one, but a binary copy :). The fact is that years ago (yeah, ancient history) god created the first image and it started evolving, one little change after the other, to the Pharo we know today.
+
+Now, as in evolution, we found in Pharo missing links.  We do not know how some object became the way it is. Or how it was initialized.  The code is simple nowhere, it's a missing link. Also, as years passed, our ancestor became chaotic. It grew in many different uncontrolled and unordered ways. Since the Pharo Project started, one if it's goals was cleaning this mess, but re-modularising and cleaning the system is a hard, long, and bothersome process.
+
+The outputs and advantages of Bootstrapping Pharo will be:
+&lt;ul&gt;
+	&lt;li&gt;getting tools to detect problems: bad dependencies, unexistent initializations, code that really do not work but was never executed before.&lt;/li&gt;
+	&lt;li&gt;This initialization process will be explicit and open.&lt;/li&gt;
+	&lt;li&gt;We will be able to start the next Pharo from scratch, and since we will be able to change this explicit process, our next generation Pharo will be cleaner and fancier. It will be able to acquire easily new features: namespaces/modules, security, remote tools, mirrors.&lt;/li&gt;
+	&lt;li&gt;But also, since it will allow people to create a custom system, researchers will have an invaluable tool to fulfil their own purposes.  They will be able to experiment&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Current status of the project&lt;/h2&gt;
+The project has already had a first output, which is the &lt;em&gt;image writer&lt;/em&gt;.  The image writer is a little tool that traces a graph from an SmalltalkImage object, and deploys that graph into a .image file.  I'll talk about this sub project in a future post.
+
+The rest of the code is a military secret yet. Ok, I can give it to you, but you have to be responsible if it blows up on your face :).
+
+The results of the project so far are:
+&lt;ul&gt;
+	&lt;li&gt;It can create an Smalltalk image living inside another image.&lt;/li&gt;
+	&lt;li&gt;This inner/guest image can be written in a new .image file.&lt;/li&gt;
+	&lt;li&gt;With this approach a small kernel of 1.1MB has been reached.&lt;/li&gt;
+	&lt;li&gt;SpaceTally runs and prints reports to understand how the space is distributed among objects.&lt;/li&gt;
+	&lt;li&gt;A tool to detect every uninitialized class variable/class instance variable and references to unexistant globals was developed.&lt;/li&gt;
+&lt;/ul&gt;
+Soon we will have all these public on Pharo Jenkins server.
+&lt;h2&gt;Next Steps&lt;/h2&gt;
+&lt;ul&gt;
+	&lt;li&gt;Jenkins jobs :)&lt;/li&gt;
+	&lt;li&gt;Taking jenkins feedback to speed up the cleaning process&lt;/li&gt;
+	&lt;li&gt;Remodularizaton to get even a smaller kernel&lt;/li&gt;
+	&lt;li&gt;Maybe some little experiment to bootstrap MicroSqueak and learn from it&lt;/li&gt;
+	&lt;li&gt;Bootstrap from source code.&lt;/li&gt;
+&lt;/ul&gt;
+I'll try to keep you updated often.  BTW, any ideas, critics or suggestions are welcome. I'm not a gurú, I'm just learning, as everyone :).
+
+Saludos!
+</content>
+ </entry>
+ 
+ <entry>
+   <title>The Image Dilemma</title>
+   <link href="http://guillep.github.io/pharo/smalltalk/2012/06/01/the-image-dilemma"/>
+   <updated>2012-06-01T00:00:00+02:00</updated>
+   <id>http://guillep.github.io/pharo/smalltalk/2012/06/01/the-image-dilemma</id>
+   <content type="html">&lt;blockquote&gt;Without self knowledge, without understanding the working and functions of his machine, man cannot be free, he cannot govern himself and he will always remain a slave.
+&lt;strong&gt;Goerge Gurdjieff&lt;/strong&gt;&lt;/blockquote&gt;
+Many people I've talked to think Smalltalk is weirdy because it has an image.  Funny thing is most people that thinks that, do it because they &lt;em&gt;feel&lt;/em&gt; it's different.  Or they do Java.  Of course, Java and Smalltalk are different :). Okok, joke, I'm not interested in flamewars. Seriously what puzzles me is that normally people's opinion on technology is based on feelings instead of concrete rational arguments.
+
+So, let's think a bit on the pros and cons of using an image and not using it.  Really. Only after understanding a bit you can decide whatever you want to use. That's what the quote at the start is there for :).
+
+Also, this post will be one of the corner stones to explain the bootstrap gsoc project basics later ;).
+&lt;h1&gt;Non Image Based Development Environments&lt;/h1&gt;
+Ok, we all know these. It's the kind of environment we use when we code in C, &lt;a href=&quot;http://www.java.com/&quot;&gt;Java&lt;/a&gt;, &lt;a href=&quot;http://www.python.org/&quot;&gt;Python&lt;/a&gt;, &lt;a href=&quot;http://www.ruby-lang.org/en/&quot;&gt;Ruby&lt;/a&gt;, JavaScript and many other.
+
+We have source files which will be somehow interpreted on runtime or traduced to machine code in an executable file.  Naively explained, the interpreted ones normally depend on another program normally called interpreter or VM and the other ones depend only the first time on a compiler. So far, nothing strange.
+&lt;h1&gt;Image Based Development Environments&lt;/h1&gt;
+Image based environments are the main topic of this post.  But before talking about it's pros and cons, we have to define what is an image. And to avoid preconceptions, let's name them &lt;em&gt;snapshot&lt;/em&gt;s. A snapshot is a photo taken of a system in a moment of time &lt;em&gt;x&lt;/em&gt;, from which we can rebuild the whole system again.
+
+If you have ever used VirtualBox or VMWare solutions you know what I am talking about: you have, for example, a linux mint virtual machine, which can be opened with your virtual box software.  If you save the state of your linux mint with virtual box, the next time you open it, it will wake up in the same state you left it. &lt;strong&gt;It will not start everything from scratch&lt;/strong&gt; unless you tell it explicitly. And if you quit without saving, the next time will open without your changes.
+
+&lt;em&gt;It's a very simple concept:  you are treating a whole running system (a linux machine in this case) as any of your other data files.&lt;/em&gt;
+
+So that's how most of the smalltalk systems work: you have a &lt;em&gt;running&lt;/em&gt; smalltalk system, and when you wake it up, it will start from where it was left. Even if you was in the middle of a computation, this computation will continue running.
+&lt;h1&gt;Comparison&lt;/h1&gt;
+&lt;h2&gt;System Configuration&lt;/h2&gt;
+How heavy or reproducible is our system configuration?
+&lt;h3&gt;non image based&lt;/h3&gt;
+When a program start it normally does some basic initialization, configuration loading, setup stuff...  Every time our program does this same basic stuff.  It's a repetitive task, but it's done by the machine, so I'm ok with it.
+
+Even more, one of the advantages of loading the application again from scratch is that you are testing your building process. And having a working artifact after ensures that you will be able to rebuild it in the future following the same steps.
+
+But have you ever wondered how much time takes a java class loader to load the classes you will use?  And how much time takes Hibernate or Spring or JBoss to read your configuration, and provide an usable environment?  And how about to compile a large C/C# application? Ok, those times are machine time. You can go to take a coffee every time you restart your tomcat, or change a source file with many dependencies. That time is not even important in a deployed product, since it is delayed to the user or webserver which may run it once every hours/days. But it is important some times.  For example, when you are developing software. Software development is a highly demanding task which requires concentration. Taking a coffee every 15 minutes makes you lose concentration. And you can't avoid checking/compiling/testing your code for long periods of times because handling lots of changes only in your head it's a really hard task.
+&lt;h3&gt;image based&lt;/h3&gt;
+When an snapshot is taken, the whole objects and computations that were occupying some memory in your program will be saved in a file in the state they were.  Object references are not broken. Then, when you load your smalltalk snapshot again, the objects take place in memory, and continue working as they were.  Normally there is not heavy initialization on image startup other than reallocating resources from outside the environment (files, sockets are OS resources and become invalid for sure when the system is halted).  You don't have to configure almost none of your program neither, because it is already configured!
+
+Now, since you don't have to reinitialize your configurations from scratch every time, maybe you initialized it, then accidentally deleted the method that performed the configuration. And then you are screwed, because if you want to start from scratch you will have pieces of your program lost that will make it impossible.  This is why we may consider an image based system and evolving environment.  Because the system is changed by mutations that may get lost or untracked.
+&lt;h2&gt;The Development process&lt;/h2&gt;
+How is our development process altered by the environment we use?
+&lt;h3&gt;non image based&lt;/h3&gt;
+&lt;ol&gt;
+	&lt;li&gt;Write code in a file&lt;/li&gt;
+	&lt;li&gt;Compile or similar or however you want to call it :).&lt;/li&gt;
+	&lt;li&gt;Run the whole program from scratch&lt;/li&gt;
+	&lt;li&gt;Test&lt;/li&gt;
+	&lt;li&gt;Go to 1&lt;/li&gt;
+&lt;/ol&gt;
+This process is slooow.  Specially because of steps 2/3.  For every change you do, no matter if it is long of little, you have to rebuild everything and lost time with it, and reinitialize, and reconfigure...  Even if you only wanted to replace a 2 by a 3, or fix a typo in a string.
+
+However, there exist currently some tools that implement what they call &lt;a href=&quot;http://radio-weblogs.com/0135826/2004/05/17.html#a30&quot;&gt;hot deployment&lt;/a&gt; which is nothing else that exploiting some dynamic features that let a program change while it's running.  But hey!  That's what we do with an image based approach: we change the program while it's running.
+
+Anyway, those extra steps makes you gain reproducibility by making some parts of the process a bit more explicit.  At the cost of extra bureaucracy.
+&lt;h3&gt;image based&lt;/h3&gt;
+&lt;ol&gt;
+	&lt;li&gt;Open your image&lt;/li&gt;
+	&lt;li&gt;Write code&lt;/li&gt;
+	&lt;li&gt;Evaluate/Accept&lt;/li&gt;
+	&lt;li&gt;Test&lt;/li&gt;
+	&lt;li&gt;Go to 2&lt;/li&gt;
+&lt;/ol&gt;
+Here the main difference is that the modification of our program is made of little deltas &lt;strong&gt;during execution&lt;/strong&gt;.  We replace/change/create methods while our whole program is running.  We create classes, objects, modify class hierarchies while our whole program is running.  We alter our objects state while our whole program is running. This really improves the development process, since the time you have to wait to receive feedback from execution or testing is almost none. And there is less overhead, less context switch in your head.
+
+Now the problem is that to reproduce our program we have to track all the little changes we've done.  And understand them, and discard the ones that really overlap o do not make sense.  In the Smalltalk System &lt;a href=&quot;http://www.pharo-project.org/&quot;&gt;Pharo&lt;/a&gt; we have a .changes file that works as a log of the changes done.  This changes file aims to reduce the impact of this dynamic feature disadvantages.
+&lt;h2&gt;IDE's Features&lt;/h2&gt;
+Have you ever used an IDE with refactoring support, syntax highlighting, nice code browsing capabilities?  What do our tools need in order to provide us all those gourgeous features?
+
+IDE are meta-programs. They are programs that help us manipulate programs: modify them, understand them, query them.  And to do that they can do it by:
+&lt;ul&gt;
+	&lt;li&gt;directly modifying source code without a model behind.  Painful and Hard.  I would never try to do it that way :).&lt;/li&gt;
+	&lt;li&gt;modeling the concepts of the language they will manipulate to make it easier.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;non image based&lt;/h3&gt;
+A program's meta model (a model representing program entities such as classes or variables instead of domain entities like bank accounts and clients) is often generated when the program runs if you have reflective capabilities in the manipulated language. But IDEs should work while the program is not running, or even if it does not provide reflection. So, how does this approach build this kind of tools?
+
+They have an alternative model and an alternative parser/compiler which generates this model from sourcecode.  A lot of extra work is needed for information that is already there. The problem is that information is lost in text files with source code instead of being stored in a more malleable format.
+&lt;h3&gt;image based&lt;/h3&gt;
+Our image based approach can contain all the meta information in the snapshot, alive, as first class objects.  This means that we do not have to create a duplicated meta-model, nor an extra parser/compiler.  We can use the ones that are alive in the image.  We make use of the model created by the language, what we can't do in the non image based approach.
+&lt;h2&gt;Files or no files&lt;/h2&gt;
+Some times you feel comfortable modifying files, some times not.
+&lt;h3&gt;non image based&lt;/h3&gt;
+You have files with your source code. You can use them to execute/compile your program, you can store them in svn/git/bazar repositories, you can diff/grep/more/less/find over them just using a terminal.
+
+I think this is the main pro over the image based approach. There are plenty of tools working on plain text files you can use if your source code lives in this kind of storage.
+
+But try to write a program implementing an extract method refactoring over a piece of text.  You have to write a very complex and large program analyzing classes, methods, scopes...
+
+In two words: It's really cool to use existing tools.  But it is not that nice to write your own.
+&lt;h3&gt;image based&lt;/h3&gt;
+As the opposite of the not having an image, we can't just use our nice text manipulation tools on our image file.  We have to rebuild them on our system, or externalize the source code in files to use them.  And then re-insert the feedback in the system.
+
+But there are other tasks-like refactorings and meta programming in general- that become very simple just by the fact of manipulating objects instead of text.
+
+In the Pharo project there are plenty of existing and arising tools aiming us to interact with the outer world, just like:
+&lt;ul&gt;
+	&lt;li&gt;&lt;a href=&quot;http://www.esug.org/wiki/pier/Conferences/2011/Schedule-And-Talks/Native-boost&quot;&gt;Native Boost&lt;/a&gt;&lt;/li&gt;
+	&lt;li&gt;&lt;a href=&quot;http://book.pharo-project.org/book/PharoTools/OSProcess/&quot;&gt;OSProcess&lt;/a&gt;&lt;/li&gt;
+	&lt;li&gt;&lt;a href=&quot;https://github.com/dalehenrich/metacello&quot;&gt;Metacello Git binding&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1&gt;Conclusion&lt;/h1&gt;
+As I've shown you, these two approaches have their good and bad stuff.  None of them is the silver bullet, and we should be aware of that to be better developers.
+
+I hope you are a little more free now ;).
+
+さようなら!
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Understanding Object Formats in CogVM</title>
+   <link href="http://guillep.github.io/vming/2012/05/30/understanding-object-formats-in-cogvm"/>
+   <updated>2012-05-30T00:00:00+02:00</updated>
+   <id>http://guillep.github.io/vming/2012/05/30/understanding-object-formats-in-cogvm</id>
+   <content type="html">When we do Smalltalk code, we are very happy and proud to say that mostly everything is an object and that they communicate through messages. There are no method invocations, nor direct inst var access.There are no primitive types such as &lt;strong&gt;int&lt;/strong&gt; or &lt;strong&gt;float&lt;/strong&gt;!
+
+But sometimes, when we go a little deep digging to do some creepy but necessary stuff, we see the dark side. This post is about how our nice Smalltalk objects are seen by our VM, and a little of code to understand it. At the end of the post I present a little project which aims to reify the object vm formats. So, if you want to learn through reading code and maybe contribute, you can skip all this :).
+
+Also, this post talks about 32bit CogVM. All this may change in 64bit VMs.
+&lt;h1&gt;Object Format&lt;/h1&gt;
+An object is commonly known to have behavior+data. In Smalltalk the data in encapsulated and the only way to access it is through it's object behavior. Today is data's day.
+
+In plain memory an object is built from:
+&lt;ul&gt;
+	&lt;li&gt;It's header/s&lt;/li&gt;
+	&lt;li&gt;It's fixed fields (a.k.a. instance variables)&lt;/li&gt;
+	&lt;li&gt;It's indexable fields&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Fields&lt;/h2&gt;
+An object's data is stored in fields in the object. The interesting thing is that the VM uses different kind of fields for different objects, and some times it perform optimizations making us to live in a happier object world.
+
+From the VM side point of view, an object is just a series of fields plus it's header with meta information. Every object may have some fixed size of fields, given by it's instance variables, an some variable amount of indexed fields commonly used for collection-like objects. These fields may contain data interpreted in several ways:
+&lt;ul&gt;
+	&lt;li&gt;Object pointers: Simply the address of the object the field is pointing at.&lt;/li&gt;
+	&lt;li&gt;Immediate SmallIntegers: SmallIntegers are encoded in object fields to save space. But in the Smalltalk side, they are still objects :).&lt;/li&gt;
+	&lt;li&gt;Just bits: used just to encode some data. Classes with this kind of fields are Floats, ByteStrings, ByteArrays... Also, this can be presented in bytes or words.&lt;/li&gt;
+&lt;/ul&gt;
+To know which kind of fields an object will have, we have to take a look at it's class format. &lt;a href=&quot;http://marianopeck.wordpress.com&quot;&gt;Mariano&lt;/a&gt; already wrote a post on Class formats &lt;a href=&quot;http://marianopeck.wordpress.com/2011/05/07/class-formats-and-compiledmethod-uniqueness/&quot;&gt;(http://marianopeck.wordpress.com/2011/05/07/class-formats-and-compiledmethod-uniqueness/)&lt;/a&gt; so I'll not write everything again. But to understand the rest of the post, here comes a little classification:
+&lt;ul&gt;
+	&lt;li&gt;normal: it's fields are the instance variables, therefore fixed and containing pointers to other objects.&lt;/li&gt;
+	&lt;li&gt;bytes: it's a variable amount of fields, 1 byte long each. Contains bits, not pointers.&lt;/li&gt;
+	&lt;li&gt;words: it's a variable amount of fields, 1 word long each. Contains bits, not pointers.&lt;/li&gt;
+	&lt;li&gt;weak: it's indexed fields might be garbage collected.&lt;/li&gt;
+	&lt;li&gt;variable: indicates when an object contains a variable set of fields in addition to it's instance variables.&lt;/li&gt;
+	&lt;li&gt;compiled method: just a special format for the VM. They are special objects with bit fields sometimes encoding object pointers.&lt;/li&gt;
+&lt;/ul&gt;
+When an object is created, it will have as many fixed fields as it's class instance variable defines for it. These fixed fields are pointers to other objects. If it's class is variable, we have also to tell it how many indexed fields we want for that object. That is the case of for example:
+
+[sourcecode language=&quot;ruby&quot;]
+Array new: 50.
+[/sourcecode]
+
+Now, depending on the class format, those fields can be 1 byte or 1 word long. And it's content may be interpreted as object pointers or simple byte data. To be careful: the minimum amount of memory to be taken is one word&lt;em&gt;. Having this into account, remember to pad an object's size to be divisible by the word size when calculating it's real size in memory/disk ;).&lt;/em&gt;
+
+If you want to ask about this data to an object:
+
+[sourcecode language=&quot;ruby&quot;]
+anObject class instSize. &amp;quot;answers the number of instance variables&amp;quot;
+anObject basicSize. &amp;quot;answer the number of indexable fields&amp;quot;
+
+anObject class isBits.
+anObject class isBytes.
+anObject class isWords.
+anObject class isWeak.
+anObject class isPointers.
+anObject class isVariable.
+[/sourcecode]
+&lt;h2&gt;The Object Header&lt;/h2&gt;
+An object always has a header which may be one, two, or three words long. But we will refer them as three different headers. So I'll rephrase it as &quot;An object may have one, two or three headers, 1 word long each&quot;. These three headers are the base header, the class header and the length header.
+&lt;h3&gt;The Base Header&lt;/h3&gt;
+This is the normal header. Almost every object has one of these. It encodes some useful information of the object and it's class. This way it can avoid to fetch the class for some operations. Base header is a sum of bits with the following information:
+
+[caption id=&quot;attachment_15&quot; align=&quot;aligncenter&quot; width=&quot;300&quot;]&lt;a href=&quot;http://playingwithobjects.files.wordpress.com/2012/05/format-jpg.png&quot;&gt;&lt;img class=&quot;size-medium wp-image-15&quot; title=&quot;format.jpg&quot; src=&quot;http://playingwithobjects.files.wordpress.com/2012/05/format-jpg.png?w=300&quot; alt=&quot;&quot; width=&quot;300&quot; height=&quot;35&quot; /&gt;&lt;/a&gt; Base header format[/caption]
+&lt;ul&gt;
+	&lt;li&gt;The GC bits are three bits for making objects as old, dirty...&lt;/li&gt;
+	&lt;li&gt;The hash bits are 12 bits encoding the identity hash in the object. Maybe not enough, but there is no much more space available :).&lt;/li&gt;
+	&lt;li&gt;The compact index bits represent the index of the class of the object in the &lt;em&gt;compact classes array&lt;/em&gt; (will talk about it later) or 0 if it is not there.&lt;/li&gt;
+	&lt;li&gt;The inst spec are 4 bits telling when the class is bits, bytes, variable... It tells us the format of the class and how it's instances fields behave.&lt;/li&gt;
+	&lt;li&gt;The size field is the amount of words the object occupies, which is the amount of fields (fixed and indexed) + 1 (for the base header). In case this object is long, this field contains just 0.&lt;/li&gt;
+	&lt;li&gt;The type bits encode whenever this object has one, two or three headers.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;The Class Header&lt;/h3&gt;
+This header contains a pointer to the class of the object + the type which encodes if this object has one, two or three headers.
+&lt;h3&gt;The Length Header&lt;/h3&gt;
+When we have large objects and it's size cannot be encoded in the size field of the base header, we use this special header to store the size. It stores the length + the type encoding if this object has one, two or three headers.
+&lt;h3&gt;When Which Header?&lt;/h3&gt;
+&lt;ul&gt;
+	&lt;li&gt;Normal objects use class header + base header, in that order. These objects have a 0 in their type headers fields.&lt;/li&gt;
+	&lt;li&gt;Large objects, the ones with more than 63 words in its body, have the three headers: lenght header + class header + base header, in that order. These objects have a 0 in the type fields of its headers.&lt;/li&gt;
+	&lt;li&gt;Compact objects use only the base header. This is mainly an space optimization for broadly used objects such as CompiledMethods, Arrays... Compact objects are the ones whose class is in the compact classes array of the VM. To fetch it's class, the VM uses the index in the base header to access the class in the array. These ones have a 3 as the type in its headers.&lt;/li&gt;
+&lt;/ul&gt;
+If you want to have a look at the compact classes array, you may inspect in a workspace:
+
+[sourcecode language=&quot;ruby&quot;]
+Smalltalk compactClassesArray
+[/sourcecode]
+&lt;h1&gt;Exceptional Cases&lt;/h1&gt;
+&lt;h2&gt;Compiled Methods&lt;/h2&gt;
+A compiled method is a variable byte object, which is supposed to contain bytecode. Now, they are implemented some extensions to encode object pointers into these byte fields. This way, a compiled method can point to it's set of literals (the literals used in it) and to it's class so it can resolve super sends.
+
+To make this work, the GC was modified to take into account this special property of CompiledMethods while traversing the object memory.
+&lt;h2&gt;Contexts&lt;/h2&gt;
+When looking at context object's fields, they behave a little differently. As it is written in Pharo MethodContext's class comment:
+&lt;blockquote&gt;MethodContexts, though normal in their variable size, are actually only used in two sizes, small and large, which are determined by the temporary space required by the method being executed.&lt;/blockquote&gt;
+[sourcecode language=&quot;ruby&quot;]
+CompiledMethod&amp;gt;&amp;gt;frameSize
+    (self header noMask: 16r20000)
+        ifTrue:  [^ SmallFrame]
+        ifFalse: [^ LargeFrame]
+[/sourcecode]
+
+Where SmallFrame = 16 and LargeFrame = 64.
+
+So, you can't rely on what a context object tells you about it's indexed size :).
+&lt;h1&gt;A Word On Reference Encoding and Immediate Objects&lt;/h1&gt;
+How does Smalltalk to make integers objects?
+
+The answer is easy. An integer is an object when you are at the Smalltalk side of the world. When you are at the VM side, it's just an integer of 31 bits, so no indirection nor extra object is needed.
+
+A pointer field of 32 bits may encode an object's address or a small integer.
+
+A funny fact is that addresses do not point to the first header of the object nor the start of it's fields. It points to the start of the base header. This way, only the operations that need the class pointer or the extra length may fetch the extra headers that is behind the base header.
+
+Since memory addresses are multiple of 4, the less significant 2 bits of the address are always 00. This way, the VM recognizes an object's address when it's tagged with a 00 in those 2 bits. For SmallIntegers, the decision was to tag the last bit with a 1, and use the other 31 bits to encode integers.
+
+This way, SmallInteger and memory addresses can be differentiated by how those 2 bits are tagged. This also allows us to encode SmallIntegers inside fields saving space at the cost of making 1 bitshift each time we want to use an SmallInteger. This technique of encoding objects directly in the field is called &lt;strong&gt;immediate objects&lt;/strong&gt;, and can be used for other kind of values where the identity is not so important: characters, other kind of numbers...
+
+Also, as you may note, there is an unused bit to let us encode one more immediate object.
+&lt;ul&gt;
+	&lt;li&gt;xxx1 is used by SmallIntegers&lt;/li&gt;
+	&lt;li&gt;xx00 is used by pointers&lt;/li&gt;
+	&lt;li&gt;xx10 is not used by anybody yet.&lt;/li&gt;
+&lt;/ul&gt;
+Characters maybe? You can read the discussion about it in the Pharo's mailing list, and be part of the future :).
+
+&lt;a href=&quot;http://forum.world.st/Plan-discussion-communication-around-new-object-format-td4631910.html&quot;&gt;http://forum.world.st/Plan-discussion-communication-around-new-object-format-td4631910.html&lt;/a&gt;
+&lt;h2&gt;U Said Code?&lt;/h2&gt;
+Evaluate this in your workspace and have fun:
+
+[sourcecode language=&quot;ruby&quot;]
+Gofer it
+    squeaksource3: 'ImageWriter';
+    package: 'ImageWriter-ObjectFormats';
+    load.
+[/sourcecode]
+
+And have an initial look at HzObjectFormat class&amp;gt;&amp;gt;#formatClassFor:
+
+Currently this code is a bit dependant on the image writer. And probably it deserves a little cleaning, but it is good enough :).
+Patches and improvements are welcome!
+
+Bon Voyage!
+
+Guille
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Jekyll Introduction</title>
+   <link href="http://guillep.github.io/lessons/2011/12/29/jekyll-introduction"/>
+   <updated>2011-12-29T00:00:00+01:00</updated>
+   <id>http://guillep.github.io/lessons/2011/12/29/jekyll-introduction</id>
+   <content type="html">&lt;p&gt;This Jekyll introduction will outline specifically what Jekyll is and why you would want to use it. Directly following the intro we’ll learn exactly &lt;em&gt;how&lt;/em&gt; Jekyll does what it does.&lt;/p&gt;
+
+&lt;h2 id=&quot;overview&quot;&gt;Overview&lt;/h2&gt;
+
+&lt;h3 id=&quot;what_is_jekyll&quot;&gt;What is Jekyll?&lt;/h3&gt;
+
+&lt;p&gt;Jekyll is a parsing engine bundled as a ruby gem used to build static websites from dynamic components such as templates, partials, liquid code, markdown, etc. Jekyll is known as “a simple, blog aware, static site generator”.&lt;/p&gt;
+
+&lt;h3 id=&quot;examples&quot;&gt;Examples&lt;/h3&gt;
+
+&lt;p&gt;This website is created with Jekyll. &lt;a href=&quot;https://github.com/mojombo/jekyll/wiki/Sites&quot;&gt;Other Jekyll websites&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;what_does_jekyll_do&quot;&gt;What does Jekyll Do?&lt;/h3&gt;
+
+&lt;p&gt;Jekyll is a ruby gem you install on your local system. Once there you can call &lt;code&gt;jekyll --server&lt;/code&gt; on a directory and provided that directory is setup in a way jekyll expects, it will do magic stuff like parse markdown/textile files, compute categories, tags, permalinks, and construct your pages from layout templates and partials.&lt;/p&gt;
+
+&lt;p&gt;Once parsed, Jekyll stores the result in a self-contained static &lt;code&gt;_site&lt;/code&gt; folder. The intention here is that you can serve all contents in this folder statically from a plain static web-server.&lt;/p&gt;
+
+&lt;p&gt;You can think of Jekyll as a normalish dynamic blog but rather than parsing content, templates, and tags on each request, Jekyll does this once &lt;em&gt;beforehand&lt;/em&gt; and caches the &lt;em&gt;entire website&lt;/em&gt; in a folder for serving statically.&lt;/p&gt;
+
+&lt;h3 id=&quot;jekyll_is_not_blogging_software&quot;&gt;Jekyll is Not Blogging Software&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;Jekyll is a parsing engine.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Jekyll does not come with any content nor does it have any templates or design elements. This is a common source of confusion when getting started. Jekyll does not come with anything you actually use or see on your website - you have to make it.&lt;/p&gt;
+
+&lt;h3 id=&quot;why_should_i_care&quot;&gt;Why Should I Care?&lt;/h3&gt;
+
+&lt;p&gt;Jekyll is very minimalistic and very efficient. The most important thing to realize about Jekyll is that it creates a static representation of your website requiring only a static web-server. Traditional dynamic blogs like Wordpress require a database and server-side code. Heavily trafficked dynamic blogs must employ a caching layer that ultimately performs the same job Jekyll sets out to do; serve static content.&lt;/p&gt;
+
+&lt;p&gt;Therefore if you like to keep things simple and you prefer the command-line over an admin panel UI then give Jekyll a try.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Developers like Jekyll because we can write content like we write code:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Ability to write content in markdown or textile in your favorite text-editor.&lt;/li&gt;
+
+&lt;li&gt;Ability to write and preview your content via localhost.&lt;/li&gt;
+
+&lt;li&gt;No internet connection required.&lt;/li&gt;
+
+&lt;li&gt;Ability to publish via git.&lt;/li&gt;
+
+&lt;li&gt;Ability to host your blog on a static web-server.&lt;/li&gt;
+
+&lt;li&gt;Ability to host freely on GitHub Pages.&lt;/li&gt;
+
+&lt;li&gt;No database required.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;how_jekyll_works&quot;&gt;How Jekyll Works&lt;/h1&gt;
+
+&lt;p&gt;The following is a complete but concise outline of exactly how Jekyll works.&lt;/p&gt;
+
+&lt;p&gt;Be aware that core concepts are introduced in rapid succession without code examples. This information is not intended to specifically teach you how to do anything, rather it is intended to give you the &lt;em&gt;full picture&lt;/em&gt; relative to what is going on in Jekyll-world.&lt;/p&gt;
+
+&lt;p&gt;Learning these core concepts should help you avoid common frustrations and ultimately help you better understand the code examples contained throughout Jekyll-Bootstrap.&lt;/p&gt;
+
+&lt;h2 id=&quot;initial_setup&quot;&gt;Initial Setup&lt;/h2&gt;
+
+&lt;p&gt;After &lt;a href=&quot;/index.html#start-now&quot;&gt;installing jekyll&lt;/a&gt; you’ll need to format your website directory in a way jekyll expects. Jekyll-bootstrap conveniently provides the base directory format.&lt;/p&gt;
+
+&lt;h3 id=&quot;the_jekyll_application_base_format&quot;&gt;The Jekyll Application Base Format&lt;/h3&gt;
+
+&lt;p&gt;Jekyll expects your website directory to be laid out like so:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;.
+|-- _config.yml
+|-- _includes
+|-- _layouts
+|   |-- default.html
+|   |-- post.html
+|-- _posts
+|   |-- 2011-10-25-open-source-is-good.markdown
+|   |-- 2011-04-26-hello-world.markdown
+|-- _site
+|-- index.html
+|-- assets
+    |-- css
+        |-- style.css
+    |-- javascripts&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;_config.yml&lt;/strong&gt; Stores configuration data.&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;_includes&lt;/strong&gt; This folder is for partial views.&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;_layouts&lt;/strong&gt; This folder is for the main templates your content will be inserted into. You can have different layouts for different pages or page sections.&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;_posts&lt;/strong&gt; This folder contains your dynamic content/posts. the naming format is required to be &lt;code&gt;@YEAR-MONTH-DATE-title.MARKUP@&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;_site&lt;/strong&gt; This is where the generated site will be placed once Jekyll is done transforming it.&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;assets&lt;/strong&gt; This folder is not part of the standard jekyll structure. The assets folder represents &lt;em&gt;any generic&lt;/em&gt; folder you happen to create in your root directory. Directories and files not properly formatted for jekyll will be left untouched for you to serve normally.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;(read more: &lt;a href=&quot;https://github.com/mojombo/jekyll/wiki/Usage&quot;&gt;https://github.com/mojombo/jekyll/wiki/Usage&lt;/a&gt;)&lt;/p&gt;
+
+&lt;h3 id=&quot;jekyll_configuration&quot;&gt;Jekyll Configuration&lt;/h3&gt;
+
+&lt;p&gt;Jekyll supports various configuration options that are fully outlined here: (&lt;a href=&quot;https://github.com/mojombo/jekyll/wiki/Configuration&quot;&gt;https://github.com/mojombo/jekyll/wiki/Configuration&lt;/a&gt;)&lt;/p&gt;
+
+&lt;h2 id=&quot;content_in_jekyll&quot;&gt;Content in Jekyll&lt;/h2&gt;
+
+&lt;p&gt;Content in Jekyll is either a post or a page. These content “objects” get inserted into one or more templates to build the final output for its respective static-page.&lt;/p&gt;
+
+&lt;h3 id=&quot;posts_and_pages&quot;&gt;Posts and Pages&lt;/h3&gt;
+
+&lt;p&gt;Both posts and pages should be written in markdown, textile, or HTML and may also contain Liquid templating syntax. Both posts and pages can have meta-data assigned on a per-page basis such as title, url path, as well as arbitrary custom meta-data.&lt;/p&gt;
+
+&lt;h3 id=&quot;working_with_posts&quot;&gt;Working With Posts&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;Creating a Post&lt;/strong&gt; Posts are created by properly formatting a file and placing it the &lt;code&gt;_posts&lt;/code&gt; folder.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Formatting&lt;/strong&gt; A post must have a valid filename in the form &lt;code&gt;YEAR-MONTH-DATE-title.MARKUP&lt;/code&gt; and be placed in the &lt;code&gt;_posts&lt;/code&gt; directory. If the data format is invalid Jekyll will not recognize the file as a post. The date and title are automatically parsed from the filename of the post file. Additionally, each file must have &lt;a href=&quot;https://github.com/mojombo/jekyll/wiki/YAML-Front-Matter&quot;&gt;YAML Front-Matter&lt;/a&gt; prepended to its content. YAML Front-Matter is a valid YAML syntax specifying meta-data for the given file.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Order&lt;/strong&gt; Ordering is an important part of Jekyll but it is hard to specify a custom ordering strategy. Only reverse chronological and chronological ordering is supported in Jekyll.&lt;/p&gt;
+
+&lt;p&gt;Since the date is hard-coded into the filename format, to change the order, you must change the dates in the filenames.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Tags&lt;/strong&gt; Posts can have tags associated with them as part of their meta-data. Tags may be placed on posts by providing them in the post’s YAML front matter. You have access to the post-specific tags in the templates. These tags also get added to the sitewide collection.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Categories&lt;/strong&gt; Posts may be categorized by providing one or more categories in the YAML front matter. Categories offer more significance over tags in that they can be reflected in the URL path to the given post. Note categories in Jekyll work in a specific way. If you define more than one category you are defining a category hierarchy “set”. Example:&lt;/p&gt;
+&lt;hr /&gt;
+&lt;pre&gt;&lt;code&gt;title :  Hello World
+categories : [lessons, beginner]&lt;/code&gt;&lt;/pre&gt;
+&lt;hr /&gt;
+&lt;p&gt;This defines the category hierarchy “lessons/beginner”. Note this is &lt;em&gt;one category&lt;/em&gt; node in Jekyll. You won’t find “lessons” and “beginner” as two separate categories unless you define them elsewhere as singular categories.&lt;/p&gt;
+
+&lt;h3 id=&quot;working_with_pages&quot;&gt;Working With Pages&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;Creating a Page&lt;/strong&gt; Pages are created by properly formatting a file and placing it anywhere in the root directory or subdirectories that do &lt;em&gt;not&lt;/em&gt; start with an underscore.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Formatting&lt;/strong&gt; In order to register as a Jekyll page the file must contain &lt;a href=&quot;https://github.com/mojombo/jekyll/wiki/YAML-Front-Matter&quot;&gt;YAML Front-Matter&lt;/a&gt;. Registering a page means 1) that Jekyll will process the page and 2) that the page object will be available in the &lt;code&gt;site.pages&lt;/code&gt; array for inclusion into your templates.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Categories and Tags&lt;/strong&gt; Pages do not compute categories nor tags so defining them will have no effect.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Sub-Directories&lt;/strong&gt; If pages are defined in sub-directories, the path to the page will be reflected in the url. Example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;.
+|-- people
+    |-- bob
+        |-- essay.html&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This page will be available at &lt;code&gt;http://yourdomain.com/people/bob/essay.html&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Recommended Pages&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;index.html&lt;/strong&gt; You will always want to define the root index.html page as this will display on your root URL.&lt;/li&gt;
+
+&lt;li&gt;&lt;strong&gt;404.html&lt;/strong&gt; Create a root 404.html page and GitHub Pages will serve it as your 404 response.&lt;/li&gt;
+
+&lt;li&gt;&lt;strong&gt;sitemap.html&lt;/strong&gt; Generating a sitemap is good practice for SEO.&lt;/li&gt;
+
+&lt;li&gt;&lt;strong&gt;about.html&lt;/strong&gt; A nice about page is easy to do and gives the human perspective to your website.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;templates_in_jekyll&quot;&gt;Templates in Jekyll&lt;/h2&gt;
+
+&lt;p&gt;Templates are used to contain a page’s or post’s content. All templates have access to a global site object variable: &lt;code&gt;site&lt;/code&gt; as well as a page object variable: &lt;code&gt;page&lt;/code&gt;. The site variable holds all accessible content and metadata relative to the site. The page variable holds accessible data for the given page or post being rendered at that point.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Create a Template&lt;/strong&gt; Templates are created by properly formatting a file and placing it in the &lt;code&gt;_layouts&lt;/code&gt; directory.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Formatting&lt;/strong&gt; Templates should be coded in HTML and contain YAML Front Matter. All templates can contain Liquid code to work with your site’s data.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Rending Page/Post Content in a Template&lt;/strong&gt; There is a special variable in all templates named : &lt;code&gt;content&lt;/code&gt;. The &lt;code&gt;content&lt;/code&gt; variable holds the page/post content including any sub-template content previously defined. Render the content variable wherever you want your main content to be injected into your template:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;...
+&amp;lt;body&amp;gt;
+  &amp;lt;div id=&quot;sidebar&quot;&amp;gt; ... &amp;lt;/div&amp;gt;
+  &amp;lt;div id=&quot;main&quot;&amp;gt;
+    &amp;#123;{content}&amp;#125;
+  &amp;lt;/div&amp;gt;
+&amp;lt;/body&amp;gt;
+...&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&quot;subtemplates&quot;&gt;Sub-Templates&lt;/h3&gt;
+
+&lt;p&gt;Sub-templates are exactly templates with the only difference being they define another “root” layout/template within their YAML Front Matter. This essentially means a template will render inside of another template.&lt;/p&gt;
+
+&lt;h3 id=&quot;includes&quot;&gt;Includes&lt;/h3&gt;
+
+&lt;p&gt;In Jekyll you can define include files by placing them in the &lt;code&gt;_includes&lt;/code&gt; folder. Includes are NOT templates, rather they are just code snippets that get included into templates. In this way, you can treat the code inside includes as if it was native to the parent template.&lt;/p&gt;
+
+&lt;p&gt;Any valid template code may be used in includes.&lt;/p&gt;
+
+&lt;h2 id=&quot;using_liquid_for_templating&quot;&gt;Using Liquid for Templating&lt;/h2&gt;
+
+&lt;p&gt;Templating is perhaps the most confusing and frustrating part of Jekyll. This is mainly due to the fact that Jekyll templates must use the Liquid Templating Language.&lt;/p&gt;
+
+&lt;h3 id=&quot;what_is_liquid&quot;&gt;What is Liquid?&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/Shopify/liquid&quot;&gt;Liquid&lt;/a&gt; is a secure templating language developed by &lt;a href=&quot;http://shopify.com&quot;&gt;Shopify&lt;/a&gt;. Liquid is designed for end-users to be able to execute logic within template files without imposing any security risk on the hosting server.&lt;/p&gt;
+
+&lt;p&gt;Jekyll uses Liquid to generate the post content within the final page layout structure and as the primary interface for working with your site and post/page data.&lt;/p&gt;
+
+&lt;h3 id=&quot;why_do_we_have_to_use_liquid&quot;&gt;Why Do We Have to Use Liquid?&lt;/h3&gt;
+
+&lt;p&gt;GitHub uses Jekyll to power &lt;a href=&quot;http://pages.github.com/&quot;&gt;GitHub Pages&lt;/a&gt;. GitHub cannot afford to run arbitrary code on their servers so they lock developers down via Liquid.&lt;/p&gt;
+
+&lt;h3 id=&quot;liquid_is_not_programmerfriendly&quot;&gt;Liquid is Not Programmer-Friendly.&lt;/h3&gt;
+
+&lt;p&gt;The short story is liquid is not real code and its not intended to execute real code. The point being you can’t do jackshit in liquid that hasn’t been allowed explicitly by the implementation. What’s more you can only access data-structures that have been explicitly passed to the template.&lt;/p&gt;
+
+&lt;p&gt;In Jekyll’s case it is not possible to alter what is passed to Liquid without hacking the gem or running custom plugins. Both of which cannot be supported by GitHub Pages.&lt;/p&gt;
+
+&lt;p&gt;As a programmer - this is very frustrating.&lt;/p&gt;
+
+&lt;p&gt;But rather than look a gift horse in the mouth we are going to suck it up and view it as an opportunity to work around limitations and adopt client-side solutions when possible.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Aside&lt;/strong&gt; My personal stance is to not invest time trying to hack liquid. It’s really unnecessary &lt;em&gt;from a programmer’s&lt;/em&gt; perspective. That is to say if you have the ability to run custom plugins (i.e. run arbitrary ruby code) you are better off sticking with ruby. Toward that end I’ve built &lt;a href=&quot;http://github.com/plusjade/mustache-with-jekyll&quot;&gt;Mustache-with-Jekyll&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;static_assets&quot;&gt;Static Assets&lt;/h2&gt;
+
+&lt;p&gt;Static assets are any file in the root or non-underscored subfolders that are not pages. That is they have no valid YAML Front Matter and are thus not treated as Jekyll Pages.&lt;/p&gt;
+
+&lt;p&gt;Static assets should be used for images, css, and javascript files.&lt;/p&gt;
+
+&lt;h2 id=&quot;how_jekyll_parses_files&quot;&gt;How Jekyll Parses Files&lt;/h2&gt;
+
+&lt;p&gt;Remember Jekyll is a processing engine. There are two main types of parsing in Jekyll.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Content parsing.&lt;/strong&gt; This is done with textile or markdown.&lt;/li&gt;
+
+&lt;li&gt;&lt;strong&gt;Template parsing.&lt;/strong&gt; This is done with the liquid templating language.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;And thus there are two main types of file formats needed for this parsing.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Post and Page files.&lt;/strong&gt; All content in Jekyll is either a post or a page so valid posts and pages are parsed with markdown or textile.&lt;/li&gt;
+
+&lt;li&gt;&lt;strong&gt;Template files.&lt;/strong&gt; These files go in &lt;code&gt;_layouts&lt;/code&gt; folder and contain your blogs &lt;strong&gt;templates&lt;/strong&gt;. They should be made in HTML with the help of Liquid syntax. Since include files are simply injected into templates they are essentially parsed as if they were native to the template.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Arbitrary files and folders.&lt;/strong&gt; Files that &lt;em&gt;are not&lt;/em&gt; valid pages are treated as static content and pass through Jekyll untouched and reside on your blog in the exact structure and format they originally existed in.&lt;/p&gt;
+
+&lt;h3 id=&quot;formatting_files_for_parsing&quot;&gt;Formatting Files for Parsing.&lt;/h3&gt;
+
+&lt;p&gt;We’ve outlined the need for valid formatting using &lt;strong&gt;YAML Front Matter&lt;/strong&gt;. Templates, posts, and pages all need to provide valid YAML Front Matter even if the Matter is empty. This is the only way Jekyll knows you want the file processed.&lt;/p&gt;
+
+&lt;p&gt;YAML Front Matter must be prepended to the top of template/post/page files:&lt;/p&gt;
+&lt;hr /&gt;
+&lt;pre&gt;&lt;code&gt;layout: post
+category : pages
+tags : [how-to, jekyll]&lt;/code&gt;&lt;/pre&gt;
+&lt;hr /&gt;
+&lt;pre&gt;&lt;code&gt;... contents ...&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Three hyphens on a new line start the Front-Matter block and three hyphens on a new line end the block. The data inside the block must be valid YAML.&lt;/p&gt;
+
+&lt;p&gt;Configuration parameters for YAML Front-Matter is outlined here: &lt;a href=&quot;https://github.com/mojombo/jekyll/wiki/YAML-Front-Matter&quot;&gt;A comprehensive explanation of YAML Front Matter&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;defining_layouts_for_posts_and_templates_parsing&quot;&gt;Defining Layouts for Posts and Templates Parsing.&lt;/h4&gt;
+
+&lt;p&gt;The &lt;code&gt;layout&lt;/code&gt; parameter in the YAML Front Matter defines the template file for which the given post or template should be injected into. If a template file specifies its own layout, it is effectively being used as a &lt;code&gt;sub-template.&lt;/code&gt; That is to say loading a post file into a template file that refers to another template file with work in the way you’d expect; as a nested sub-template.&lt;/p&gt;
+
+&lt;h2 id=&quot;how_jekyll_generates_the_final_static_files&quot;&gt;How Jekyll Generates the Final Static Files.&lt;/h2&gt;
+
+&lt;p&gt;Ultimately, Jekyll’s job is to generate a static representation of your website. The following is an outline of how that’s done:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Jekyll collects data.&lt;/strong&gt; Jekyll scans the posts directory and collects all posts files as post objects. It then scans the layout assets and collects those and finally scans other directories in search of pages.&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Jekyll computes data.&lt;/strong&gt; Jekyll takes these objects, computes metadata (permalinks, tags, categories, titles, dates) from them and constructs one big &lt;code&gt;site&lt;/code&gt; object that holds all the posts, pages, layouts, and respective metadata. At this stage your site is one big computed ruby object.&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Jekyll liquifies posts and templates.&lt;/strong&gt; Next jekyll loops through each post file and converts (through markdown or textile) and &lt;strong&gt;liquifies&lt;/strong&gt; the post inside of its respective layout(s). Once the post is parsed and liquified inside the the proper layout structure, the layout itself is “liquified”. &lt;strong&gt;Liquification&lt;/strong&gt; is defined as follows: Jekyll initiates a Liquid template, and passes a simpler hash representation of the ruby site object as well as a simpler hash representation of the ruby post object. These simplified data structures are what you have access to in the templates.&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Jekyll generates output.&lt;/strong&gt; Finally the liquid templates are “rendered”, thereby processing any liquid syntax provided in the templates and saving the final, static representation of the file.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;Notes.&lt;/strong&gt; Because Jekyll computes the entire site in one fell swoop, each template is given access to a global &lt;code&gt;site&lt;/code&gt; hash that contains useful data. It is this data that you’ll iterate through and format using the Liquid tags and filters in order to render it onto a given page.&lt;/p&gt;
+
+&lt;p&gt;Remember, in Jekyll you are an end-user. Your API has only two components:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;The manner in which you setup your directory.&lt;/li&gt;
+
+&lt;li&gt;The liquid syntax and variables passed into the liquid templates.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;All the data objects available to you in the templates via Liquid are outlined in the &lt;strong&gt;API Section&lt;/strong&gt; of Jekyll-Bootstrap. You can also read the original documentation here: &lt;a href=&quot;https://github.com/mojombo/jekyll/wiki/Template-Data&quot;&gt;https://github.com/mojombo/jekyll/wiki/Template-Data&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;I hope this paints a clearer picture of what Jekyll is doing and why it works the way it does. As noted, our main programming constraint is the fact that our API is limited to what is accessible via Liquid and Liquid only.&lt;/p&gt;
+
+&lt;p&gt;Jekyll-bootstrap is intended to provide helper methods and strategies aimed at making it more intuitive and easier to work with Jekyll =)&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Thank you&lt;/strong&gt; for reading this far.&lt;/p&gt;
+
+&lt;h2 id=&quot;next_steps&quot;&gt;Next Steps&lt;/h2&gt;
+
+&lt;p&gt;Please take a look at &lt;a href=&quot;&quot;&gt;&lt;/a&gt; or jump right into &lt;a href=&quot;&quot;&gt;Usage&lt;/a&gt; if you’d like.&lt;/p&gt;</content>
+ </entry>
+ 
+ 
+</feed>

@@ -1,0 +1,281 @@
+
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7 ie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8 ie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9 ie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>Keymappings 101 - for Pharo 2.0</title>
+	<meta name="author" content="Guille Polito">
+	<link href='/assets/themes/the-minimum/css/style.css' rel="stylesheet" media="all">
+	<link href="http://feeds.feedburner.com/" rel="alternate" title="Keymappings 101 - for Pharo 2.0" type="application/atom+xml">
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.0.6/modernizr.min.js"></script>
+</head>
+<body>
+
+<div id="page" class="hentry">
+	<header class="the-header">
+		<div class="unit-head">
+			<div class="unit-inner unit-head-inner">
+				<p class="logo"><a href="/">Playing with Objects</a></p>
+				<nav class="nav-global">
+					<ul>
+						<li class="archive"><a href="/archive.html">archive</a></li>
+						<li class="page"><a href="/pages.html">pages</a></li>
+						<li class="category"><a href="/categories.html">categories</a></li>
+						<li class="tag"><a href="/tags.html">tags</a></li>
+						<li class="forkme"><iframe src="http://markdotto.github.com/github-buttons/github-btn.html?user=plusjade&repo=jekyll-bootstrap&type=fork&count=true"
+								allowtransparency="true" frameborder="0" scrolling="0" width="95px" height="20px"></iframe></li>
+					</ul>
+				</nav>
+			</div><!-- unit-inner -->
+		</div><!-- unit-head -->
+	</header>
+	<div class="body" role="main">
+		<div class="unit-body">
+			<div class="unit-inner unit-body-inner">
+				<div class="entry-content">
+					
+<article class="unit-article layout-post">
+	<div class="unit-inner unit-article-inner">
+		<div class="content">
+			<header>
+				<div class="unit-head">
+					<div class="unit-inner unit-head-inner">
+						<h1 class="h2 entry-title">Keymappings 101 - for Pharo 2.0</h1>
+					</div><!-- unit-inner -->
+				</div><!-- unit-head -->
+			</header>
+
+			<div class="bd">
+				<div class="entry-content">
+					<p><img alt='Pharo' height='210' src='http://playingwithobjects.files.wordpress.com/2013/03/sans-titre-1.png?w=300' width='210' /></p>
+
+<p>Pharo 2.0 release includes the Keymappings library. Keymappings is a library for configuring shortcuts for the current UI library (Morphic). It models concepts like: shortcuts, key combinations, event bubbling. It is a very simple library which I’ll introduce gradually in this post.</p>
+
+<h2 id="key_combinations">Key combinations</h2>
+
+<p>Keymappings main task is it’s ability to associate a key combination to an action. So we have to build up those key combinations. The simplest key combination is the one that gets activated when a single key is pressed. We call these combinations <strong>single key combinations</strong><strong>:</strong></p>
+<div class='highlight'><pre><code class='smalltalk'><span class='sc'>$a</span> <span class='nf'>asKeyCombination</span><span class='p'>.</span> <span class='err'>-&gt;</span> <span class='c'>&quot;single key combination for A key.&quot;</span>
+<span class='nc'>Character</span> <span class='nf'>cr</span> <span class='nf'>asKeyCombination</span><span class='p'>.</span> <span class='err'>-&gt;</span> <span class='c'>&quot;single key combination for  key.&quot;</span>
+</code></pre></div>
+<p>Although, usually key combinations get a bit more complex. It is very common to combine single keys with <strong>meta keys or modifiers</strong>. These meta keys or modifiers are the well known ctrl, shift, alt and command keys. To build a <strong>modified key combination</strong> we can do as follows:</p>
+<div class='highlight'><pre><code class='smalltalk'><span class='sc'>$a</span> <span class='nf'>ctrl</span><span class='p'>.</span> <span class='err'>-&gt;</span> <span class='c'>&quot;a modified key combination for Ctrl+A&quot;</span>
+<span class='sc'>$a</span> <span class='nf'>ctrl</span> <span class='nf'>shift</span><span class='p'>.</span> <span class='err'>-&gt;</span> <span class='c'>&quot;a modified key combination for Ctrl+Shift+A&quot;</span>
+</code></pre></div><address>It is important to notice that all key combinations are not case sensitive. It takes <strong>a</strong> and <strong>A</strong> characters as the same, since they are <strong>the same key</strong>.</address>
+<p>Have you ever used emacs, Eclipse or Visual Studio? Then you probably know sequences of key combinations that launch one only action. Like <strong>Alt+Shift+X, T </strong>(to run JUnit tests in eclipse)? So keymappings can do that too:</p>
+<div class='highlight'><pre><code class='smalltalk'><span class='sc'>$a</span> <span class='nf'>command</span> <span class='nf'>shift,</span> <span class='sc'>$b</span> <span class='nf'>shift</span><span class='p'>.</span> <span class='err'>-&gt;</span> <span class='c'>&quot;key sequence (Cmd+Shift+A, Shift+B)&quot;</span>
+</code></pre></div>
+<p>Sometimes, you want to configure an action to be activated in two different cases. Those are Keymapping <strong>options</strong>, and get activated when one of the options gets activated:</p>
+<div class='highlight'><pre><code class='smalltalk'><span class='sc'>$a</span> <span class='nf'>command</span> <span class='nf'>|</span> <span class='sc'>$b</span> <span class='nf'>command</span><span class='p'>.</span> <span class='err'>-&gt;</span> <span class='c'>&quot;key combination (Cmd+A or Cmd+B)&quot;</span>
+</code></pre></div>
+<p>Finally, since Pharo is a cross platform system and it is important to provide a good user experience by with the most suitable shortcut layout, keymapping implements <strong>platform specific shortcuts</strong>, which get activated only when running in the specific platform:</p>
+<div class='highlight'><pre><code class='smalltalk'><span class='sc'>$a</span> <span class='nf'>command</span> <span class='nf'>win</span> <span class='nf'>|</span> <span class='sc'>$b</span> <span class='nf'>command</span> <span class='nf'>unix</span><span class='p'>.</span> <span class='err'>-&amp;</span><span class='nv'>gt</span><span class='p'>;</span> <span class='nf'>&amp;</span><span class='nv'>quot</span><span class='p'>;</span><span class='nf'>Cmd+</span><span class='nc'>A</span> <span class='nf'>on</span> <span class='nf'>windows,</span> <span class='nv'>but</span> <span class='nf'>Cmd+</span><span class='nc'>B</span> <span class='nf'>on</span> <span class='nf'>unix&amp;</span><span class='nv'>quot</span><span class='p'>;</span>
+</code></pre></div><h2>Shortcut configurations</h2>
+<p>Now you know how to build key combinations for your purposes, you probably want to go to the action. Map those combinations to actions and make them work!</p>
+<h3>Single shortcut configuration</h3>
+<p>The simplest way to attach a shortcut to a morph is by sending him the #on:do: message. The first argument expected is a key combination and the second one is an action. In the example below, a workspace is created with two shortcuts: -<span style='line-height:14px;'>when Cmd+Shift+A is pressed, the workspace is deleted</span> -when Cmd+Shift+D is pressed, an information growl should appear yelling ‘this shortcut works!’</p>
+<div class='highlight'><pre><code class='smalltalk'><span class='err'>w</span><span class='o'>:=</span> <span class='nc'>Workspace</span> <span class='nb'>new</span><span class='p'>.</span>
+<span class='nv'>morph</span> <span class='o'>:=</span> <span class='nv'>w</span> <span class='nf'>openLabel:</span> <span class='s'>&#39;keymapping test&#39;</span><span class='p'>.</span>
+<span class='nv'>morph</span> <span class='nf'>on:</span> <span class='sc'>$a</span> <span class='nf'>shift</span> <span class='nf'>command</span> <span class='nf'>do:</span> [ <span class='nv'>morph</span> <span class='nf'>delete</span> ]<span class='p'>.</span>
+<span class='nv'>morph</span> <span class='nf'>on:</span> <span class='sc'>$d</span> <span class='nf'>shift</span> <span class='nf'>command</span> <span class='nf'>do:</span> [ <span class='nc'>UIManager</span> <span class='nf'>default</span> <span class='nf'>inform:</span> <span class='s'>&#39;this shortcut works!&#39;</span> ]<span class='p'>.</span>
+</code></pre></div>
+<p>Easy, huh? So let’s move on</p>
+<h3>Shortcut categories</h3>
+<p>Sometimes you want to group and organize shortcuts in a meaningful way and apply them all together on a morph. Sometimes you want some morphs from different hierarchies to share the same group of shortcuts easily. Those groups of shortcuts are what keymapping calls <b>Categories</b>. A category is a group of shortcuts, so far (will change in the future) defined statically by using a <b>keymap</b> pragma on class side:</p>
+<div class='highlight'><pre><code class='smalltalk'><span class='err'>&amp;</span><span class='nv'>quot</span><span class='p'>;</span><span class='nf'>defining</span> <span class='nf'>a</span> <span class='nf'>category&amp;</span><span class='nv'>quot</span><span class='p'>;</span>
+<span class='nf'>SystemWindow</span> <span class='nf'>class&amp;</span><span class='nv'>gt</span><span class='p'>;</span><span class='nf'>&amp;</span><span class='nv'>gt</span><span class='p'>;</span><span class='nf'>buildShortcutsOn:</span> <span class='nv'>aBuilder</span>
+    <span class='nf'>&amp;</span><span class='nv'>lt</span><span class='p'>;</span><span class='nf'>keymap&amp;</span><span class='nv'>gt</span><span class='p'>;</span>
+</code></pre></div>
+<p>A class side method marked as &lt;keymap&gt; will be called with a builder object, which can be used to define a named set of shortcuts:</p>
+<div class='highlight'><pre><code class='smalltalk'><span class='nc'>SystemWindow</span> <span class='nf'>class&gt;&gt;buildShortcutsOn:</span> <span class='nv'>aBuilder</span>
+    <span class='err'>&lt;</span><span class='nv'>keymap</span><span class='nf'>&gt;</span>
+    (<span class='nv'>aBuilder</span> <span class='nf'>shortcut:</span> <span class='ss'>#close</span>)
+        <span class='nf'>category:</span> <span class='ss'>#WindowShortcuts</span>
+        <span class='nf'>default:</span> <span class='sc'>$w</span> <span class='nf'>ctrl</span> <span class='nf'>|</span> <span class='sc'>$w</span> <span class='nf'>command</span> <span class='nf'>mac</span>
+        <span class='nf'>do:</span> [ <span class='o'>:</span><span class='nv'>target</span> <span class='o'>|</span> <span class='nv'>target</span> <span class='nf'>delete</span> ]
+        <span class='nf'>description:</span> <span class='s'>&#39;Close this window&#39;</span><span class='p'>.</span>
+</code></pre></div>
+<p>Shortcuts defined through the builder specify the name of the category they belong to, a default key combination, an action, and a description. All this metadata is there to be used as settings in the future.</p>
+
+<p>Finally in order to get your morph handle those shortcuts you can use the #attachKeymapCategory: message as in:</p>
+<div class='highlight'><pre><code class='smalltalk'><span class='err'>w</span><span class='o'>:=</span> <span class='nc'>Workspace</span> <span class='nb'>new</span><span class='p'>.</span>
+<span class='nv'>morph</span> <span class='o'>:=</span> <span class='nv'>w</span> <span class='nf'>openLabel:</span> <span class='s'>&#39;keymapping test&#39;</span><span class='p'>.</span>
+<span class='nv'>morph</span> <span class='nf'>attachKeymapCategory:</span> <span class='ss'>#Growling</span><span class='p'>.</span>
+</code></pre></div><h2>Bubbling</h2>
+<p>Keymappings’ shortcuts bubble to their parent if not handled, up until the main world morph. That has two main consequences: -Shortcuts for your application can be designed in a hierarchical way and; -Every time a shortcut does not work for you, it means that a morph below you has handled it ;) (be careful with text editors that handle loooots of key combinations)</p>
+<h2>Future work</h2>
+<p>So far, so good, but there is some plan on Keymappings for Pharo 3.0 development, which I can anticipate: -<span style='line-height:1.714285714;font-size:1rem;'>Some API changes: #on:do: can be confused with exception or announcement handling. #asShortcut will probably be properly renamed as #asKeyCombination. There is an inconsistency between the #command and #ctrl messages</span> -<span style='line-height:1.714285714;font-size:1rem;'>A lot of renames and new comments :)</span> -<span style='line-height:1.714285714;font-size:1rem;'>Spread it all over the system</span> -<span style='line-height:1.714285714;font-size:1rem;'>Make keymap categories first class objects, not any more a symbol ;)</span></p>
+
+<p>à la prochain! Guille</p>
+					<div class="meta">
+						<p class="date-publish">
+							Published: 
+							<date class="date-pub" title="2013-03-19T00:00:00+01:00" datetime="2013-03-19T00:00:00+01:00" pubdate>
+							<span class="month"><abbr>March</abbr></span>
+							<span class="day">19</span>
+							<span class="year">2013</span>
+							</date>
+						</p>
+						<ul class="list-category list-linear">
+							<li class="list-head">category: </li>
+							
+							
+
+
+  
+     
+    	<li><a href="/categories.html#pharo-ref">
+    		pharo <span>13</span>
+    	</a></li>
+     
+    	<li><a href="/categories.html#smalltalk-ref">
+    		smalltalk <span>8</span>
+    	</a></li>
+    
+  
+
+
+						</ul>
+						<ul class="list-tag list-linear">
+							<li class="list-head">tags: </li>
+							
+							
+
+
+  
+     
+    	<li><a href="/tags.html#command keys-ref">command keys <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#dynamic languages-ref">dynamic languages <span>2</span></a></li>
+     
+    	<li><a href="/tags.html#Keymappings-ref">Keymappings <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#meta keys-ref">meta keys <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#Object oriented-ref">Object oriented <span>3</span></a></li>
+     
+    	<li><a href="/tags.html#OOP-ref">OOP <span>2</span></a></li>
+     
+    	<li><a href="/tags.html#Pharo-ref">Pharo <span>14</span></a></li>
+     
+    	<li><a href="/tags.html#Shortcuts-ref">Shortcuts <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#software-ref">software <span>4</span></a></li>
+     
+    	<li><a href="/tags.html#technology-ref">technology <span>4</span></a></li>
+     
+    	<li><a href="/tags.html#ui library-ref">ui library <span>1</span></a></li>
+    
+  
+
+
+
+						</ul>
+					</div><!-- meta -->
+				</div><!-- entry-content -->
+				<div class="misc-content">
+					<div class="social">
+						<ul class="list-linear">
+							<li><div class="twitter-tweet"><a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="guillepolito" data-lang="en">Tweet</a></div></li>
+							<li><div class="twitter-follow"><a href="https://twitter.com/guillepolito" class="twitter-follow-button" data-show-count="false" data-lang="en"></a></div></li>
+						</ul>
+					</div>
+					
+					
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+				</div><!-- misc-content -->
+				
+			</div><!-- bd -->
+			<footer class="unit-foot">
+				<div class="unit-inner unit-foot-inner">
+					<nav class="pagination">
+						<ul>
+							
+							<li class="prev"><a class="internal" rel="prev"  href="/pharo/2013/03/18/pharo-2-0-released" title="View Pharo 2.0 Released">&laquo; Pharo 2.0 Released</a></li>
+							
+							
+							<li class="pipe"> | </li>
+							
+							
+							<li class="next"><a class="internal" rel="next"  href="/software%20engineering/2013/03/23/when-optimal-matters" title="View When optimal matters">When optimal matters &raquo;</a></li>
+							
+						</ul>
+					</nav>
+					<p class="gotop">
+						<a href="#page">Back to Top</a>
+					</p>
+				</div>
+			</footer>
+
+		</div><!-- content -->
+	</div><!-- unit-inner -->
+</article>
+
+
+				</div>
+			</div><!-- unit-inner -->
+		</div><!-- unit-body -->
+	</div><!-- body -->
+	<footer class="the-footer">
+		<div class="unit-foot">
+			<div class="unit-inner unit-foot-inner">
+				<div class="misc vcard">
+					<h4>about</h4>
+					<ul>
+						<li class="contact"><address><span class="author fn n">Guille Polito</span> - <span class="fn email">guillermopolito@gmail.com</span></address></li>
+						<li class="github"><a href="http://github.com/guillep/" rel="me">github.com/guillep</a></li>
+						<li class="twitter"><a href="http://twitter.com/guillepolito/" rel="me">twitter.com/guillepolito</a></li>
+						<li class="rss"><a href="http://feeds.feedburner.com/">Subscribe to RSS Feed</a></li>
+					</ul>
+				</div><!-- misc -->
+				<p class="licence">
+					Theme: <a href="http://layouts-the.me">the_minimum</a> based on <a href="http://jekyllbootstrap.com/">Jekyll-bootstrap</a>.<br>
+					Powered by <a href="https://github.com/mojombo/jekyll">Jekyll</a>.
+				</p>
+			</div><!-- unit-foot-inner -->
+		</div><!-- unit-foot -->
+	</footer>
+</div><!-- page -->
+<script>
+	(function(d, s) {
+		var js, fjs = d.getElementsByTagName(s)[0], load = function(url, id) {
+		if (d.getElementById(id)) {return;}
+		js = d.createElement(s); js.src = url; js.id = id;
+		fjs.parentNode.insertBefore(js, fjs);
+		};
+	load('//platform.twitter.com/widgets.js', 'tweetjs');
+	// load('https://apis.google.com/js/plusone.js', 'gplus1js'); // Checkout http://j.mp/ApDgMr for usage html for this is <div class="g-plusone" data-size="medium"></div>
+	// load('//connect.facebook.net/en_US/all.js#xfbml=1', 'fbjssdk'); // Checkout http://j.mp/wZw2xR for using open graph protorol html for this is <div class="fb-like" data-href="/pharo/smalltalk/2013/03/19/keymappings-101-for-pharo-2-0" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false" data-font="verdana"></div>
+	}(document, 'script'));
+</script>
+<script>
+/*! A fix for the iOS orientationchange zoom bug.Script by @scottjehl, rebound by @wilto. MIT License.*/
+(function(j){var i=j.document;if(!i.querySelectorAll){return}var l=i.querySelectorAll("meta[name=viewport]")[0],a=l&&l.getAttribute("content"),h=a+", maximum-scale=1.0",d=a+", maximum-scale=10.0",g=true,c=j.orientation,k=0;if(!l){return}function f(){l.setAttribute("content",d);g=true}function b(){l.setAttribute("content",h);g=false}function e(m){c=Math.abs(j.orientation);k=Math.abs(m.gamma);if(k>8&&c===0){if(g){b()}}else{if(!g){f()}}}j.addEventListener("orientationchange",f,false);j.addEventListener("deviceorientation",e,false)})(this);
+</script>
+
+  
+</body>
+</html>
+

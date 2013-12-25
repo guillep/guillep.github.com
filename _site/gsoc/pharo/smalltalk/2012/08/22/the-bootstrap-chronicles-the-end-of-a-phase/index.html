@@ -1,0 +1,247 @@
+
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7 ie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8 ie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9 ie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>The Bootstrap Chronicles - The end of a phase</title>
+	<meta name="author" content="Guille Polito">
+	<link href='/assets/themes/the-minimum/css/style.css' rel="stylesheet" media="all">
+	<link href="http://feeds.feedburner.com/" rel="alternate" title="The Bootstrap Chronicles - The end of a phase" type="application/atom+xml">
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.0.6/modernizr.min.js"></script>
+</head>
+<body>
+
+<div id="page" class="hentry">
+	<header class="the-header">
+		<div class="unit-head">
+			<div class="unit-inner unit-head-inner">
+				<p class="logo"><a href="/">Playing with Objects</a></p>
+				<nav class="nav-global">
+					<ul>
+						<li class="archive"><a href="/archive.html">archive</a></li>
+						<li class="page"><a href="/pages.html">pages</a></li>
+						<li class="category"><a href="/categories.html">categories</a></li>
+						<li class="tag"><a href="/tags.html">tags</a></li>
+						<li class="forkme"><iframe src="http://markdotto.github.com/github-buttons/github-btn.html?user=plusjade&repo=jekyll-bootstrap&type=fork&count=true"
+								allowtransparency="true" frameborder="0" scrolling="0" width="95px" height="20px"></iframe></li>
+					</ul>
+				</nav>
+			</div><!-- unit-inner -->
+		</div><!-- unit-head -->
+	</header>
+	<div class="body" role="main">
+		<div class="unit-body">
+			<div class="unit-inner unit-body-inner">
+				<div class="entry-content">
+					
+<article class="unit-article layout-post">
+	<div class="unit-inner unit-article-inner">
+		<div class="content">
+			<header>
+				<div class="unit-head">
+					<div class="unit-inner unit-head-inner">
+						<h1 class="h2 entry-title">The Bootstrap Chronicles - The end of a phase</h1>
+					</div><!-- unit-inner -->
+				</div><!-- unit-head -->
+			</header>
+
+			<div class="bd">
+				<div class="entry-content">
+					As some of you already know, the GSOC project edition 2012 is coming to an end.  And along with it, the bootstrap project reaches a checkpoint. This post covers is the news since the last chapter, and discusses about the future steps. In a next post I'll document  the details of the project deliverables.
+<h2>Where we where?</h2>
+The first product of this project was a renewal of an image serializer: the SystemTracer. It takes an object graph and serializes it into the image format a vm works with. The System tracer was refactored reifying the memory object formats and updated to write Cog images.
+
+The second step was to work on bootstrapping. And it was successful.  Hazelnut, the bootstrap process tool, is able to build a smalltalk image from a description. To ensure the quality and health of these newly created images I set up jenkins jobs loading different packages on top of them, and running tests over them.
+<h2>What happened since last time: Declarative kernel descriptions</h2>
+A kernel definition has two main parts:
+<ul>
+	<li>the code and definitions of the entities of that kernel</li>
+	<li>a definition on how to build the basic model of that kernel and how to initialize it finally</li>
+</ul>
+The first one can take the form of source files like in <a href="https://github.com/guillep/PharoKernel">https://github.com/guillep/PharoKernel</a>, which is the source code Hazelnut actually uses to bootstrap Pharo images. The second part of the kernel definition contains some imperative parts, and by now they are declared in simple pharo classes you download from Monticello.
+
+So now, the bootstrap loads the kernel definition from those source files, generates the bootstrapped environment, and serializes it into a new image file.
+<h2>The future of bootstrapping pharo</h2>
+Since our goal is to bootstrap pharo to support it's modularity and  evolution, there are some keypoints to attack in the near future:
+<ul>
+	<li>getting the pharo sourcecode in sync with this bootstrap representation</li>
+	<li>choosing the really important parts for a kernel. What should be and what should not in those source files? Where do we package what's not going kernel?</li>
+	<li>building pharo from bootstrapped images.</li>
+</ul>
+Even, when looking at the upcoming pharo changes like first class slots and class layouts, or the new Tanker package manager, the bootstrap will need for sure some updates.
+<h2>Conclusions</h2>
+I hope this project makes pharo grow and get better! We can now generate images with the source code defined statically in source files, so for the GSOC program the scope has been fulfilled.
+
+See you in a next post documenting the project!
+
+Salut!
+
+					<div class="meta">
+						<p class="date-publish">
+							Published: 
+							<date class="date-pub" title="2012-08-22T00:00:00+02:00" datetime="2012-08-22T00:00:00+02:00" pubdate>
+							<span class="month"><abbr>August</abbr></span>
+							<span class="day">22</span>
+							<span class="year">2012</span>
+							</date>
+						</p>
+						<ul class="list-category list-linear">
+							<li class="list-head">category: </li>
+							
+							
+
+
+  
+     
+    	<li><a href="/categories.html#gsoc-ref">
+    		gsoc <span>5</span>
+    	</a></li>
+     
+    	<li><a href="/categories.html#pharo-ref">
+    		pharo <span>13</span>
+    	</a></li>
+     
+    	<li><a href="/categories.html#smalltalk-ref">
+    		smalltalk <span>8</span>
+    	</a></li>
+    
+  
+
+
+						</ul>
+						<ul class="list-tag list-linear">
+							<li class="list-head">tags: </li>
+							
+							
+
+
+  
+     
+    	<li><a href="/tags.html#Bootstrap-ref">Bootstrap <span>6</span></a></li>
+     
+    	<li><a href="/tags.html#crazy project-ref">crazy project <span>5</span></a></li>
+     
+    	<li><a href="/tags.html#GSOC-ref">GSOC <span>5</span></a></li>
+     
+    	<li><a href="/tags.html#modularization-ref">modularization <span>2</span></a></li>
+     
+    	<li><a href="/tags.html#Pharo-ref">Pharo <span>14</span></a></li>
+     
+    	<li><a href="/tags.html#Smalltalk-ref">Smalltalk <span>8</span></a></li>
+     
+    	<li><a href="/tags.html#smalltalk environment-ref">smalltalk environment <span>4</span></a></li>
+    
+  
+
+
+
+						</ul>
+					</div><!-- meta -->
+				</div><!-- entry-content -->
+				<div class="misc-content">
+					<div class="social">
+						<ul class="list-linear">
+							<li><div class="twitter-tweet"><a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="guillepolito" data-lang="en">Tweet</a></div></li>
+							<li><div class="twitter-follow"><a href="https://twitter.com/guillepolito" class="twitter-follow-button" data-show-count="false" data-lang="en"></a></div></li>
+						</ul>
+					</div>
+					
+					
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+				</div><!-- misc-content -->
+				
+			</div><!-- bd -->
+			<footer class="unit-foot">
+				<div class="unit-inner unit-foot-inner">
+					<nav class="pagination">
+						<ul>
+							
+							<li class="prev"><a class="internal" rel="prev"  href="/gsoc/pharo/smalltalk/2012/06/30/the-bootstrap-chronicles-chapter-4" title="View The Bootstrap Chronicles Chapter 4 – Pump up with Fuel">&laquo; The Bootstrap Chronicles Chapter 4 – Pump up with Fuel</a></li>
+							
+							
+							<li class="pipe"> | </li>
+							
+							
+							<li class="next"><a class="internal" rel="next"  href="/posts/2012/12/12/left" title="View Left">Left &raquo;</a></li>
+							
+						</ul>
+					</nav>
+					<p class="gotop">
+						<a href="#page">Back to Top</a>
+					</p>
+				</div>
+			</footer>
+
+		</div><!-- content -->
+	</div><!-- unit-inner -->
+</article>
+
+
+				</div>
+			</div><!-- unit-inner -->
+		</div><!-- unit-body -->
+	</div><!-- body -->
+	<footer class="the-footer">
+		<div class="unit-foot">
+			<div class="unit-inner unit-foot-inner">
+				<div class="misc vcard">
+					<h4>about</h4>
+					<ul>
+						<li class="contact"><address><span class="author fn n">Guille Polito</span> - <span class="fn email">guillermopolito@gmail.com</span></address></li>
+						<li class="github"><a href="http://github.com/guillep/" rel="me">github.com/guillep</a></li>
+						<li class="twitter"><a href="http://twitter.com/guillepolito/" rel="me">twitter.com/guillepolito</a></li>
+						<li class="rss"><a href="http://feeds.feedburner.com/">Subscribe to RSS Feed</a></li>
+					</ul>
+				</div><!-- misc -->
+				<p class="licence">
+					Theme: <a href="http://layouts-the.me">the_minimum</a> based on <a href="http://jekyllbootstrap.com/">Jekyll-bootstrap</a>.<br>
+					Powered by <a href="https://github.com/mojombo/jekyll">Jekyll</a>.
+				</p>
+			</div><!-- unit-foot-inner -->
+		</div><!-- unit-foot -->
+	</footer>
+</div><!-- page -->
+<script>
+	(function(d, s) {
+		var js, fjs = d.getElementsByTagName(s)[0], load = function(url, id) {
+		if (d.getElementById(id)) {return;}
+		js = d.createElement(s); js.src = url; js.id = id;
+		fjs.parentNode.insertBefore(js, fjs);
+		};
+	load('//platform.twitter.com/widgets.js', 'tweetjs');
+	// load('https://apis.google.com/js/plusone.js', 'gplus1js'); // Checkout http://j.mp/ApDgMr for usage html for this is <div class="g-plusone" data-size="medium"></div>
+	// load('//connect.facebook.net/en_US/all.js#xfbml=1', 'fbjssdk'); // Checkout http://j.mp/wZw2xR for using open graph protorol html for this is <div class="fb-like" data-href="/gsoc/pharo/smalltalk/2012/08/22/the-bootstrap-chronicles-the-end-of-a-phase" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false" data-font="verdana"></div>
+	}(document, 'script'));
+</script>
+<script>
+/*! A fix for the iOS orientationchange zoom bug.Script by @scottjehl, rebound by @wilto. MIT License.*/
+(function(j){var i=j.document;if(!i.querySelectorAll){return}var l=i.querySelectorAll("meta[name=viewport]")[0],a=l&&l.getAttribute("content"),h=a+", maximum-scale=1.0",d=a+", maximum-scale=10.0",g=true,c=j.orientation,k=0;if(!l){return}function f(){l.setAttribute("content",d);g=true}function b(){l.setAttribute("content",h);g=false}function e(m){c=Math.abs(j.orientation);k=Math.abs(m.gamma);if(k>8&&c===0){if(g){b()}}else{if(!g){f()}}}j.addEventListener("orientationchange",f,false);j.addEventListener("deviceorientation",e,false)})(this);
+</script>
+
+  
+</body>
+</html>
+

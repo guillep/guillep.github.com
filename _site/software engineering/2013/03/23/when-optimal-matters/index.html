@@ -1,0 +1,295 @@
+
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7 ie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8 ie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9 ie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>When optimal matters</title>
+	<meta name="author" content="Guille Polito">
+	<link href='/assets/themes/the-minimum/css/style.css' rel="stylesheet" media="all">
+	<link href="http://feeds.feedburner.com/" rel="alternate" title="When optimal matters" type="application/atom+xml">
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.0.6/modernizr.min.js"></script>
+</head>
+<body>
+
+<div id="page" class="hentry">
+	<header class="the-header">
+		<div class="unit-head">
+			<div class="unit-inner unit-head-inner">
+				<p class="logo"><a href="/">Playing with Objects</a></p>
+				<nav class="nav-global">
+					<ul>
+						<li class="archive"><a href="/archive.html">archive</a></li>
+						<li class="page"><a href="/pages.html">pages</a></li>
+						<li class="category"><a href="/categories.html">categories</a></li>
+						<li class="tag"><a href="/tags.html">tags</a></li>
+						<li class="forkme"><iframe src="http://markdotto.github.com/github-buttons/github-btn.html?user=plusjade&repo=jekyll-bootstrap&type=fork&count=true"
+								allowtransparency="true" frameborder="0" scrolling="0" width="95px" height="20px"></iframe></li>
+					</ul>
+				</nav>
+			</div><!-- unit-inner -->
+		</div><!-- unit-head -->
+	</header>
+	<div class="body" role="main">
+		<div class="unit-body">
+			<div class="unit-inner unit-body-inner">
+				<div class="entry-content">
+					
+<article class="unit-article layout-post">
+	<div class="unit-inner unit-article-inner">
+		<div class="content">
+			<header>
+				<div class="unit-head">
+					<div class="unit-inner unit-head-inner">
+						<h1 class="h2 entry-title">When optimal matters</h1>
+					</div><!-- unit-inner -->
+				</div><!-- unit-head -->
+			</header>
+
+			<div class="bd">
+				<div class="entry-content">
+					This last week I've been involved somehow in several discussions which, although not explicitly, talked about optimizations. In particular, premature optimizations. Of course, we all know they are evil. Do we? I'll not discuss today on optimization techniques, but on what should an IT professional think about when thinking about optimizations in his programs.
+
+The main arguments I heard this week of people supporting premature organizations were:
+<ul>
+	<li><span style="line-height:14px;">A guy using some technology X, should know the underlying details of X, or he will fail. Let's say, if you are a Java programmer, you <strong>must</strong> not only know there is a <a href="http://en.wikipedia.org/wiki/Garbage_collection_(computer_science)">GC</a>, but also how it works.</span></li>
+	<li>A tech guy should be always conscious of the resources used. i.e., not to store a lot of objects in caches because memory is a finite resource.</li>
+	<li>Assumptions on what should be faster. Using or not a macro in C for example.</li>
+</ul>
+And these arguments are not even totally wrong. But they are not so totally true as they were stated.
+<blockquote>Premature optimization is the root of all evil</blockquote>
+You know Donald Knuth? This phrase (attributed to C.A.R. Hoare, btw) became famous because of <a href="http://pplab.snu.ac.kr/courses/adv_pl05/papers/p261-knuth.pdf">this paper</a> he authored. The interesting thing is that this phrase, when used, is taken out from context. The original phrase is:
+<blockquote>Programmers waste enormous amounts of time thinking about, or worrying about, the speed of noncritical parts of their programs, and these attempts at efficiency actually have a strong negative impact when debugging and maintenance are considered. We <em>should</em> forget about small efficiencies, say about 97% of the time: <strong>premature optimization is the root of all evil.</strong> Yet we should not pass up our opportunities in that critical 3%.</blockquote>
+<h2>Being optimal is not all that matters</h2>
+When writing software, running optimal is not the only variable to analyze. We want programs to be debuggeable, understandable, extendable, maintainable. And sometimes, optimal code can be ugly, and can be hard to change, or to fix bugs on it.
+
+So, let's look at this piece of code written for <a title="Pharo 2.0 Released" href="http://playingwithobjects.wordpress.com/2013/03/18/pharo-2-0-released/">Pharo</a>. This piece of code takes a string, splits the substrings taking the space character as separator, excludes the substrings that do not exist as symbols in the system, and then it converts them to symbols.
+
+[code language="ruby"]
+aString := 'aaaaa bbb Class cccc ddd'.
+((aString splitOn: Character space)
+    reject: [ :each| Symbol lookup: each  ])
+    collect: #asSymbol
+[/code]
+
+Kind of understandable piece of code. But what goes on behind scenes?
+<ul>
+	<li><span style="line-height:14px;"><strong>splitOn:</strong> creates a new (and temporary) collection. It also creates strings for each substrings and copy all the contents into those strings;</span></li>
+	<li><strong>reject:</strong> iterates over the result of #splitOn:, creates a new (temporary again) collection;</li>
+	<li><strong>collect: </strong>iterates over the result of #reject:, creates a new collection to put the results of #asSymbol</li>
+</ul>
+Finally, there are two intermediate collections that are discarded, some substrings are created by copying all the contents and finally discarded (cause we only care about the symbols). Yes, that is inefficient: lots of temporary allocations that could launch the GC, several iterations over collections... we could do better. Let's see an alternative version Camillo Bruni (<a href="http://rmod.lille.inria.fr/web/">Rmod, Inria</a>) suggested to improve in terms of speed and memory usage:
+
+[code language="ruby"]
+Array streamContents: [ :s|
+    aString
+        splitOn: Character space
+        indicesDo: [ :start :end|
+            aString asSymbolFrom: start to: end ifPresent: [ :symbol|
+            s nextPut: symbol]]
+[/code]
+
+This new version, which btw ends up with the same result, is pretty much more efficient:
+<ul>
+	<li><span style="line-height:14px;">Streaming on the result causes only one collection allocation without temporal ones;</span></li>
+	<li>Some special methods introduced into String to avoid extra collection allocation, and substring copies;</li>
+	<li>One collection means only one iteration :)</li>
+</ul>
+But wow, the code became much more complicated (given the simplicity of the example), and less object oriented. We do not manipule so easily the substrings by sending messages to them, we have instead the indices into the source string. Our code is much more aware of the problems we stated before, and recurring to lower level APIs to avoid them.
+
+Now, extend these ideas to a whole large application. Hundreds or thousands of classes written this way. We write methods of tens (or hundreds, why not?) of lines of code to avoid message sends (and therefore method lookups), we avoid at the maximum object allocation and go for an <em>if</em> based solution... and soon we will have lots of duplicated code, stringy code everywhere... And yet I can tell you (just guessing :^) your program will not be tons more optimal. What? Now my code is so hard to maintain and not very much faster? Not cool...
+<h2>Being optimal when optimal matters</h2>
+So let's say we have this function that takes 100.000 database rows, makes some calculations, and show a simple result to a user. It takes 1 second, which is a lot for a nowadays machine. But this function is used once per hour...
+
+Now take the code that evaluates the bytecode that access an object's field. It gets executed maybe some lots of thousands of times per second? So, if this operation starts to take 1 second... :)
+
+Or take this application that stores data on background, but when restoring wants to be as fast as possible to give a really good user experience. Will you care how much it takes the storing operation?
+
+Do we really have to spend a lot of time optimizing code that is almost not used? Or code that does not need to run <em>that fast</em>? Wait! My application runs ok, <em><strong>do I really have to optimize something?</strong></em>
+
+As Knuth says, 97% of the code is not critical. Only 3% deserves to be optimized.
+<h2>Understand when and where optimal matters</h2>
+So now you know the key point (optimizing when it matters), and you understood it mattered in your case. Time to find that 3%. And it may be not so obvious...
+
+<strong>Thanks engineers invented profiling! </strong> Just look a bit around, there are tons of tools to help you understand what you're doing wrong: where is memory allocated?, and of which type?, is the GC launched so often? is a time consuming function executed too many times? Profiling is a technique that should be on every software engineer tool-case.
+<h2><span style="font-size:1.285714286rem;line-height:1.6;">The rules of optimization</span></h2>
+As a conclusion, today I found this link I want to share about the <a href="http://c2.com/cgi/wiki?RulesOfOptimization">rules of optimization</a>. And I think they are a pretty good guideline. When you are thinking on making an optimization:
+<ul>
+	<li><span style="line-height:14px;">First time: Don't do it!</span></li>
+	<li>Second time: Don't do it yet!</li>
+	<li>Third time: Ok, but you first profile and measure, and then optimize</li>
+</ul>
+There is much to lose when only thinking on the optimal solution to a problem in terms of machine resources. Remember people's time to understand the written code, to adapt it to new situations and to fix bugs on it is also a valuable resource.
+
+Guille
+
+					<div class="meta">
+						<p class="date-publish">
+							Published: 
+							<date class="date-pub" title="2013-03-23T00:00:00+01:00" datetime="2013-03-23T00:00:00+01:00" pubdate>
+							<span class="month"><abbr>March</abbr></span>
+							<span class="day">23</span>
+							<span class="year">2013</span>
+							</date>
+						</p>
+						<ul class="list-category list-linear">
+							<li class="list-head">category: </li>
+							
+							
+
+
+  
+     
+    	<li><a href="/categories.html#software engineering-ref">
+    		software engineering <span>3</span>
+    	</a></li>
+    
+  
+
+
+						</ul>
+						<ul class="list-tag list-linear">
+							<li class="list-head">tags: </li>
+							
+							
+
+
+  
+     
+    	<li><a href="/tags.html#donald knuth-ref">donald knuth <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#finite resource-ref">finite resource <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#it-ref">it <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#optimal code-ref">optimal code <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#optimization techniques-ref">optimization techniques <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#optimizations-ref">optimizations <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#Pharo-ref">Pharo <span>14</span></a></li>
+     
+    	<li><a href="/tags.html#profiling-ref">profiling <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#resource assumptions-ref">resource assumptions <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#software-ref">software <span>4</span></a></li>
+     
+    	<li><a href="/tags.html#software-development-ref">software-development <span>3</span></a></li>
+     
+    	<li><a href="/tags.html#technology-ref">technology <span>4</span></a></li>
+    
+  
+
+
+
+						</ul>
+					</div><!-- meta -->
+				</div><!-- entry-content -->
+				<div class="misc-content">
+					<div class="social">
+						<ul class="list-linear">
+							<li><div class="twitter-tweet"><a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="guillepolito" data-lang="en">Tweet</a></div></li>
+							<li><div class="twitter-follow"><a href="https://twitter.com/guillepolito" class="twitter-follow-button" data-show-count="false" data-lang="en"></a></div></li>
+						</ul>
+					</div>
+					
+					
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+				</div><!-- misc-content -->
+				
+			</div><!-- bd -->
+			<footer class="unit-foot">
+				<div class="unit-inner unit-foot-inner">
+					<nav class="pagination">
+						<ul>
+							
+							<li class="prev"><a class="internal" rel="prev"  href="/pharo/smalltalk/2013/03/19/keymappings-101-for-pharo-2-0" title="View Keymappings 101 - for Pharo 2.0">&laquo; Keymappings 101 - for Pharo 2.0</a></li>
+							
+							
+							<li class="pipe"> | </li>
+							
+							
+							<li class="next"><a class="internal" rel="next"  href="/pharo/smalltalk/2013/05/06/bootstrap-revival-the-basics" title="View Bootstrap revival - the basics">Bootstrap revival - the basics &raquo;</a></li>
+							
+						</ul>
+					</nav>
+					<p class="gotop">
+						<a href="#page">Back to Top</a>
+					</p>
+				</div>
+			</footer>
+
+		</div><!-- content -->
+	</div><!-- unit-inner -->
+</article>
+
+
+				</div>
+			</div><!-- unit-inner -->
+		</div><!-- unit-body -->
+	</div><!-- body -->
+	<footer class="the-footer">
+		<div class="unit-foot">
+			<div class="unit-inner unit-foot-inner">
+				<div class="misc vcard">
+					<h4>about</h4>
+					<ul>
+						<li class="contact"><address><span class="author fn n">Guille Polito</span> - <span class="fn email">guillermopolito@gmail.com</span></address></li>
+						<li class="github"><a href="http://github.com/guillep/" rel="me">github.com/guillep</a></li>
+						<li class="twitter"><a href="http://twitter.com/guillepolito/" rel="me">twitter.com/guillepolito</a></li>
+						<li class="rss"><a href="http://feeds.feedburner.com/">Subscribe to RSS Feed</a></li>
+					</ul>
+				</div><!-- misc -->
+				<p class="licence">
+					Theme: <a href="http://layouts-the.me">the_minimum</a> based on <a href="http://jekyllbootstrap.com/">Jekyll-bootstrap</a>.<br>
+					Powered by <a href="https://github.com/mojombo/jekyll">Jekyll</a>.
+				</p>
+			</div><!-- unit-foot-inner -->
+		</div><!-- unit-foot -->
+	</footer>
+</div><!-- page -->
+<script>
+	(function(d, s) {
+		var js, fjs = d.getElementsByTagName(s)[0], load = function(url, id) {
+		if (d.getElementById(id)) {return;}
+		js = d.createElement(s); js.src = url; js.id = id;
+		fjs.parentNode.insertBefore(js, fjs);
+		};
+	load('//platform.twitter.com/widgets.js', 'tweetjs');
+	// load('https://apis.google.com/js/plusone.js', 'gplus1js'); // Checkout http://j.mp/ApDgMr for usage html for this is <div class="g-plusone" data-size="medium"></div>
+	// load('//connect.facebook.net/en_US/all.js#xfbml=1', 'fbjssdk'); // Checkout http://j.mp/wZw2xR for using open graph protorol html for this is <div class="fb-like" data-href="/software%20engineering/2013/03/23/when-optimal-matters" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false" data-font="verdana"></div>
+	}(document, 'script'));
+</script>
+<script>
+/*! A fix for the iOS orientationchange zoom bug.Script by @scottjehl, rebound by @wilto. MIT License.*/
+(function(j){var i=j.document;if(!i.querySelectorAll){return}var l=i.querySelectorAll("meta[name=viewport]")[0],a=l&&l.getAttribute("content"),h=a+", maximum-scale=1.0",d=a+", maximum-scale=10.0",g=true,c=j.orientation,k=0;if(!l){return}function f(){l.setAttribute("content",d);g=true}function b(){l.setAttribute("content",h);g=false}function e(m){c=Math.abs(j.orientation);k=Math.abs(m.gamma);if(k>8&&c===0){if(g){b()}}else{if(!g){f()}}}j.addEventListener("orientationchange",f,false);j.addEventListener("deviceorientation",e,false)})(this);
+</script>
+
+  
+</body>
+</html>
+
