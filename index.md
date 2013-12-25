@@ -11,3 +11,9 @@ My specific field of research in my Phd is the isolation and manipulation of obj
 
 In general, my main research interest is on programming tools, languages and their infrastructure. In particular, I use mostly for my work the object oriented language [Pharo](http://www.pharo-project.org), because of it's reflective and dynamic capabilities.
 
+<div style="height: 1010px;">
+	<img src="{{ site.url }}/assets/pharoLogo.jpg" alt="Pharo" style="height: 100px; float: left;"/>
+	<img src="{{ site.url }}/assets/mines.png" alt="Mines Douai" style="height: 100px; float: left;"/>
+	<img src="{{ site.url }}/assets/logo-inria.png" alt="Inria" style="height: 100px; float: left;"/>
+	<img src="{{ site.url }}/assets/rmod.png" alt="Rmod" style="height: 100px; float: left;"/>
+</div>
