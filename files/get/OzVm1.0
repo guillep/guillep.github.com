@@ -64,7 +64,7 @@ fi
 
 
 # DOWNLOAD THE LATEST OZ VM =====================================================
-VM_URL="http://guillep.github.io/files//vm/1.0/OzVm-${OS}-1.0.zip/download"
+VM_URL="http://guillep.github.io/files/vm/1.0/OzVm-${OS}-1.0.zip/download"
 VM_DIR="pharo-vm"
 
 echoerr "Downloading the latest ${VM_TYPE}VM:"
@@ -186,10 +186,10 @@ HTML_HELP=<<HTML_HELP
 <h1>Pharo Zeroconf Script</h1>
 <p>This script downloads the 1.0 Oz VM.</p>
 <h2>Usage</h2>
-<code>curl <a href="http://guillep.github.io/files//get/OzVm1.0/download">guillep.github.io/files//get/OzVm1.0/download</a> | bash </code>
+<code>curl <a href="http://guillep.github.io/files/get/OzVm1.0">guillep.github.io/files/get/OzVm1.0</a> | bash </code>
 <br/>
 or if <code>curl</code> is not available: </br>
-<code>wget -O- <a href="http://guillep.github.io/files//get/OzVm1.0/download">guillep.github.io/files//get/OzVm1.0/download</a> | bash </code>
+<code>wget -O- <a href="http://guillep.github.io/files/get/OzVm1.0">guillep.github.io/files/get/OzVm1.0</a> | bash </code>
 
 <h2>Artifacts</h2>
 <table><tr><td>oz</td><td>Script to run the downloaded VM in headless mode</td></tr>

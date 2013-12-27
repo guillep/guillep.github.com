@@ -24,8 +24,8 @@ fi
 
 # ARGUMENT HANDLING =============================================================
 if { [ "$1" = "-h" ] || [ "$1" = "--help" ]; }; then
-	echo "This script downloads the latest Oz 1.0 Image.
-This script downloads the 1.1 Oz VM.
+	echo "This script downloads the latest Oz latest Image.
+This script downloads the 1.0 Oz VM.
 
 The following artifacts are created:
     Oz.changes  A changes file for the Oz Image
@@ -42,8 +42,8 @@ fi
 
 
 # DOWNLOAD SUB-SCRIPTS ==========================================================
-$DOWNLOAD http://guillep.github.io/files//get/Oz1.0/download | bash 
-$DOWNLOAD http://guillep.github.io/files//get/OzVm1.1/download | bash 
+$DOWNLOAD http://guillep.github.io/files/get/Ozlatest | bash 
+$DOWNLOAD http://guillep.github.io/files/get/OzVm1.0 | bash 
 
 
 # HTML HELP =====================================================================
@@ -74,14 +74,14 @@ HTML_HELP=<<HTML_HELP
 	</style>
 <body>
 <h1>Oz Zeroconf Script</h1>
-<p>This script downloads the latest Oz 1.0 Image.<br/>
-This script downloads the 1.1 Oz VM.<br/>
+<p>This script downloads the latest Oz latest Image.<br/>
+This script downloads the 1.0 Oz VM.<br/>
 </p>
 <h2>Usage</h2>
-<code>curl <a href="http://guillep.github.io/files//get/Oz1.0%2BOzVm1.1/download">guillep.github.io/files//get/Oz1.0+OzVm1.1/download</a> | bash </code>
+<code>curl <a href="http://guillep.github.io/files/get/Ozlatest%2BOzVm1.0">guillep.github.io/files/get/Ozlatest+OzVm1.0</a> | bash </code>
 <br/>
 or if <code>curl</code> is not available: </br>
-<code>wget -O- <a href="http://guillep.github.io/files//get/Oz1.0%2BOzVm1.1/download">guillep.github.io/files//get/Oz1.0+OzVm1.1/download</a> | bash </code>
+<code>wget -O- <a href="http://guillep.github.io/files/get/Ozlatest%2BOzVm1.0">guillep.github.io/files/get/Ozlatest+OzVm1.0</a> | bash </code>
 
 <h2>Artifacts</h2>
 <table><tr><td>Oz.changes</td><td>A changes file for the Oz Image</td></tr>

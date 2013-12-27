@@ -24,7 +24,7 @@ fi
 
 # ARGUMENT HANDLING =============================================================
 if { [ "$1" = "-h" ] || [ "$1" = "--help" ]; }; then
-	echo "This script downloads the latest Oz 1.0 Image.
+	echo "This script downloads the latest Oz 1 Image.
 The following artifacts are created:
     Oz.changes  A changes file for the Oz Image
     Oz.image    A Oz image, to be opened with the Pharo VM
@@ -36,10 +36,10 @@ elif [ $# -gt 0 ]; then
 fi
 
 
-# DOWNLOADING THE LATEST OZ 1.0 IMAGE ===========================================
-IMAGE_URL="http://guillep.github.io/files//image/1.0/Oz-image-1.0.zip/download"
+# DOWNLOADING THE LATEST OZ 1 IMAGE =============================================
+IMAGE_URL="http://guillep.github.io/files/image/1/Oz-image-1.zip/download"
 
-echoerr "Downloading the latest 1.0 Image:"
+echoerr "Downloading the latest 1 Image:"
 echoerr "    $IMAGE_URL"
 
 TMP_DIR=`mktemp -d image.XXXXX`
@@ -87,12 +87,12 @@ HTML_HELP=<<HTML_HELP
 	</style>
 <body>
 <h1>Oz Zeroconf Script</h1>
-<p>This script downloads the latest Oz 1.0 Image.</p>
+<p>This script downloads the latest Oz 1 Image.</p>
 <h2>Usage</h2>
-<code>curl <a href="http://guillep.github.io/files//get/Oz1.0/download">guillep.github.io/files//get/Oz1.0/download</a> | bash </code>
+<code>curl <a href="http://guillep.github.io/files/get/Oz1">guillep.github.io/files/get/Oz1</a> | bash </code>
 <br/>
 or if <code>curl</code> is not available: </br>
-<code>wget -O- <a href="http://guillep.github.io/files//get/Oz1.0/download">guillep.github.io/files//get/Oz1.0/download</a> | bash </code>
+<code>wget -O- <a href="http://guillep.github.io/files/get/Oz1">guillep.github.io/files/get/Oz1</a> | bash </code>
 
 <h2>Artifacts</h2>
 <table><tr><td>Oz.changes</td><td>A changes file for the Oz Image</td></tr>
