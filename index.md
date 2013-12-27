@@ -7,20 +7,19 @@ tagline: GuilleP
 
 I'm a young researcher doing a Phd in computer sciences. I'm doing my Phd under the supported of both the [CAR team](http://car.mines-douai.fr/) of Mines Douai and the [Inria Rmod team](http://rmod.lille.inria.fr).
 
-Research
---------
+###Research
+
 
 My specific field of research in my Phd is the isolation and manipulation of object oriented reflective languages (i.e. high level languages) from another object oriented reflective languages (another high level language). This is related to my current project namely Oz.
 
 In general, my main research interest is on programming tools, languages and their infrastructure. In particular, I use mostly for my work the object oriented language [Pharo](http://www.pharo-project.org), because of it's reflective and dynamic capabilities.
 
-Software Development
---------
+###Software Development
 
 I'm currently in my free time a software developer for the open source communities of [Pharo](http://www.pharo-project.org) and [DBXTalk](http://dbxtalk.smallworks.com.ar).
 
-Awards
---------
+###Awards
+
 
 In 2013 I won the 1st prize of the ESUG innovation technology awards presenting [Oz Recovery Tools]({{ site.url }}/software/oz).
 

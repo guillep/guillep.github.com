@@ -5,18 +5,20 @@ group: navigation
 ---
 {% include JB/setup %}
 
-Oz Object Spaces
-================
+###Oz Object Spaces
 
 - Virtual Machine
 
 - Language side Packages
 
-Bootstrap
-================
+###Hazelnut Bootstrap
 
 - Pharo Kernel
 
 - Pharo Candle
 
 - MetaTalk
+
+###Pharo
+
+###DBXTalk
