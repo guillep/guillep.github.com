@@ -12,9 +12,7 @@ This is my main software contribution from my phd. Oz object spaces allow the co
 - Oz Virtual Machine: is a Pharo Stack virtual machine with support for handling several worlds at the same time.
 - Oz Language side Packages: are the packages that at the language level allow the manipulation of other object runtimes.
 
-[Details]({{page.path}}/details.html)
-[Downloads]({{page.path}}/downloads)
-[CI jobs](https://ci.inria.fr/rmod/view/Oz/)
+[Details]({{page.path}}/details.html) - [Downloads]({{page.path}}/downloads) - [CI jobs](https://ci.inria.fr/rmod/view/Oz/)
 
 ###Hazelnut Bootstrap
 
