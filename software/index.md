@@ -18,7 +18,7 @@ Using Oz, I developed many experimental utilities:
 - *Oz development tools* Debugging, browsing and inspecting another object runtime (see [Details]({{page.path}}/details.html) page).
 - *Hazelnut* Bootstrapping a reflective object kernel (see below).
 
-[Details]({{page.path}}/details.html) - [Downloads]({{page.path}}/downloads) - [CI jobs](https://ci.inria.fr/rmod/view/Oz/)
+[Details]({{site.url}}/software/details.html) - [Downloads]({{site.url}}/software/downloads) - [CI jobs](https://ci.inria.fr/rmod/view/Oz/)
 
 ###Hazelnut Bootstrap
 
