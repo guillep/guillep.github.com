@@ -11,7 +11,7 @@
    page: /presentations
 
 - title: blog
-  page: /archive.html
+  page: /blog
     
 #<li class="forkme"><iframe src="http://markdotto.github.com/github-buttons/github-btn.html?user=plusjade&repo=jekyll-bootstrap&type=fork&count=true"
 #		allowtransparency="true" frameborder="0" scrolling="0" width="95px" height="20px"></iframe></li>
