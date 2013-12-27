@@ -35,4 +35,6 @@ The tornado project, still unstable and hidden, aims to build tailored object ru
 
 ###DBXTalk
 
-DBXTalk is the relational database suite for 
+DBXTalk is the relational database suite for the Pharo language. It provides you with database drivers for the mainstream relational database engines, an ORM and some other utilities like polymorphic query a database schema or some scaffolding tools.
+
+[Details & Downloads](http://dbxtalk.smallworks.com.ar) - [CI jobs(work in progress)](https://ci.inria.fr/dbxtalk)
