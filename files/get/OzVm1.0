@@ -64,7 +64,7 @@ fi
 
 
 # DOWNLOAD THE LATEST OZ VM =====================================================
-VM_URL="http://guillep.github.io/files/vm/1.0/OzVm-${OS}-1.0.zip/download"
+VM_URL="http://guillep.github.io/files/vm/OzVm-${OS}-1.0.zip"
 VM_DIR="pharo-vm"
 
 echoerr "Downloading the latest ${VM_TYPE}VM:"

@@ -37,7 +37,7 @@ fi
 
 
 # DOWNLOADING THE LATEST OZ latest IMAGE ========================================
-IMAGE_URL="http://guillep.github.io/files/image/latest/Oz-image-latest.zip/download"
+IMAGE_URL="http://guillep.github.io/files/image/Oz-image-latest.zip"
 
 echoerr "Downloading the latest latest Image:"
 echoerr "    $IMAGE_URL"
