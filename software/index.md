@@ -18,24 +18,21 @@ Using Oz, I developed many experimental utilities:
 - *Oz development tools* Debugging, browsing and inspecting another object runtime (see [Details]({{page.path}}/details.html) page).
 - *Hazelnut* Bootstrapping a reflective object kernel (see below).
 
-[Details]({{site.url}}/software/details.html) - [Downloads]({{site.url}}/software/downloads) - [CI jobs](https://ci.inria.fr/rmod/view/Oz/)
+[Details]({{site.url}}/software/oz) - [Downloads]({{site.url}}/software/oz/downloads) - [CI jobs](https://ci.inria.fr/rmod/view/Oz/)
 
 ###Hazelnut Bootstrap
 
 Hazelnut is a project which uses Oz capabilities to bootstrap a reflective object runtime from scratch. This bootstrap takes as input the source code defining the new object runtime plus a builder and outputs an object graph defining the new runtime. The bootstrapped object runtime is aimed so far to run on the Pharo Virtual Machine.
 
-As Hazelnut examples
+As Hazelnut examples, we bootstrapped three different reflective languages: the Pharo Kernel, PharoCandle and MetaTalk.
 
-- Pharo Kernel
-
-- Pharo Candle
-
-- MetaTalk
+[Details]({{site.url}}/software/hazelnut) - [Downloads]({{site.url}}/software/hazelnut/downloads) - [CI jobs](https://ci.inria.fr/rmod/view/Oz/)
 
 ###Tornado: Ongoing
 
-blabla
+The tornado project, still unstable and hidden, aims to build tailored object runtimes. These object runtimes will be built for custom scenarios.
 
-###Pharo
 
 ###DBXTalk
+
+DBXTalk is the relational database suite for 
