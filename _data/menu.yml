@@ -6,6 +6,9 @@
   
 - title: publications
   page: /publications
+  
+- title: presentations
+   page: /presentations
 
 - title: blog
   page: /archive.html
