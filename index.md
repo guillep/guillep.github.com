@@ -21,7 +21,7 @@ I'm currently in my free time a software developer for the open source communiti
 ###Awards
 
 - 2013 *1st prize* of the [ESUG innovation technology awards](http://esug.org/wiki/pier/Conferences/2013/Innovation-Technology-Awards) presenting [Oz Recovery Tools]({{ site.url }}/software/oz).
-- 2012 *2nd prize of the [ESUG innovation technology awards](http://esug.org/wiki/pier/Conferences/2012/Innovation-Technology-Awards) presenting [Hazelnut]({{ site.url }}/software/azelnut).
+- 2012 *2nd prize* of the [ESUG innovation technology awards](http://esug.org/wiki/pier/Conferences/2012/Innovation-Technology-Awards) presenting [Hazelnut]({{ site.url }}/software/hazelnut).
 - 2011 *3rd prize* of the [ESUG innovation technology awards](http://esug.org/wiki/pier/Conferences/2011/InnovationTechnologyAwards) presenting [Ozono(formerly LOOP)](https://sites.google.com/site/objectbrowsertool/) in conjunction with Nicolas Passerini, Gisela Decuzzi, Carla Griggio and German Leiva.
 
 <div style="height: 110px;">
