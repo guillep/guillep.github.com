@@ -2,10 +2,10 @@
   page: /index.html
 
 - title: software
-  page: /software.html
+  page: /software
   
 - title: publications
-  page: /research.html
+  page: /publications
 
 - title: blog
   page: /archive.html
