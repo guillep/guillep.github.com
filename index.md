@@ -20,9 +20,9 @@ I'm currently in my free time a software developer for the open source communiti
 
 ###Awards
 
-- In 2013 I won the 1st prize of the ESUG innovation technology awards presenting [Oz Recovery Tools]({{ site.url }}/software/oz).
-- In 2012 I won the 2nd prize of the ESUG innovation technology awards presenting [Hazelnut]({{ site.url }}/software/azelnut).
-- In 2011 I won in conjunction with Nicolas Passerini, Gisela Decuzzi, Carla Griggio and German Leiva the 3rd prize of the ESUG innovation technology awards presenting [Ozono(formerly LOOP)](https://sites.google.com/site/objectbrowsertool/).
+- 2013 *1st prize* of the [ESUG innovation technology awards](http://esug.org/wiki/pier/Conferences/2013/Innovation-Technology-Awards) presenting [Oz Recovery Tools]({{ site.url }}/software/oz).
+- 2012 *2nd prize of the [ESUG innovation technology awards](http://esug.org/wiki/pier/Conferences/2012/Innovation-Technology-Awards) presenting [Hazelnut]({{ site.url }}/software/azelnut).
+- 2011 *3rd prize* of the [ESUG innovation technology awards](http://esug.org/wiki/pier/Conferences/2011/InnovationTechnologyAwards) presenting [Ozono(formerly LOOP)](https://sites.google.com/site/objectbrowsertool/) in conjunction with Nicolas Passerini, Gisela Decuzzi, Carla Griggio and German Leiva.
 
 <div style="height: 110px;">
 	<img src="{{ site.url }}/assets/pharoLogo.jpg" alt="Pharo" style="height: 100px; float: left;"/>
