@@ -1,7 +1,10 @@
+- title: home
+  page: /index.html
+
 - title: software
   page: /software.html
   
-- title: research
+- title: publications
   page: /research.html
 
 - title: blog
