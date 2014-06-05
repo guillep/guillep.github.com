@@ -19,3 +19,7 @@ A programming environment supporting a prototype-based introduction to OOP - IWS
 Tornado: A Run-Fail-Grow approach for Dynamic Application Tayloring - 2014 - [Download]({{site.url}}/files/publications/Poli14-TornadoTailoring-TechReport.pdf)
 
 ###Books, Books Chapters and Others
+
+Pharo For the Enterprise - Keymappings Chapter [Ongoing] - [Sources](https://github.com/SquareBracketAssociates/PharoForTheEnterprise-english/tree/master/KeyMapping) [Html](https://ci.inria.fr/pharo-contribution/job/PharoForTheEnterprise/lastSuccessfulBuild/artifact/KeyMapping/KeyMapping.pier.html) [Pdf](https://ci.inria.fr/pharo-contribution/job/PharoForTheEnterprise/lastSuccessfulBuild/artifact/KeyMapping/KeyMapping.pier.pdf)
+
+Pharo For the Enterprise - TaskIT Chapter [Ongoing] - [Sources](https://github.com/SquareBracketAssociates/PharoForTheEnterprise-english/tree/master/TaskIT) [Html](https://ci.inria.fr/pharo-contribution/job/PharoForTheEnterprise/lastSuccessfulBuild/artifact/TaskIT/TaskIT.pier.html) [Pdf](https://ci.inria.fr/pharo-contribution/job/PharoForTheEnterprise/lastSuccessfulBuild/artifact/TaskIT/TaskIT.pier.pdf)
