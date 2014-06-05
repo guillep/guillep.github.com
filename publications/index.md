@@ -1,8 +1,14 @@
 ---
 layout: page
-title: Home
+title: Publications
 tagline: GuilleP
 ---
 {% include JB/setup %}
 
-#TODO
+###Journal Papers
+
+###Workshop Papers
+
+###Technical Reports
+
+###Books, Books Chapters and Others
