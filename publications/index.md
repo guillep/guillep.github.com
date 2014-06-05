@@ -12,7 +12,6 @@ Bootstrapping Reflective Systems: The Case of Pharo - Science in Computer Progra
 ###Workshop Papers
 
 Virtual Smalltalk Images: Model and Applications - IWST - 2013 - [Download]({{site.url}}/files/publications/Poli13-ObjectSpacesVirtualization-IWST.pdf)
-
 A programming environment supporting a prototype-based introduction to OOP - IWST - 2011 - [Download]({{site.url}}/files/publications/Poli11-Ozono-IWST.pdf)
 
 ###Technical Reports
