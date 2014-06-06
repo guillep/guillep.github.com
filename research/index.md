@@ -1,11 +1,11 @@
 ---
 layout: page
-title : Software
+title : Research
 group: navigation
 ---
 {% include JB/setup %}
 
-###Oz Object Spaces
+###[Oz Object Spaces]({{site.url}}/research/oz/)
 
 This is my main software contribution from my phd. Oz object spaces allow the complete manipulation of an object runtime from another object runtime: debugging, browsing, object graph analysis, etc. My implementation is based on [Pharo](http://www.pharo-project.org) and contains two main elements:
 
@@ -20,7 +20,7 @@ Using Oz, I developed many experimental utilities:
 
 [Details]({{site.url}}/software/oz) - [Downloads]({{site.url}}/software/oz/downloads) - [CI jobs](https://ci.inria.fr/rmod/view/Oz/)
 
-###Hazelnut Bootstrap
+###[Hazelnut Bootstrap]({{site.url}}/research/hazelnut/)
 
 Hazelnut is a project which uses Oz capabilities to bootstrap a reflective object runtime from scratch. This bootstrap takes as input the source code defining the new object runtime plus a builder and outputs an object graph defining the new runtime. The bootstrapped object runtime is aimed so far to run on the Pharo Virtual Machine.
 
@@ -28,21 +28,6 @@ As Hazelnut examples, we bootstrapped three different reflective languages: the 
 
 [Details]({{site.url}}/software/hazelnut) - [Downloads]({{site.url}}/software/hazelnut/downloads) - [CI jobs](https://ci.inria.fr/rmod/view/Oz/)
 
-###Tornado: Ongoing
+###[Tornado]({{site.url}}/research/tornado/)
 
 The tornado project, still unstable and hidden, aims to build tailored object runtimes. These object runtimes will be built for custom scenarios.
-
-
-###DBXTalk
-
-DBXTalk is the relational database suite for the Pharo language. It provides you with database drivers for the mainstream relational database engines, an ORM and some other utilities like polymorphic query a database schema or some scaffolding tools.
-
-[Details & Downloads](http://dbxtalk.smallworks.com.ar) - [CI jobs(work in progress)](https://ci.inria.fr/dbxtalk)
-
-###Ozono
-
-Ozono is simplified development environment built on top of [Pharo](http://www.pharo-project.org) to teach OOP. Its core idea is to focus on the main ideas behind the object paradigm: object, message and polymorphism. As a consequence, other ideas such as the way to organize the behavior of objects (e.g. with classes or traits or mixins) is delayed and treated as a secondary concept.
-
-The current implementation has its UI in spanish. There are some ongoing efforts to provide translations to english and french.
-
-[Details & Downloads](http://sites.google.com/site/objectbrowsertool/)
