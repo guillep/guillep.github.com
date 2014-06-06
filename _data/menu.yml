@@ -1,11 +1,14 @@
 - title: home
   page: /
 
-- title: software
-  page: /software
+- title: Research
+  page: /research
   
 - title: publications
   page: /publications
+
+- title: software
+  page: /software
   
 - title: presentations
   page: /presentations
