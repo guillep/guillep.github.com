@@ -5,7 +5,7 @@ tagline: GuilleP
 ---
 {% include JB/setup %}
 
-I'm a young researcher doing a Phd in computer sciences. I'm doing my Phd under the supported of both the [CAR team](http://car.mines-douai.fr/) of Mines Douai and the [Inria Rmod team](http://rmod.lille.inria.fr).
+I'm a young researcher doing a Phd in computer science. I'm doing my Phd under the supported of both the [CAR team](http://car.mines-douai.fr/) of Mines Douai and the [Inria Rmod team](http://rmod.lille.inria.fr).
 
 ###Research
 
