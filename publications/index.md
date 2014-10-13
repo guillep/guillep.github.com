@@ -11,6 +11,7 @@ Bootstrapping Reflective Systems: The Case of Pharo - SCP 2012 - [Download]({{si
 
 ###Workshop Papers
 
+Understanding Pharo's global state to move programs through time and space - IWST 2014 - [Download]({{site.url}}/files/publications/Poli14b-IWST-GlobalStateClassification.pdf)<br/>
 Virtual Smalltalk Images: Model and Applications - IWST 2013 - [Download]({{site.url}}/files/publications/Poli13-ObjectSpacesVirtualization-IWST.pdf)<br/>
 A programming environment supporting a prototype-based introduction to OOP - IWST 2011 - [Download]({{site.url}}/files/publications/Poli11-Ozono-IWST.pdf)
 
