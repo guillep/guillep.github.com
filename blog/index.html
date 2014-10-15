@@ -6,14 +6,17 @@ group: navigation
 ---
 {% include JB/setup %}
 
-<a href="{{ BASE_PATH }}/blog/categories.html">See posts by Category</a>
-<br/>
 
-{% for post in site.posts %}
-<a href="{{ BASE_PATH }}{{ post.url }}"><h3>{{ post.title }}</h3>
+{% for post in site.posts limit: 5 %}
+<a href="{{ BASE_PATH }}{{ post.url }}"><span>{{ post.date | date: "%d/%m/%y" }}</span><h4>{{ post.title }}</h4></a>
+{% if post.summary %} 
 <paragraph>
-	<span>{{ post.date | date: "%d/%m/%y" }}</span></a> - {{post.summary}}
+{{post.summary}}
+	<br/>
+	<br/>
 </paragraph>
-<br/><br/>
+{% endif %}
 {% endfor %}
 
+Want more? See the historical posts <a href="{{ BASE_PATH }}/blog/categories.html">sorted by category</a>
+<br/><br/>
