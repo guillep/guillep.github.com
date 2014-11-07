@@ -8,7 +8,7 @@ group: navigation
 
 
 {% for post in site.posts limit: 5 %}
-<a href="{{ BASE_PATH }}{{ post.url }}"><span>{{ post.date | date: "%d/%m/%y" }}</span><h4>{{ post.title }}</h4></a>
+<a href="{{ BASE_PATH }}{{ post.url }}"><h4>{{ post.date | date: "%d/%m/%y" }}{{ post.title }}</h4></a>
 {% if post.summary %} 
 <paragraph>
 {{post.summary}}
