@@ -32,6 +32,8 @@ As Hazelnut examples, we bootstrapped three different reflective languages: the 
 
 Tornado is a tool that extracts the used classes from an application to prepare it for deployment. From a set of selected classes and a couple of expressions that run your application, it dinamically selects the elements your application needs at the end. Our extraction algorithm (Run-Fail-Grow) works, in contrast with other extraction techniques, in dinamically-typed languages, and under the use of reflection.
 
+With Tornado, we managed to produce minimal Pharo images of up to 10k, and Seaside images of around 600k. 
+
 [TechReport with Results]({{site.url}}/files/publications/Poli14-TornadoTailoring-TechReport.pdf)
 
 More is coming...
