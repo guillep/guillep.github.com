@@ -18,7 +18,7 @@ Using Oz, I developed many experimental utilities:
 - *Oz development tools* Debugging, browsing and inspecting another object runtime (see [Details]({{page.path}}/details.html) page).
 - *Hazelnut* Bootstrapping a reflective object kernel (see below).
 
-[Details]({{site.url}}/software/oz) - [Downloads]({{site.url}}/software/oz/downloads) - [CI jobs](https://ci.inria.fr/rmod/view/Oz/)
+\[[Details]({{site.url}}/software/oz)\] - \[[Downloads]({{site.url}}/software/oz/downloads)\] - \[[CI jobs](https://ci.inria.fr/rmod/view/Oz/)\]
 
 ###[Hazelnut Bootstrap]({{site.url}}/research/hazelnut/)
 
@@ -26,7 +26,7 @@ Hazelnut is a project which uses Oz capabilities to bootstrap a reflective objec
 
 As Hazelnut examples, we bootstrapped three different reflective languages: the Pharo Kernel, PharoCandle and MetaTalk.
 
-[Details]({{site.url}}/software/hazelnut) - [Downloads]({{site.url}}/software/hazelnut/downloads) - [CI jobs](https://ci.inria.fr/rmod/view/Oz/)
+\[[Details]({{site.url}}/software/hazelnut)\] - \[[Downloads]({{site.url}}/software/hazelnut/downloads)\] - \[[CI jobs](https://ci.inria.fr/rmod/view/Oz/)\]
 
 ###[Tornado]({{site.url}}/research/tornado/)
 
@@ -34,6 +34,6 @@ Tornado is a tool that extracts the used classes from an application to prepare 
 
 With Tornado, we managed to produce minimal Pharo images of up to 10k, and Seaside images of around 600k. 
 
-[TechReport with Results]({{site.url}}/files/publications/Poli14-TornadoTailoring-TechReport.pdf)
+\[[TechReport with Results]({{site.url}}/files/publications/Poli14-TornadoTailoring-TechReport.pdf)\]
 
 More is coming...
