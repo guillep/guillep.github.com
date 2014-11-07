@@ -1,6 +1,6 @@
 ---
 layout: post
-title: What should be a minimal Pharo
+title: Onion Pharo
 categories:
 - Pharo
 tags:
