@@ -30,4 +30,8 @@ As Hazelnut examples, we bootstrapped three different reflective languages: the 
 
 ###[Tornado]({{site.url}}/research/tornado/)
 
-The tornado project, still unstable and hidden, aims to build tailored object runtimes. These object runtimes will be built for custom scenarios.
+Tornado is a tool that extracts the used classes from an application to prepare it for deployment. From a set of selected classes and a couple of expressions that run your application, it dinamically selects the elements your application needs at the end. Our extraction algorithm (Run-Fail-Grow) works, in contrast with other extraction techniques, in dinamically-typed languages, and under the use of reflection.
+
+[TechReport with Results]({{site.url}}/files/publications/Poli14-TornadoTailoring-TechReport.pdf)
+
+More is coming...
