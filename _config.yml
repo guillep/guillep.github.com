@@ -87,7 +87,7 @@ JB :
   comments :
     provider : disqus
     disqus :
-      short_name : guillermopolito
+      short_name : guillep
     livefyre :
       site_id : 123
     intensedebate :
