@@ -67,7 +67,13 @@
 			<div class="body">
 				<div class="contents">
 					<section>
-<h1>DBXTalk</h1>
+<h1>Projects</h1>
+
+<p>
+I participate in many software projects, that are of value from a research point of view, as well as open source communities and companies.
+</p>
+<section>
+<h2>DBXTalk</h2>
 
 <p>
 DBXTalk is the relational database suite for the Pharo language. It provides you with database drivers for the mainstream relational database engines, an ORM and some other utilities like polymorphic query a database schema or some scaffolding tools.
@@ -76,7 +82,7 @@ DBXTalk is the relational database suite for the Pharo language. It provides you
 [Details &amp; Downloads](http://dbxtalk.smallworks.com.ar) - [CI jobs(work in progress)](https://ci.inria.fr/dbxtalk)
 </p>
 </section><section>
-<h1>Ozono</h1>
+<h2>Ozono</h2>
 
 <p>
 Ozono is simplified development environment built on top of [Pharo](http://www.pharo-project.org) to teach OOP. Its core idea is to focus on the main ideas behind the object paradigm: object, message and polymorphism. As a consequence, other ideas such as the way to organize the behavior of objects (e.g. with classes or traits or mixins) is delayed and treated as a secondary concept.
@@ -88,7 +94,7 @@ The current implementation has its UI in spanish. There are some ongoing efforts
 [Details &amp; Downloads](http://sites.google.com/site/objectbrowsertool/)
 </p>
 </section><section>
-<h1>[Oz Object Spaces]({{site.url}}/research/oz/)</h1>
+<h2>Object Spaces</h2>
 
 <p>
 This is my main software contribution from my phd. Oz object spaces allow the complete manipulation of an object runtime from another object runtime: debugging, browsing, object graph analysis, etc. My implementation is based on [Pharo](http://www.pharo-project.org) and contains two main elements:
@@ -110,12 +116,8 @@ Using Oz, I developed many experimental utilities:
 <p>
 [[Details]({{site.url}}/software/oz)] - [[Downloads]({{site.url}}/software/oz/downloads)] - [[CI jobs](https://ci.inria.fr/rmod/view/Oz/)]
 </p>
-<ol><li><ol><li><ol><li>[Hazelnut Bootstrap]({{site.url}}/research/hazelnut/)</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
+</section><section>
+<h2>Hazelnut Bootstrap</h2>
 
 <p>
 Hazelnut is a project which uses Oz capabilities to bootstrap a reflective object runtime from scratch. This bootstrap takes as input the source code defining the new object runtime plus a builder and outputs an object graph defining the new runtime. The bootstrapped object runtime is aimed so far to run on the Pharo Virtual Machine.
@@ -126,12 +128,8 @@ As Hazelnut examples, we bootstrapped three different reflective languages: the 
 <p>
 [[Details]({{site.url}}/software/hazelnut)] - [[Downloads]({{site.url}}/software/hazelnut/downloads)] - [[CI jobs](https://ci.inria.fr/rmod/view/Oz/)]
 </p>
-<ol><li><ol><li><ol><li>[Tornado]({{site.url}}/research/tornado/)</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
+</section><section>
+<h2>Tornado</h2>
 
 <p>
 Tornado is a tool that extracts the used classes from an application to prepare it for deployment. From a set of selected classes and a couple of expressions that run your application, it dinamically selects the elements your application needs at the end. Our extraction algorithm (Run-Fail-Grow) works, in contrast with other extraction techniques, in dinamically-typed languages, and under the use of reflection.
@@ -141,10 +139,7 @@ With Tornado, we managed to produce minimal Pharo images of up to 10k, and Seasi
 </p>
 <p>
 [[TechReport with Results]({{site.url}}/files/publications/Poli14-TornadoTailoring-TechReport.pdf)]
-</p>
-<p>
-More is coming...
-</p></section>
+</p></section></section>
 				</div>
 			</div>
 		</div>
