@@ -1,0 +1,103 @@
+#!/bin/bash
+#<html><head><!--
+# The above line makes a fake HTML document out of this bash script
+
+# stop the script if a single command fails
+set -e
+
+# define an echo that only outputs to stderr
+echoerr() { echo "$@" 1>&2; }
+#  try to use curl if possible
+if [[ `which curl 2> /dev/null` ]]; then
+	DOWNLOAD="curl --silent --location --compressed ";
+	DOWNLOAD_TO="$DOWNLOAD --output ";
+elif [[ `which wget 2> /dev/null` ]]; then
+	DOWNLOAD_TO="wget --quiet --output-document=";
+	DOWNLOAD="$DOWNLOAD_TO-";
+else
+	echo "Please install curl or wget on your machine";
+	exit 1
+fi
+
+
+
+
+# ARGUMENT HANDLING =============================================================
+if { [ "$1" = "-h" ] || [ "$1" = "--help" ]; }; then
+	echo "This script downloads the latest Oz latest Image.
+The following artifacts are created:
+    Oz.changes  A changes file for the Oz Image
+    Oz.image    A Oz image, to be opened with the Pharo VM
+"
+	exit 0;
+elif [ $# -gt 0 ]; then
+	echo "--help is the only argument allowed"
+	exit 1;
+fi
+
+
+# DOWNLOADING THE LATEST OZ latest IMAGE ========================================
+IMAGE_URL="http://guillep.github.io/files/image/Oz-image-latest.zip"
+
+echoerr "Downloading the latest latest Image:"
+echoerr "    $IMAGE_URL"
+
+TMP_DIR=`mktemp -d image.XXXXX`
+$DOWNLOAD_TO$TMP_DIR/image.zip $IMAGE_URL
+
+unzip -q $TMP_DIR/image.zip -d $TMP_DIR
+rm -rf image image.zip
+
+PHARO_IMAGE=`find $TMP_DIR -name \*.image`
+mv "$PHARO_IMAGE" Oz.image
+
+PHARO_CHANGES=`find $TMP_DIR -name \*.changes`
+mv "$PHARO_CHANGES" Oz.changes;
+
+rm -r $TMP_DIR >> /dev/null
+
+echo Oz.image
+
+
+# HTML HELP =====================================================================
+HTML_HELP=<<HTML_HELP 
+-->
+<title>Oz Zeroconf Script</title>
+<style>
+	BODY, TABLE { 
+		font-family: Arial;
+		line-height: 1.5em;
+	}
+	BODY { 
+		background-color: white;
+		margin-top: -1.5em;
+	}
+	TD { 
+		vertical-align: top;
+		padding: 0 1ex 0 0;
+	}
+	PRE, CODE { 
+		background-color: #EEE;
+		padding: 0.5ex 0.8ex;
+		border-radius: 0.5ex;
+	}
+	A { 
+		color: black;
+	}
+	</style>
+<body>
+<h1>Oz Zeroconf Script</h1>
+<p>This script downloads the latest Oz latest Image.</p>
+<h2>Usage</h2>
+<code>curl <a href="http://guillep.github.io/files/get/Ozlatest">guillep.github.io/files/get/Ozlatest</a> | bash </code>
+<br/>
+or if <code>curl</code> is not available: </br>
+<code>wget -O- <a href="http://guillep.github.io/files/get/Ozlatest">guillep.github.io/files/get/Ozlatest</a> | bash </code>
+
+<h2>Artifacts</h2>
+<table><tr><td>Oz.changes</td><td>A changes file for the Oz Image</td></tr>
+<tr><td>Oz.image</td><td>A Oz image, to be opened with the Pharo VM</td></tr></table>
+
+<!--
+HTML_HELP
+# --!></body></html>
