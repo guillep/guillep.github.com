@@ -1,0 +1,18 @@
+connection newQuery
+	insertInto: 'CATS';
+	at: 'name' put: 'lutz';
+	at: 'owner' put: 'julien';
+	build.
+	
+
+connection newQuery
+	selectFrom: 'CATS';
+	where: [ :cat | cat name = 'lutz' ]
+	build.
+	
+- select
+   - where
+   - columns
+   - table(s)
+   - limit
+   - offset

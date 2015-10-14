@@ -1,0 +1,225 @@
+---
+layout: post
+title: Bootstrap revival - the basics
+categories:
+- Pharo
+- Smalltalk
+tags:
+- Bootstrap
+- dynamic languages
+- internal implementation
+- languages
+- object spaces
+status: publish
+type: post
+published: true
+meta:
+  _wpas_mess: Bootstrap revival - the basics http://wp.me/p2tOYl-3k
+  _elasticsearch_indexed_on: '2013-05-06 14:41:55'
+  geo_public: '0'
+  _wpas_skip_3194664: '1'
+  _wpas_skip_1260342: '1'
+  _wpas_skip_1260340: '1'
+---
+In the last time I was working on the system bootstrap again, trying to enhance the process, lower the imposed limitations... And I have a pretty new version. I'll present here a summary of what I've learnt in the last time:
+<ul>
+	<li>A review on the process steps, with exemplar code snippets</li>
+	<li>Some of the new key ideas and new infrastructure</li>
+	<li>And improvements over the last version :)</li>
+</ul>
+
+<h2>What are we going to bootstrap</h2>
+For the sake of simplicity, we will not bootstrap a full Pharo (because that would include preparing for example Morphic to be bootstrapped, or to be loaded/unloaded). Instead, we will bootstrap an adapted version of MicroSqueak from John Maloney, which we re-baptized as <a href="https://github.com/guillep/PharoCandle/tree/master/source/">Pharo Candle</a>. Pharo Candle has only 50 classes, as you can see in the Github repo, and limited features. All classes from Pharo Candle has a PC prefix, which is not important for the bootstrap, since it will not let be name collisions.
+
+To understand the rest of the post, the following is important: we will take a textual and static definition of the system (methods, classes...), and load it into our image. For that we will parse the files and include them as definition objects. These definition objects will ease the access to the data needed instead of accessing lots of lookup and symbol tables and stuff in a procedural way...
+
+<h2>Some infrastructure basics</h2>
+The last bootstrap implementation was very coupled to Pharo and its internal implementation. To create objects, to initialize classes, we relied on the existing system, on sending messages, on the VirtualMachine interpreter and infrastructure. So the first step for this new version was to decouple that. Decoupling the existing system from the new system that is about to be created. To do that we encapsulate the state of the new system inside an object, which we call an <strong>object space</strong>.
+
+An object space reifies the new system. It is an object that understand messages such as "create an object", "translate this string to a string of the new system", "register this object as a class in yourself" or even "execute this piece of code". This object space lets us structure the creation of the new system in a more comfortable way.
+
+Our next concern, is not installing objects from the existing system into the new system. We want the new system to be transitively closed. So, the best is not to have direct references from the existing system to the new one. The best is to control those references carefully. Then, every time an object space gives you a reference to one of his objects, he really gives you a proxy. That proxy allows you to manipulate, at some level, the object inside the object space. A proxy can give and revoke permissions on the inner object, and make transformations or validations when necessary to keep the model consistent. Since these proxys may perform meta-operations on the new system objects, we end up calling them mirrors at some point.
+
+Finally there are <a title="The Bootstrap Chronicles Chapter 2 – Do not mess with the VM" href="http://playingwithobjects.wordpress.com/2012/06/11/the-bootstrap-chronicles-chapter-2-do-not-mess-with-the-vm/">VirtualMachine limitations</a> when executing code on the new space. We introduced a new piece in the puzzle to overcome them: our own language-level interpreter. In this particular case, we are using an AST interpreter, but we could, if available, use any other kind of interpreter. The important thing about using our own interpreter is controlling the semantics of the new system, and leverage the VM's limitations.
+<h2>Where do we start?</h2>
+When the bootstrap starts, there is nothing. There are no objects, no structures, nothing. So we have to build everything from the start. And the question is... where do we start?
+
+Our system is composed by objects, and thus, we need to create objects. And every new object may have pointers, which are initially pointing to <strong>nil</strong>. But what if there is no <strong>nil</strong> in our system? So, let's build a first <strong>nil</strong>, so all objects created later can point to this <strong>nil</strong> object.
+<h2>Creating the first object</h2>
+As we decided before, we create our first <strong>nil</strong> object. However, there is a question that arises when we try to create nil. How can we create an object without a class? The answer is, so far, that until we have classes we will create objects without classes. We will not care about their classes and we will solve that later, once classes are created. Fortunately, this problem is present with very few objects.
+
+[sourcecode language="ruby"]
+theNil := objectSpace 
+    createObjectWithFormat: undefinedObjectDefinition nilFormat.
+[/sourcecode]
+
+Since we have no class to create nil, we have to specify the format of this object. That is, the amount of memory to be allocated for it, the amount of slots, and if they are pointers or bytes or what. The format is known by the definition of undefined object. 
+
+Fortunately, nil has no pointers to other objects, except for his class, simplifying the process. We will set nil's class once we create it later.
+<h2>We create the classes</h2>
+Creating a class is a complex operation. A class has a metaclass. And it has a name which is a symbol (unique in the system). And it has a superclass, which may have not been created yet. And it has a dictionary of class variables. And... a lot of stuff.
+
+Our objective is to keep this bootstrap the simplest. And for that, we will delay all the complex operations to the moment when they are not so complex. In this step we create empty classes. We only initialize their format with a SmallInteger, and we let the rest of their pointers pointing to nil.
+
+The first step for creating a class, is to create its metaclass. And to create a metaclass, we need the class Metaclass. This Metaclass, in a ST-80 like model, follows the Metaclass&lt;-&gt;Metaclass class loop. <span style="line-height:1.714285714;font-size:1rem;">That is, Metaclass is an instance of Metaclass class, and Metaclass class is an instance of Metaclass, as shown in blue in the following figure.</span>
+
+<a href="http://playingwithobjects.files.wordpress.com/2013/05/smalltalkmetaclasses.png"><img class="alignright size-large wp-image-236" alt="SmalltalkMetaclasses" src="http://playingwithobjects.files.wordpress.com/2013/05/smalltalkmetaclasses.png?w=625" width="625" height="447" /></a>We create the first Metaclass and Metaclass class as objects without class, and then we make each one an instance of the other.
+
+[sourcecode language="ruby"]
+metaclassMirror := objectSpace
+    createClassWithFormat: classFormat
+    forInstancesOfFormat: metaclassFormat.
+metaclassClassMirror := objectSpace
+    createClassWithFormat: metaclassFormat
+    forInstancesOfFormat: classFormat.
+
+metaclassMirror 		setClass: metaclassClassMirror.
+metaclassClassMirror 	setClass: metaclassMirror.
+[/sourcecode]
+
+Once we have the first metaclass, we can create all the classes.
+
+[sourcecode language="ruby"]
+self behaviorDefinitions do: [ :aClassDefinition |
+	| newClass newClassMetaclassMirror theMetaclassMirror |
+	theMetaclassMirror := objectSpace classNamed: #PCMetaclass.
+	newMetaclassMirror := theMetaclassMirror basicNew asClassMirror.
+	newMetaclassMirror format: aClassDefinition classSide format.
+
+	newClass := newClassMetaclassMirror basicNew asClassMirror.
+	newClass format: aClassDefinition format.
+	]
+]
+[/sourcecode]
+
+At this point, the classes only have set their format, and their class. All other slots have pointers to the nil object we created at the beginning.
+<h2>Fix nil, create true and false!</h2>
+Now we created all the classes, even if they are empty, we can fix the "classless" <strong>nil</strong> and create our <strong>true</strong> and <strong>false</strong> objects.
+
+[sourcecode language="ruby"]
+theNil setClass: (objectSpace classNamed: #PCUndefinedObject).
+theTrue := (objectSpace classNamed: #PCTrue) basicNew.
+theFalse := (objectSpace classNamed: #PCFalse) basicNew.
+[/sourcecode]
+<h2>Initialize the classes state</h2>
+Now we have all classes created, and the three basic objects we need (nil, true and false). So now we can start initializing all our classes. This initialization consists for each class in:
+<ul>
+	<li>Set the superclass of the class. The root of the hierarchy should be nil.</li>
+[sourcecode language="ruby"]
+classDefinition superclass isEndOfHierarchy ifFalse: [
+    superclassMirror := objectSpace
+        classNamed: classDefinition superclass name.
+] ifTrue: [
+    superclassMirror := objectSpace nilObject.
+].
+classMirror superclass:superclassMirror.
+[/sourcecode]
+	<li>Set the class name</li>
+[sourcecode language="ruby"]
+classMirror className: classDefinition name.
+[/sourcecode]
+	<li>Set the collection of instance variables of the class</li>
+[sourcecode language="ruby"]
+classMirror instanceVariables: classDefinition instanceVariables.
+[/sourcecode]
+	<li>Set the superclass of the metaclass. The root of the hierarchy should be PCClass.</li>
+[sourcecode language="ruby"]
+metaclassMirror := classMirror classSide.
+classDefinition superclass isEndOfHierarchy ifFalse: [
+    metaclassMirror superclass: superclassMirror classSide.
+] ifTrue: [
+    metaclassMirror superclass: (objectSpace classNamed: #PCClass).
+].
+[/sourcecode]
+	<li>Set the instance side relationship of the metaclass</li>
+[sourcecode language="ruby"]
+metaclassMirror := classMirror classSide.
+metaclassMirror
+    instanceSideClass: classMirror.
+[/sourcecode]
+	<li>Set the collection of instance variables of the metaclass</li>
+[sourcecode language="ruby"]
+metaclassMirror := classMirror classSide.
+metaclassMirror
+    instanceVariables: classDefinition classSide instanceVariables.
+[/sourcecode]
+</ul>
+
+
+After this initial initialization is performed for every class, we finish by initializing the class variables. Class variables are represented by a Dictionary object. A dictionary object is an object with a complex structure, and the way to manipulate it depends on the nature of the system we are bootstrapping. The solution, so far, is to delegate the initialization of the dictionary to the dictionary itself. 
+
+For that we use a combination of the code of the dictionary and an AST interpreter. An AST interpreter needs to be initialized before its usage so later, all class variables can be initialized. As you can see in the code below, the AST interpreter usage is hidden inside the mirror implementation :).
+
+[sourcecode language="ruby"]
+objectSpace initializeInterpreterForCodeProvider: self kernelSpec.
+self behaviorDefinitions do: [ :classDefinition |
+    | classMirror |
+    classMirror := objectSpace
+        classNamed: classDefinition name.
+    classMirror
+        classVariables: classDefinition classVariables.
+].
+[/sourcecode]
+
+<h2>Install methods</h2>
+Now we have all classes of the new system created and initialized. We can start installing all their methods. Before, we should declare all global variables of the system, so the compiler knows how to bind them correctly. After that, we take the source code of all methods from the system description and compile them. The compilation gives us as result the bytecode of the method + the literals. This method is then translated to a method in the new world, and installed into the new system.
+
+The globals initialization looks like:
+
+[sourcecode language="ruby"]
+objectSpace environment
+            addGlobal: #Processor
+            pointingTo: objectSpace nilObject.
+[/sourcecode]
+
+Then, for each class, we have the following code to create and install the methods:
+
+[sourcecode language="ruby"]
+&quot;build the methods as instances of this system&quot;
+newMethods := aMethodBuilder
+    methodsForBehavior: mirror
+    fromDefinition: aBehaviorDefinition.
+
+&quot;create a method dictionary of the new system&quot;
+newMethodDict := objectSpace createMethodDictionary: newMethods size.
+newMethods do: [ :m |
+    &quot;install a method from this system to the other&quot;
+    &quot;the translation to a method to the other side is made inside&quot;
+    newMethodDict installMethod: m
+].
+&quot;we set the method dictionary to our class&quot;
+mirror methodDictionary: newMethodDict.
+[/sourcecode]
+<h2>Initialize the system state</h2>
+Finally, we initialize the system state, with the aid of the AST interpreter. This last step consists mainly in:
+<ul>
+	<li>execute the initialize class side methods</li>
+	<li>set up the process scheduler of the system and install its processes</li>
+</ul>
+[sourcecode language="ruby"]
+objectSpace interpreter evaluateCode: 'PCCharacter initialize'.
+objectSpace interpreter evaluateCode: 'PCString initialize'.
+objectSpace interpreter evaluateCode: 'PCFloat initialize'.
+
+objectSpace interpreter evaluateCode: '
+    Processor := PCProcessorScheduler basicNew.
+    Processor initProcessLists.'.
+
+process := objectSpace
+        createProcessWithPriority: 3
+        doing: 'PCSystem start'.
+objectSpace installAsActiveProcess: process.
+[/sourcecode]
+
+<h2>Conclusion</h2>
+Bootstrap: achieved.
+
+With our new pieces into the game, we were able to overcome the virtual machine limitations, and have a in-image full bootstrap. The next steps go in the way to:
+<ul>
+  <li>serialize this object graph into an image file, so it becomes autonomous</li>
+  <li>test the bootstrapped system while still living along with the original system, without serializing it. I mean, run it into the same VM without AST interpreter.</li>
+</ul>
+
+I hope I explained myself well.
+Arrivederci!!
+Guille
