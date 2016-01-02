@@ -4,22 +4,22 @@ I participate in many software projects, that are of value from a research point
 
 !!DBXTalk
 
-DBXTalk is the relational database suite for the Pharo language. It provides you with database drivers for the mainstream relational database engines, an ORM and some other utilities like polymorphic query a database schema or some scaffolding tools.
+*DBXTalk>https://guillep.github.io/DBXTalk/* is the relational database suite for the Pharo language. It provides you with database drivers for the mainstream relational database engines, an ORM and some other utilities like polymorphic query a database schema or some scaffolding tools.
 
 !!Ozono
 
-Ozono is simplified development environment built on top of [Pharo](http://www.pharo-project.org) to teach OOP. Its core idea is to focus on the main ideas behind the object paradigm: object, message and polymorphism. As a consequence, other ideas such as the way to organize the behavior of objects (e.g. with classes or traits or mixins) is delayed and treated as a secondary concept.
+Ozono is simplified development environment built on top of *Pharo>http://www.pharo-project.org* to teach OOP. Its core idea is to focus on the main ideas behind the object paradigm: object, message and polymorphism. As a consequence, other ideas such as the way to organize the behavior of objects (e.g. with classes or traits or mixins) is delayed and treated as a secondary concept.
 
 The current implementation has its UI in spanish. There are some ongoing efforts to provide translations to english and french.
 
 !!Espell Object Spaces
 
-This is my main software contribution from my phd. Oz object spaces allow the complete manipulation of an object runtime from another object runtime: debugging, browsing, object graph analysis, etc. My implementation is based on [Pharo](http://www.pharo-project.org) and contains two main elements:
+*Espell>http://www.smalltalkhub.com/#!/~Guille/ObjectSpace* is the main software contribution from my phd. Espell object spaces allow the complete manipulation of an object runtime from another object runtime: debugging, browsing, object graph analysis, etc. My implementation is based on *Pharo>http://www.pharo-project.org* and contains two main elements:
 
 - ""Oz Virtual Machine"". is a Pharo Stack virtual machine with support for handling several worlds at the same time.
-- ""Oz Language side Packages"". are the packages that at the language level allow the manipulation of other object runtimes.
+- ""Espell Language side Packages"". are the packages that at the language level allow the manipulation of other object runtimes.
 
-Using Oz, I developed many experimental utilities:
+Using Espell, I developed many experimental utilities:
 
 - ""Oz recovery tools"". The Oz image loader and Oz emergency kernel help in the recovery of a broken or unstable Pharo image.
 - ""Oz development tools"". Debugging, browsing and inspecting another object runtime.
