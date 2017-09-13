@@ -1,15 +1,17 @@
 language: c
-
 addons:
   apt:
     packages:
-      - libasound2:i386
-      - lib32z1
-      - lib32bz2-1.0
-      - libssl1.0.0:i386
-      - libfreetype6:i386
+    - libasound2:i386
+    - lib32z1
+    - lib32bz2-1.0
+    - libssl1.0.0:i386
+    - libfreetype6:i386
 
-secure: "J7bsq+ZAGx3fal26DDz7abA4d/Lbn62ueHKMbvuBHJRSJzq/4bcKJtMQpbGwtxeQwSKxmJNmLCulofEVfXUli46HkuxvpV6RIctZZ8mvOlxfQSA392zPh3IW9ztz1jCZSxtdDvXyo8b/+OH3e5uLh0fRWCSk2wLUu2ak6xyl1yhi+C08GNF5sf1UzQxCjsF+7TLfnovWNhDKu2tMu4TMjggu9dUNeL5Wwejf+0NR4ePPT4jDtJYCZLsv5NCAErIuDj2UPaxuRLi7oThN+W/R/l3kVK8zg2gislKEbNd8e90PQHKjysdkccvGwaj1oeue8PJfbfCUuncT8kEEfMyxSosOyqeRRvSb1NBlpZfu5DFWgclRULWkDww5E1NO19zcFjhXvaD3v2oXiOJNn5Fu2ejQ9uMacusUyZb2ZynRZ/ODQ2/qkf6+BcwVgoWFB0hDXUd5XnIn1fVd1HE4QnpHhZv453O3shaZ6e6Bp/sJq2wkoobFxS1DOngHwKEf/V6DMNpXiZ8twREUdkyOGt3g/XPQuRDvMsV3wzwoVgKUqJX1yxmoQHD9jbT+I98XwR2iFKoC47Xhwewxl3oqsBUfi2KNG/gjhH9opHG5hblB5BUrFdkvXcQR7KK7pp3qHVZZ1qliq/dqUTkL5XL8oc8tEOtKshhI7CkfzKBdceQuY2M="
 
 script:
-    - if [[ ${TRAVIS_BRANCH} == "source" ]]; then make deploy; fi
+- if [[ ${TRAVIS_BRANCH} == "source" ]]; then make deploy; fi
+
+env:
+  global:
+    secure: i5fkTwWAltTEmXLiOkBMgfk7O38kCiIEAWXDhW2yWhPdzpN1mm9PQ56sohKUumhgSAotx78gO8vwHOvjZ5d/qd6Xy5jbtrGd23CCDdF1XxtcWZeVVVP9o0mdqkFzeLwi6Qt0KdvoEkGdXuBebc97tyVtDnmcKC5z9HyR7TvWam5OLrCcN7iFepDjrPpiTyo3z7hjRArwZ6C1lZ4QxwnacRx4yEG43MdX1WSRwZ1StRumxGqyKvZwBWubrswRzrhGFJcEuJTaoO51fnCNhIR2I5TDAx/ee6o3LeCbT6eYtQllQScCC6TuPXKlf8daI3yYi/RzXBWdrZChiLCBAj1uygQq0sLWshY4km0rSXI5bKIuijBg3eAAZnEtv1WHsKs09tqzo8RBu4q7yWTaZSkv5/ZWc3R6fG1/4wvdTQrhMcnmmGD9K3eWD0RoddRJEiGXxD/39SzrtZlv22M6oLBw89gvi+dcLJ11iTM1r8e5ue8aXBpapPX9eeJvtkdr5bU0ZJJG91JPGD61FaQAkORQfe0gz2Zl3/AwIh6NI9vgbjoL8bY25/sXMH36Uq5XlJdFNRBgen/phUDaSBrFnt5Qhl2At45uwnA8X7lOeHCgWbMQh9QDkDrDGEd4vEVpIIlg6A7ppjXQGI/BGbwFoAErVfmFnG7fY8PmQTa7FjsalIM=
