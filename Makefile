@@ -15,8 +15,8 @@ clonedeploy:
 deploy: generate
 	cd _site && git init
 	cd _site && git add .
-	cd _site && git commit -m "Generated from source branch: `git log -1 --oneline`"
-	cd _site && git remote add origin `cd .. && git config --get remote.origin.url`
+	cd _site && git commit -m "Generated from source branch: `cd .. && git log -1 --oneline`"
+	cd _site && git remote add origin `https://${GH_TOKEN}@github.com/guillep/guillep.github.com.git`
 	cd _site && git push -f origin master
 
 clean:
