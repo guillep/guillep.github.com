@@ -2,17 +2,18 @@
 
 !! Theses
 
-# Guillermo Polito. Virtualization Support for Application Runtime Virtualization and Extension. Phd Thesis 2015. Co-delivrée par l'Université de Lille et l'École des Mines de Douai. Defended 13/04/2015 {{{html: <a href="files/publications/Poli15Thesis.pdf"><img src="images/pdf_download.png" /></a>}}}
+# G. Polito. Virtualization Support for Application Runtime Virtualization and Extension. Phd Thesis 2015. Co-delivrée par l'Université de Lille et l'École des Mines de Douai. Defended 13/04/2015 {{{html: <a href="files/publications/Poli15Thesis.pdf"><img src="images/pdf_download.png" /></a>}}}
 
 !!Journal Papers
 
-# Guillermo Polito, Stéphane Ducasse, Luc Fabresse and Noury Bouraqadi. Run-Fail-Grow: Producing Minimal and Specialized Runtimes. [[''Submitted to Journal of Object Technology'']]
-# Guillermo Polito, Stéphane Ducasse, Luc Fabresse, Noury Bouraqadi and Benjamin Van Ryseghem. Bootstrapping Reflective Systems: The Case of Pharo, Science of Computer Programming Journal on Science of Computer Programming, Volume 96, Part 1, Pages 1-174, 2014. Impact factor: 1.672 (SNIP 2014) - 0.796 (SJR 2014) {{{html: <a href="files/publications/Poli12-BootstrappingSmalltalk-SCP.pdf"><img src="images/pdf_download.png" /></a>}}}
+# G. Polito, C. Teruel, S. Ducasse, L. Fabresse, “Scoped Extension Methods in Dynamically-Typed Languages”, The Art, Science, and Engineering of Programming, 2018, Vol. 2, Issue 1, Article 1, {{{html: <a href="https://doi.org/10.22152/programming-journal.org/2018/2/1">doi:10.22152/programming-journal.org/2018/2/1</a>}}} {{{html: <a href="https://arxiv.org/pdf/1708.01679v1"><img src="images/pdf_download.png" /></a>}}}
+# G. Polito, L. Fabresse, N. Bouraqadi, S. Ducasse, “Run-Fail-Grow: Creating Tailored Object-Oriented Runtimes”, Journal of Object Technology, Volume 16, no. 3 (June 2017), pp. 2:1-36, {{{html: <a href="http://dx.doi.org/10.5381/jot.2017.16.3.a2">doi:10.5381/jot.2017.16.3.a2</a>}}} {{{html: <a href="http://www.jot.fm/issues/issue_2017_03/article2.pdf"><img src="images/pdf_download.png" /></a>}}}
+# G. Polito, Stéphane Ducasse, Luc Fabresse, Noury Bouraqadi and Benjamin Van Ryseghem, “Bootstrapping Reflective Systems: The Case of Pharo”, Science of Computer Programming Journal on Science of Computer Programming, Volume 96, Part 1, Pages 1-174, 2014. Impact factor: 1.672 (SNIP 2014) - 0.796 (SJR 2014) {{{html: <a href="files/publications/Poli12-BootstrappingSmalltalk-SCP.pdf"><img src="images/pdf_download.png" /></a>}}}
 
 !!Conference Papers
 
-# Guillermo Polito, Stéphane Ducasse, Noury Bouraqadi, Luc Fabresse. A Bootstrapping Infrastructure to Build and Extend Pharo-like Languages. ''[Accepted]'' Onward! 2015, Sun 25 - Fri 30 October 2015 Pittsburgh, Pennsylvania, United States {{{html: <a href="files/publications/Poli15a-bootstrapping-onwards.pdf"><img src="images/pdf_download.png" /></a>}}}
-# Guillermo Polito, Stéphane Ducasse, Noury Bouraqadi, Luc Fabresse, Max Mattone. Virtualization Support for Dynamic Core Library Update. ''[Accepted]'' Onward! 2015, Sun 25 - Fri 30 October 2015 Pittsburgh, Pennsylvania, United States {{{html: <a href="files/publications/Poli15b-hotupdates-onwards.pdf"><img src="images/pdf_download.png" /></a>}}}
+# G. Polito, S. Ducasse, N. Bouraqadi, L. Fabresse, “A Bootstrapping Infrastructure to Build and Extend Pharo-like Languages”, Onward! 2015, Sun 25 - Fri 30 October 2015 Pittsburgh, Pennsylvania, United States {{{html: <a href="files/publications/Poli15a-bootstrapping-onwards.pdf"><img src="images/pdf_download.png" /></a>}}}
+# G. Polito, S. Ducasse, N. Bouraqadi, L. Fabresse, M. Mattone. “Virtualization Support for Dynamic Core Library Update”, Onward! 2015, Sun 25 - Fri 30 October 2015 Pittsburgh, Pennsylvania, United States {{{html: <a href="files/publications/Poli15b-hotupdates-onwards.pdf"><img src="images/pdf_download.png" /></a>}}}
 
 !!Workshop Papers
 
