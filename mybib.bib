@@ -247,7 +247,7 @@ We present Oz, our virtual image solution. In Oz, a virtual image is represented
 @techreport{Poli14a,
   author = {Polito, Guillermo and Ducasse, St\'ephane and Bouraqadi, Noury and Fabresse, Luc},
   title = {{Extended results of Tornado: A Run-Fail-Grow approach for Dynamic Application Tayloring}},
-  year = {2011},
+  year = {2014},
   pdf = {http://rmod-files.lille.inria.fr/Team/Texts/Papers//Poli14-TechReport-Tornado-INRIA.pdf},
   abstract = {Producing a small deployment version of an application is a challenge because static abstractions such as packages cannot anticipate the use of their parts. As such, an application often occupies more memory than actually needed. To solve this problem we propose Tornado, a technique to dynamically tailor applications to only embed code (classes and methods) they use. Tornado uses a run-fail-grow approach to prepare an application for deployment. It launches minimal version of an application and installs a minimal set of statements that will start the user's application. This application is run and these statements are executed. When the application fails because there are classes or methods missing, the necessary code is installed. The application is executed until it reaches a stable point, allowing possibly human interaction for applications with UIs. Thus, Tornado creates minimal memory footprint versions of applications by tailoring the whole application's code, including run-time and third party libraries. We used Tornado to tailor two different applications. We succeeded to tailor a hello world application to occupy 1% of its original size. We also experimented with a Seaside web application tailoring in one case only the application's and framework's code and the whole application's code in the other case. In this latter example, we reached memory savings of about 97%. In this report we present an overview on Tornado, and we give details of the results we obtained.},
   annote = {technicalreport},
@@ -474,4 +474,78 @@ In this paper, we present a novel bootstrapping infrastructure for Pharo-like la
   title = {A programming environment supporting a prototype-based introduction to OOP.},
   url = {http://dblp.uni-trier.de/db/conf/iwst/iwst2011.html#GriggioLPDP11},
   year = 2011
+}
+
+
+
+@article{Teso20a,
+  author = {Pablo Tesone and Guillermo Polito and Luc Fabresse and Noury Bouraqadi and St\'ephane Ducasse},
+  title = {Preserving Instance State during Refactorings in Live Environments},
+  journal = {Future Generation Computer Systems},
+  publisher = {Elsevier},
+  volume  = {110},
+  doi = {10.1016/j.future.2020.04.010},
+  pages = {1-17},
+  year = {2020},
+  annote = {internationaljournal},
+  hal-pdf = {https://hal.archives-ouvertes.fr/hal-02541754/file/main.pdf},
+  pdf = {http://rmod-files.lille.inria.fr/Team/Texts/Papers/Teso20a-FutureGeneration-PreservingInstance.pdf},
+  keywords = {pharo lse-pub kzLanguageDesign}}
+  
+@inproceedings{DBLP:conf/dls/MarraPB20,
+  author    = {Matteo Marra and
+               Guillermo Polito and
+               Elisa Gonzalez Boix},
+  editor    = {Matthew Flat},
+  title     = {Framework-aware debugging with stack tailoring},
+  booktitle = {{DLS} 2020: Proceedings of the 16th {ACM} {SIGPLAN} International
+               Symposium on Dynamic Languages, Virtual Event, USA, November 17, 2020},
+  pages     = {71--84},
+  publisher = {{ACM}},
+  year      = {2020},
+  url       = {https://doi.org/10.1145/3426422.3426982},
+  doi       = {10.1145/3426422.3426982},
+  timestamp = {Mon, 01 Mar 2021 12:01:06 +0100},
+  biburl    = {https://dblp.org/rec/conf/dls/MarraPB20.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+
+@article{Gaut19a,
+  author  = {Guillaume Gautier and Guillermo Polito and R{{\'e}}mi Bardenet and Michal Valko},
+  title   = {DPPy: DPP Sampling with Python},
+  journal = {Journal of Machine Learning Research},
+  year    = {2019},
+  volume  = {20},
+  number  = {180},
+  pages   = {1-7},
+  url     = {http://jmlr.org/papers/v20/19-179.html}
+}
+
+@article{Marr20a,
+title = {A debugging approach for live Big Data applications},
+journal = {Science of Computer Programming},
+volume = {194},
+pages = {102460},
+year = {2020},
+issn = {0167-6423},
+doi = {https://doi.org/10.1016/j.scico.2020.102460},
+url = {https://www.sciencedirect.com/science/article/pii/S0167642320300708},
+author = {Matteo Marra and Guillermo Polito and Elisa {Gonzalez Boix}},
+keywords = {Online debugging, Big Data, Map/reduce, Live programming},
+abstract = {Many frameworks exist for programmers to develop and deploy Big Data applications such as Hadoop Map/Reduce and Apache Spark. However, very little debugging support is currently provided in those frameworks. When an error occurs, developers are lost in trying to understand what has happened from the information provided in log files. Recently, new solutions allow developers to record & replay the application execution, but replaying is not always affordable when hours of computation need to be re-executed. In this paper, we present an online approach that allows developers to debug Big Data applications in isolation by moving the debugging session to an external process when a halting point is reached. We introduce IDRAMR, our prototype implementation in Pharo. IDRAMR centralizes the debugging of parallel applications by introducing novel debugging concepts, such as composite debugging events, and the ability to dynamically update both the code of the debugged application and the same configuration of the running framework. We validate our approach by debugging both application and configuration failures for two driving scenarios. The scenarios are implemented and executed using Port, our Map/Reduce framework for Pharo, also introduced in this paper.}
+}
+
+@techreport{boulet:hal-01432133,
+  TITLE = {{N2S3, an Open-Source Scalable Spiking Neuromorphic Hardware Simulator}},
+  AUTHOR = {Boulet, Pierre and Devienne, Philippe and Falez, Pierre and Polito, Guillermo and Shahsavari, Mahyar and Tirilly, Pierre},
+  URL = {https://hal.archives-ouvertes.fr/hal-01432133},
+  TYPE = {Research Report},
+  INSTITUTION = {{Universit{\'e} de Lille 1, Sciences et Technologies ; CRIStAL UMR 9189}},
+  YEAR = {2017},
+  MONTH = Jan,
+  KEYWORDS = { simulation ;  neuromorphic architecture ;  SNN ; SPiking neural networks},
+  PDF = {https://hal.archives-ouvertes.fr/hal-01432133v1/file/n2s3.pdf},
+  HAL_ID = {hal-01432133},
+  HAL_VERSION = {v1},
 }
