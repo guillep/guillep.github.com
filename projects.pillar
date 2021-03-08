@@ -1,27 +1,33 @@
 !Projects
 
-I participate in many software projects, that are of value from a research point of view, as well as open source communities and companies.
+I participate in many open source software projects.
 
-!!DBXTalk
+It is important as a researcher in programming languages to have engineering skills to be able to produce \textbf{competitive research}. In this sense, I adopted Pharo as one of my main research targets and sources of inspirations for research problems.
+I am part of the decision board of the Pharo platform, and I work in close contact with the Pharo Industrial Consortium, made of of 28 industrial members (Thales, Lifeware, Lamrc...) and 24 academic members that support Pharo either with their usage or even financially.
+Pharo has been recognized by Inria as one of its *top 10 star softwares>https://www.inria.fr/fr/dix-logiciels-stars-dinria*, and as an academic platform *by the CRIStAL laboratory>https://www.cristal.univ-lille.fr/?page=plateforme&id=3&lang=fr* and the *University of Lille>https://www.univ-lille.fr/recherche/plateformes-grands-equipements-ressources/plateformes/*. Moreover, it has been remarked as one of the __excellent impact factors__ of the RMoD team in the *2019 HCERES report>https://hal-hceres.archives-ouvertes.fr/hceres-02032660/document*.
 
-*DBXTalk>https://guillep.github.io/DBXTalk/* is the relational database suite for the Pharo language. It provides you with database drivers for the mainstream relational database engines, an ORM and some other utilities like polymorphic query a database schema or some scaffolding tools.
+!! Pharo
 
-!!Ozono
+I am one of the main contributors of the Pharo community both in its standard libraries and Virtual Machine.
+I work on a large range of topics such as file management, foreign function interfaces, graphics and refactorings.
+I contributed to Pharo the so called _Pharo bootstrap_, result of my PhD thesis, that is used since 2016 to generate and deploy Pharo images in a reproducible way.
 
-Ozono is simplified development environment built on top of *Pharo>http://www.pharo-project.org* to teach OOP. Its core idea is to focus on the main ideas behind the object paradigm: object, message and polymorphism. As a consequence, other ideas such as the way to organize the behavior of objects (e.g. with classes or traits or mixins) is delayed and treated as a secondary concept.
+- *https://pharo.org/*
+- *https://github.com/pharo-project/pharo*
+- *https://github.com/pharo-project/opensmalltalk-vm*
 
-The current implementation has its UI in spanish. There are some ongoing efforts to provide translations to english and french.
+!! Iceberg
 
-!!Espell Object Spaces
+I am one of the main contributors of Iceberg, the main toolset for handling VCS in Pharo.
+Iceberg provides Git integration for Pharo, more concretely to perform checkout, commit, merge operations and other common operations on git repositories. Iceberg also provides plugins for smooth and fast integration with common actions in the workflow of contributors, such as creating a branch based on a GitHub issue numbers.
 
-*Espell>http://www.smalltalkhub.com/#!/~Guille/ObjectSpace* is the main software contribution from my phd. Espell object spaces allow the complete manipulation of an object runtime from another object runtime: debugging, browsing, object graph analysis, etc. My implementation is based on *Pharo>http://www.pharo-project.org* and contains two main elements:
+- *https://github.com/pharo-vcs/iceberg/*
 
-- ""Oz Virtual Machine"". is a Pharo Stack virtual machine with support for handling several worlds at the same time.
-- ""Espell Language side Packages"". are the packages that at the language level allow the manipulation of other object runtimes.
+!! Pillar
 
-Using Espell, I developed many experimental utilities:
+Pillar is a markup syntax and tool-suite to generate documentation, books, websites and slides.
+Pillar supports Pillar markup and MicroDown, a Markdown subset that has been extended with bookt support and extensible annotations.
 
-- ""Oz recovery tools"". The Oz image loader and Oz emergency kernel help in the recovery of a broken or unstable Pharo image.
-- ""Oz development tools"". Debugging, browsing and inspecting another object runtime.
-- ""Hazelnut"". Bootstrapping a reflective object kernel. Hazelnut bootstrap takes as input the source code defining the new object kernel and outputs an object graph defining the new runtime. The bootstrapped object runtime is aimed so far to run on the Pharo Virtual Machine.
-- ""Tornado"". Tornado is a tool to extract used classes from an application to prepare it for deployment. From a set of selected classes and a couple of expressions that run your application, it dinamically selects the elements your application needs at the end. Our extraction algorithm (Run-Fail-Grow) works, in contrast with other extraction techniques, in dinamically-typed languages, and under the use of reflection. With Tornado, we managed to produce minimal Pharo images of up to 10k, and Seaside images of around 600k.
+
+- *https://github.com/pillar-markup*
+- *https://github.com/pillar-markup/MicroDown*
