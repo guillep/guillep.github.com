@@ -4,8 +4,10 @@
 
 Coding enthusiast. Mad hatter. Software engineer and researcher. 
 
-I am research engineer at the CRIStAL laboratory in the university of Lille, working in tight relation with the RMoD team. My main research interests are programming language development, programming tools, modular systems, and maintenance of large software systems.
-I currently work on techniques to develop modular systems and languages, and new development tools.
+I am currently a CNRS Research Engineer at the CRIStAL laboratory, where I am expert in software engineering.
+I work in tight relation with the *RMoD team from Inria Lille-Nord Europe>https://rmod.inria.fr/*.
+
+My main research interest lies in the efficiency and modularity of programming languages, particularly in Language Virtual Machines (VMs). VMs make possible for high-level programming languages to run efficiently, and thus makes them an important asset for companies. They achieve high performance thanks to aggressive optimisation techniques that mix state-of-the-art compilation with operating-system memory management. A main __challenge__ in this context is the __high-cost__ incurred in VM construction, due to the complexity and inter-dependence of their many components. This complexity is required by companies and research to be competitive.
 
 I actively participate in the development of the open source *Pharo>http://www.pharo-project.org* programming language and environment since 2010, and I am a member of its technical board since 2018.
 
@@ -25,6 +27,8 @@ I obtained the 13 of april 2015 my Phd entitled "Virtualization support for appl
 
 !!News
 
+''17-11-2020'' We are presenting our work on *Framework-aware debugging with stack tailoring>https://hal.archives-ouvertes.fr/hal-03043779/* in 2020's Dynamic Language Symposium
+''20-10-2020'' We are presenting our work on *Sindarin: a versatile scripting API for the Pharo debugger>https://hal.archives-ouvertes.fr/hal-02280915* in 2019's Dynamic Language Symposium
 ''13-12-2018'' We got our *rotten tests>https://2019.icse-conferences.org/event/icse-2019-technical-papers-rotten-green-tests* paper accepted for ICSE'19!
 ''07-11-2018'' We got a Programming2019 paper with Matteo from the VUB! Take a look at *out of place debugging>http://programming-journal.org/2019/3/3/*
 ''09-09-2018'' I'll be at *ESUG18>https://esug.github.io/2018-Conference/conf2018.html* presenting all our latest work on Pharo build process and Iceberg git integration

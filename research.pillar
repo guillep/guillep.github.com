@@ -1,18 +1,47 @@
 !Research Activities
 
+
+I organise my research in three different axes of work: programming language evolution; program inspection and debugging; implementation techniques for efficient programming languages. These three axes join together in the project AlaMVic, an Action Exploratoire Inria that I lead starting in 2021.
+
+!! Programming language evolution and modularity
+
+During my thesis I proposed a language virtualization infrastructure that gives language designers the ability to control and manipulate the behaviour of applications. I have used this infrastructure in the context of language evolution with three main case studies: the generation and *prototyping of VM language-kernels>https://hal.archives-ouvertes.fr/hal-01185812*, the *reduction of program memory footprints>https://hal.archives-ouvertes.fr/hal-01609295*, and the *__hot update__ of applications and language base libraries>https://hal.archives-ouvertes.fr/hal-01185819*. I now co-supervise the PhD thesis of Carolina Hernandez Phillips, who investigates how to extend this approach to a larger set of Virtual Machine-based programming languages.
+
+I alwo work on new programming language concepts and infrastructures aimed at programming language modularity.
+I worked on a formalisation of the *method extension mechanism>https://hal.archives-ouvertes.fr/hal-01609310* and a mechanism to cope with the loading of partial code named *Undefined Classes>https://hal.archives-ouvertes.fr/hal-01585305/*~(Best paper award IWST workshop).
+With Pablo Tesone we explored a novel *language core infrastructure>https://hal.archives-ouvertes.fr/hal-01812612* that allows language extensions to be installed seamlessly on small language kernels, and new techniques to *update applications>https://hal.archives-ouvertes.fr/hal-01920362* while they are executed.
+
+
+!! Program inspection and debugging
+
+Since 2017 I explore the world of debugging, in particular in the context of parallel BigData applications. I have worked on  *out-of-place debugging>https://hal.archives-ouvertes.fr/hal-01952790*, a debugging infrastructure that transfers the state of failed executions to the developer's machine to make it practical. I am also interested in debugging support for new generation debuggers, and programming language support for it.
+
+!! Implementation technology for efficient programming languages
+
+I contribute to the implementation of the Open Source Pharo Virtual Machine, where I work on compiler construction and program optimisation. I implemented a large part of the new JIT compiler backend for the ARMv8 family of processors and I have explored VM extensions to *cope with the inefficiencies of input/output in concurrent programs>https://hal.archives-ouvertes.fr/hal-02379275*.
+
+!! AlaMVic: A generative approach to virtual machine construction
+
+Since February 2021, I lead an Action Exploratoire Inria that explores new methods to construct Virtual Machines.
+This project aims to solve the high-cost of VM construction, joining together the three axes of research I've been carrying out until now: evolvable, inspectable and efficient Language Virtual Machine construction. We are now working on tackling VM construction using a holistic generative approach.
+
+!! Other activities
+
 I'm actively participating in research activities such as organization of events. Do not hesitate to contact me for collaborations!
 
-I was part of the following program comitees:
+!!! International conference committees and organization
 
+- SPLASH 2020 - Onward! track *https://2020.splashcon.org/committee/splash-2020-Onward-papers-program-committee*
+- VISSOFT 2017 - Artifact Evaluation-track *https://vissoft17.dcc.uchile.cl/committee.html*
+- Co-Chair Workshops ECOOP 2015
+
+!!! International workshop committees
+
+- META Worlshop 2019 *https://2019.splashcon.org/committee/meta-2019-papers-program-committee*
+- International Workshop on Smalltalk Technology 2019 *https://esug.github.io/2019-Conference/cfpIWST2019.html*
+- International Workshop on Smalltalk Technology 2018 *https://esug.github.io/2018-Conference/cfpIWST2018.html*
+\end{itemize}
+- META Worlshop 2017 *https://2019.splashcon.org/committee/meta-2019-papers-program-committee*
 - International Workshop on Smalltalk Technology 2015. Co-located with the International ESUG Conference. Brescia, Italy.
 - Workshop en Ingeniería de Software e Tecnologías de la Información (WISIT) 2014. Buenos Aires, Argentina.
 - Workshop en Ingeniería de Software e Tecnologías de la Información (WISIT) 2013. Buenos Aires, Argentina.
-
-I was also co-reviewer internationales in the following international conferences and symposiums: SLE 2014, DLS 2013, DLS 2012, ASSE JAIIO 2011.
-
-I participated in the organization of the following international and argentine research events:
-
-- Workshops Co-Chair in ECOOP 2015. 
-- Co-Organizer Workshop WISIT 2014.
-- Co-Organizer Workshop Uqbar 2013.
-
