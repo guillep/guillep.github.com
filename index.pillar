@@ -17,6 +17,8 @@ I obtained the 13 of april 2015 my Phd entitled "Virtualization support for appl
 
 !!Awards
 
+- 2019 "2nd prize" of the *ESUG IWST best paper award>https://esug.github.io/2019-Conference/cfpIWST2019.html* with __Illicium: A modular transpilation tool-chain from Pharo to C__.
+- 2019 "2nd prize" of the *ESUG IWST best paper award>https://esug.github.io/2019-Conference/cfpIWST2019.html* with __GildaVM: a Non-Blocking I/O Architecture for the Cog VM__.
 - 2018 "1st prize" of the *ESUG innovation technology awards>https://esug.github.io/2018-Conference/awardsSubmissions2018.html* presenting Iceberg.
 - 2018 "1st prize" of the *ESUG IWST best paper award>https://esug.github.io/2018-Conference/conf2018.html* with our preliminar work on rotten green tests.
 - 2017 "1st prize" of the *ESUG IWST best paper award>http://www.esug.org/wiki/pier/Conferences/2017/International-Workshop-IWST_17* with our work on Undefined Classes.
@@ -27,8 +29,8 @@ I obtained the 13 of april 2015 my Phd entitled "Virtualization support for appl
 
 !!News
 
-''17-11-2020'' We are presenting our work on *Framework-aware debugging with stack tailoring>https://hal.archives-ouvertes.fr/hal-03043779/* in 2020's Dynamic Language Symposium
-''20-10-2020'' We are presenting our work on *Sindarin: a versatile scripting API for the Pharo debugger>https://hal.archives-ouvertes.fr/hal-02280915* in 2019's Dynamic Language Symposium
-''13-12-2018'' We got our *rotten tests>https://2019.icse-conferences.org/event/icse-2019-technical-papers-rotten-green-tests* paper accepted for ICSE'19!
-''07-11-2018'' We got a Programming2019 paper with Matteo from the VUB! Take a look at *out of place debugging>http://programming-journal.org/2019/3/3/*
-''09-09-2018'' I'll be at *ESUG18>https://esug.github.io/2018-Conference/conf2018.html* presenting all our latest work on Pharo build process and Iceberg git integration
+- ''17-11-2020'' We are presenting our work on *Framework-aware debugging with stack tailoring>https://hal.archives-ouvertes.fr/hal-03043779/* in 2020's Dynamic Language Symposium
+- ''20-10-2020'' We are presenting our work on *Sindarin: a versatile scripting API for the Pharo debugger>https://hal.archives-ouvertes.fr/hal-02280915* in 2019's Dynamic Language Symposium
+- ''13-12-2018'' We got our *rotten tests>https://2019.icse-conferences.org/event/icse-2019-technical-papers-rotten-green-tests* paper accepted for ICSE'19!
+- ''07-11-2018'' We got a Programming2019 paper with Matteo from the VUB! Take a look at *out of place debugging>http://programming-journal.org/2019/3/3/*
+- ''09-09-2018'' I'll be at *ESUG18>https://esug.github.io/2018-Conference/conf2018.html* presenting all our latest work on Pharo build process and Iceberg git integration
