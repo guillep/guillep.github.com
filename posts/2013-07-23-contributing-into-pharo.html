@@ -1,0 +1,64 @@
+---
+layout: post
+title: Contributing into Pharo
+categories:
+- Smalltalk
+tags: []
+status: draft
+type: post
+published: false
+meta:
+  geo_public: '0'
+---
+Yes, <a href="http://www.pharo-project.org/">Pharo</a> is open source. It has MIT licence. That means that you can take it and use it for your own private/industrial/educational/darkOrEvil purpose. And your work can remain private for you, you are not forced to make your work open source, nor publish the code.
+
+But there is another truth: Pharo has almost no paid workers. So it's movement and success depend hightly on its users and the contributions people make in it. I know a lot of people that do not know how to contribute and/or think it is for sure a lot of work. And I'd like to enlighten them by writing this post. So, after reading this you should have a brief answer to two main questions:
+<ul>
+<li>What can I contribute with?</li>
+<li>How should I do it?</li>
+</ul>
+
+<h2>What a contribution is</h2>
+There are many kind of contributions you can do. Small and big ones. But small does not mean stupid and big does not mean important. Every single piece of contribution, even the smallest, has a lot of impact. It really enhances the ecosystem. Someone else can use your contribution as a basis to make another one. And a small step at a time, changes got big!
+
+So, let's go to the interesting part. What can you do as a contribution.
+
+<ul>
+<li><b>Report the bugs and provide useful feedback:</b> If you find a bug either in code or in documentation, report it, do not shut up. Feedback is really important. Because not all people using Pharo use the whole system and some times problems are not easy to detect.</li>
+<li><b>Check bugs:</b> Go inside the issue tracker[1] and take a look. Maybe there is a really old issue that does not make sense any more, and you can report it. Maybe there are issues that are already fixed, and you can help to mark them as fixed. Maybe you can try to reproduce a bug and tell if you couldnt, or enhance the description of the bug.</li>
+<li><b>Fix bugs:</b> See if there is some bug you can fix. An easy one, or maybe a more difficult one. Do not think it is an impossible task. There is one real way to learn the system: using it and looking into it. And there are plenty of different things to play with in Pharo: virtual machines, compilers, parser combinators, code rewriting and refactor tools, IDEs, networking, web frameworks...</li>
+<li><b>Write a test:</b> Pharo has thousands of unit tests running every day in its continuous integration server. But they do not cover all cases. Did you find a bug? Writing a test that reproduces it is actually the best bug report you can ever give to a programmer ;)</li>
+<li><b>Write or enhance a library:</b> So you needed a SOAP library to consume webservices? Or you need to control a robot via ROS(the robot operating system)? You can use existing libraries to do that, try to enhance them, or if the library you need does not exist, maybe writing it is fun and not so difficult.</li>
+<li><b>Write documentation:</b> From a blog post, a tutorial, to participate in the book chapters. We lack of this. Really. And it is the corner stone to be an open community attracting people.</li>
+<li><b>Check documentation:</b> Follow the documentation that is already written, to check it is up to date, if it is understandable.</li>
+</ul>
+
+And probably there are more that are not coming out of my brainz right now :).
+
+Of course this does not mean that you have to spend your whole day doing that. But if you are a pharo user, following some of those from time to time will no make harm, will make a big return to the community and over all, it will be fun.
+
+[1] https://pharo.fogbugz.com/default.asp
+
+<h2>Getting into the Issue Tracker</h2>
+
+Pharo issue tracker has moved form google code to fogbugz[2]. This decision was taken due to the deprecation of the google code API that was used by the issue validation tool (a.k.a., the <b>monkey</b>).
+
+Fogbugz does not allow the creation of user accounts by non-logged people. So, if you want to create an account for yourself, you can go to Penelope[3] and create it there. Penelope is a website making some fogbugz information public. So far, Penelope only accepts email addresses without dots for account logins. If you are in trouble, send an email to the pharo mailing list, and some of the administrators will gently take care of creating an account for you ;).
+
+Yes, this is a place where a contribution for the email validation can be reaaally wonderful.
+
+[2] https://pharo.fogbugz.com/default.asp
+[3] http://bugs.pharo.org/
+
+<h2>Publishing Bugfixes for Pharo</h2>
+
+Let's assume you picked an issue in the tracker, you played around with it and you made a fix. You want to publish it and include it into Pharo. Follow the next rules, and everything will be ok ;).
+
+<h3>Create a Slice</h3>
+A slice is a set of packages that will be commited together as a whole. Since a fix use to include changes in many different packages, a Slice groups them all. Additionally, a Slice contains in its name the issue number and description, what allows both the integrator and tools to identify a commit.
+
+Go to the Monticello Browser and press the <b>+Slice</b> button. The Slice Maker window opens and asks for the issue number. When pressing <b>grab</b>, the issue summary is automatically fetched from fogbugz. Select from the bottom list the packages you want to be included (the ones including your changes) and click on <b>OK</b>.
+
+Finally, let's commit the Slice. Look for the new Slice in the Monticello Browser's left list. Select in the right list the inbox repository (it should be http://smalltalkhub.com/mc/Pharo/Pharo30Inbox/main). Click on the save button, insert the corresponding comment and proceed.
+
+<h3>Test the Slice</h3>

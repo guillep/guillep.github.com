@@ -1,0 +1,100 @@
+---
+layout: post
+title: The Bootstrap Chronicles Chapter 3 - It's Alive!
+categories:
+- GSOC
+- Pharo
+tags:
+- Bootstrap
+- crazy project
+- environment
+- GSOC
+- Image
+- Living environment
+- Pharo
+- science
+- Smalltalk
+- smalltalk environment
+status: publish
+type: post
+published: true
+meta:
+  _wpas_mess: ! 'The #Bootstrap Chronicles Chapter 3: It''s Alive! http://wp.me/p2tOYl-1n
+    @PharoProject #GSOC #smalltalk'
+  _wpas_done_facebook: '1'
+  _wpas_done_twitter: '1'
+  tagazine-media: a:7:{s:7:"primary";s:76:"http://playingwithobjects.files.wordpress.com/2012/06/bootstrap-strategy.png";s:6:"images";a:1:{s:76:"http://playingwithobjects.files.wordpress.com/2012/06/bootstrap-strategy.png";a:6:{s:8:"file_url";s:76:"http://playingwithobjects.files.wordpress.com/2012/06/bootstrap-strategy.png";s:5:"width";s:3:"781";s:6:"height";s:3:"583";s:4:"type";s:5:"image";s:4:"area";s:6:"455323";s:9:"file_path";s:0:"";}}s:6:"videos";a:0:{}s:11:"image_count";s:1:"1";s:6:"author";s:8:"35633512";s:7:"blog_id";s:8:"36660125";s:9:"mod_stamp";s:19:"2012-06-17
+    13:47:00";}
+  _wpas_skip_linkedin: '1'
+  reddit: a:2:{s:5:"count";i:0;s:4:"time";i:1368783916;}
+  _elasticsearch_indexed_on: '2012-06-17 13:39:02'
+---
+So now that you now a bit what the bootstrap is about and what are some of the problems to face.  I'll show you some solutions and progress for <strong>real</strong>.
+<h2>How does the bootstrap implementation work</h2>
+To bootstrap a Smalltalk environment, you need to create a new environment, with it's classes and objects, and initialize some state in them. I could have done that in C, using mallocs and initializing everything by hand using plain memory :). But doing it in smalltalk is easier: you have late binding, polymorphism, closures...  Even, once you have done your first steps in the bootstrap, you can send messages to your objects. THAT is nice.
+
+So, that is the way we cho0se to go: A new environment is created (a guest) into the current environment (the host).  The guest will have it's own classes and objects.
+
+What about the special objects of the vm?  We share them with the host environment, because if not, out new image will not be able to run... Afterwards, when this new image is written into an image file, we will swap references to point to our own new special objects array.
+
+Here is a picture of how it looks like:
+
+<a href="http://playingwithobjects.files.wordpress.com/2012/06/bootstrap-strategy.png"><img class="aligncenter size-medium wp-image-87" title="Bootstrap Stragegy" src="http://playingwithobjects.files.wordpress.com/2012/06/bootstrap-strategy.png?w=300" alt="How the host and guest are related" width="300" height="223" /></a>
+<h2>The Current Version</h2>
+I've been through several versions of the image with different capabilities, sizes, correctness. You have to know, everything you forgot to initialize, or initialize in a wrong order, or if you took an extra object you do not need, you will have a not running image, or one that carries all the objects in the host also...
+
+Another thing is that current version takes a sample of the objects in the host to build the guest. I'm already working on starting from scratch + source code, but that is the future and I like enjoying the present :).
+<h3>So, how do you load the current code?</h3>
+[sourcecode language="ruby"]
+Gofer it
+    url: 'http://www.smalltalkhub.com/mc/Guille/Seed/main';
+    package: 'ConfigurationOfHazelnut';
+    load.
+
+(ConfigurationOfHazelnut project version: '1.3') load.
+[/sourcecode]
+
+Also, as the code is very sensitive on what you do,  it is also sensitive on what image you're running it on.  If you play with it in a wrong/different image, you will have different/unexpected results.  So, I suggest you to use the same image as me for testing it: <strong>Latest Pharo 2.0</strong>.  In particular, I've tested it on versions 20133 and 20134.
+
+Do not scare when loading the configuration on Pharo 2.0 for the first time It will raise an error. It is an issue related with unzipping old mcz in Pharo (http://code.google.com/p/pharo/issues/detail?id=6054) which will fortunately fixed soon. Just close the debugger, try again, and get the project working.
+<h3>And, How do I try these weird stuff?</h3>
+With Nicolas Petton, we have written some examples in the class named <strong>HazelBuilderExamples</strong>.
+
+To run them, you can try the following scripts:
+<code></code>
+
+[sourcecode language="ruby"]
+&quot;Writes an image which when opened prints a spaceTally on fileok.txt&quot;
+HazelBuilderExample new buildImageWithSpaceTally
+
+&quot;Writes an image which when opened prints a report on all the packaging/initialization deficiencies of the image on fileok.txt&quot;
+HazelBuilderExample new buildImageWithBrokenReferencesReport
+
+&quot;Writes an image which when opened prints a report on all the packaging/initialization deficiencies of the image on fileok.txt. The report is written in the xml format Jenkins Junit plugin likes.&quot;
+HazelBuilderExample new buildImageWithBrokenReferencesReportForJenkins
+[/sourcecode]
+
+After evaluating this code, you'll have some <em>bootstrapped</em> image and changes files. Open that file with your CogVM and wait until it closes.  Then have a look at the <em>fileok.txt</em> file :).
+
+Of couse you can look at the code in the examples, and try to build your own. Email me if you have ideas to improve this :).
+
+There are also probably some problems with file overwritting that came with some latest Pharo changes with the file management.  Please, if you notice this, just remove the bootstrapped* files from the folder where your image is and try again.
+<h3>Hey! How is this thingy useful?</h3>
+Well, if you've had a look at the examples, the three examples I've shown you are very useful:
+<ul>
+	<li>The first one tells you how the space is distributed in the new image. You can use this knowledge to attack space problems if you want an even smaller image.</li>
+	<li>The second one is used to detect bugs in the pharo Packaging or in the initialization process: You have not initialized some classes, or the have been initialized but the initialization code does not initialize all the variables.</li>
+	<li>The third one is the same as the second, but adapted to have this kind of CI integration: http://car.mines-douai.fr/ci/job/Seed%20Broken%20References%20Report/</li>
+</ul>
+Nice huh? Now we can use jenkins to validate the core of Pharo is well initialized and well packaged when that list becomes empty.
+<h2>What's next?</h2>
+<ul>
+	<li>Each one of those things in the list should be tracked as issues.</li>
+	<li>continue working on the bootstrap from sourcecode.</li>
+	<li>Making the fuel seed work so we can install fuel packages on our little image.</li>
+</ul>
+Keep u updated!
+
+Hasta Luego!
+
+Guille

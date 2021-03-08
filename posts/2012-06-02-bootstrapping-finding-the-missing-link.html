@@ -1,0 +1,87 @@
+---
+layout: post
+title: ! 'Bootstrapping: finding the missing link'
+categories:
+- Pharo
+tags:
+- Bootstrap
+- crazy project
+- GSOC
+- Image
+- Pharo
+- Smalltalk
+- software-development
+status: publish
+type: post
+published: true
+meta:
+  publicize_results: a:2:{s:7:"twitter";a:1:{i:93753233;a:2:{s:7:"user_id";s:12:"GuillePolito";s:7:"post_id";s:18:"208994882394669056";}}s:2:"fb";a:1:{i:1479284455;a:2:{s:7:"user_id";s:10:"1479284455";s:7:"post_id";s:13:"4126270323287";}}}
+  _wpas_done_twitter: '1'
+  _wpas_done_fb: '1'
+  _wpas_done_linkedin: '1'
+  tagazine-media: a:7:{s:7:"primary";s:0:"";s:6:"images";a:0:{}s:6:"videos";a:0:{}s:11:"image_count";s:1:"0";s:6:"author";s:8:"35633512";s:7:"blog_id";s:8:"36660125";s:9:"mod_stamp";s:19:"2012-06-02
+    19:06:21";}
+  _wpas_mess: ! 'Bootstrapping: finding the missing link http://wp.me/p2tOYl-F @PharoProject
+    #Smalltalk #Bootstrap #GSOC'
+  reddit: a:2:{s:5:"count";i:0;s:4:"time";i:1368781763;}
+  _elasticsearch_indexed_on: '2012-06-02 18:53:51'
+---
+A few months ago I got involved in some crazy project: bootstrapping Pharo. I took some existing code, played with it, hacked it, modified it, understood it. Now I think I have some idea of what is a bootstrap and what are it's advantages. I'll try to give a brief introduction to the project: what is it about, advantages, an overview of the current military secret results, and an insight of what is to come.
+
+I recommend you to have look at my last post (<a href="http://playingwithobjects.wordpress.com/2012/06/01/the-image-dilemma/">the image dilemma</a>) before reading.
+
+This project is one of the ESUG projects supported this year by the <a href="http://www.google-melange.com/gsoc/proposal/review/google/gsoc2012/gpolito/1">google summer of code program</a>.
+<h2>What is a Bootstrap</h2>
+The encyclopedic definition: A Bootstrap of system is a process that can generate the smallest subset of that system that may be used to reproduce the complete one.
+
+I mean, you have an explicit process that can generate a the minimal version of your system.
+
+Ok, easier: You kick yourself to get impulse and start from a better place :).
+
+Then, bootstrapping software systems or languages normally means that you will somehow enhance the original process that created the system.
+
+Some examples to clarify:
+<ul>
+	<li>When your computer is turned on, some one has to bootstrap the little program able to load other programs :).</li>
+	<li>Generating a development environment with very basic tools will improve your work a lot (when you use your development environment).</li>
+	<li>C compiler is written in C. That means that It somehow compiles itself. Of course if you do not like assembly much, reading the C implementation is a great improvement.</li>
+	<li>Pharo implements traits and uses them in the core of the system to empower the design.</li>
+	<li>A big part of Pharo's VM is written in smalltalk!</li>
+</ul>
+<h2>The need of bootstrapping Pharo</h2>
+Did you know the image you download from the pharo website is the same one that comes from years ago? I mean, not the exactly same one, but a binary copy :). The fact is that years ago (yeah, ancient history) god created the first image and it started evolving, one little change after the other, to the Pharo we know today.
+
+Now, as in evolution, we found in Pharo missing links.  We do not know how some object became the way it is. Or how it was initialized.  The code is simple nowhere, it's a missing link. Also, as years passed, our ancestor became chaotic. It grew in many different uncontrolled and unordered ways. Since the Pharo Project started, one if it's goals was cleaning this mess, but re-modularising and cleaning the system is a hard, long, and bothersome process.
+
+The outputs and advantages of Bootstrapping Pharo will be:
+<ul>
+	<li>getting tools to detect problems: bad dependencies, unexistent initializations, code that really do not work but was never executed before.</li>
+	<li>This initialization process will be explicit and open.</li>
+	<li>We will be able to start the next Pharo from scratch, and since we will be able to change this explicit process, our next generation Pharo will be cleaner and fancier. It will be able to acquire easily new features: namespaces/modules, security, remote tools, mirrors.</li>
+	<li>But also, since it will allow people to create a custom system, researchers will have an invaluable tool to fulfil their own purposes.  They will be able to experiment</li>
+</ul>
+<h2>Current status of the project</h2>
+The project has already had a first output, which is the <em>image writer</em>.  The image writer is a little tool that traces a graph from an SmalltalkImage object, and deploys that graph into a .image file.  I'll talk about this sub project in a future post.
+
+The rest of the code is a military secret yet. Ok, I can give it to you, but you have to be responsible if it blows up on your face :).
+
+The results of the project so far are:
+<ul>
+	<li>It can create an Smalltalk image living inside another image.</li>
+	<li>This inner/guest image can be written in a new .image file.</li>
+	<li>With this approach a small kernel of 1.1MB has been reached.</li>
+	<li>SpaceTally runs and prints reports to understand how the space is distributed among objects.</li>
+	<li>A tool to detect every uninitialized class variable/class instance variable and references to unexistant globals was developed.</li>
+</ul>
+Soon we will have all these public on Pharo Jenkins server.
+<h2>Next Steps</h2>
+<ul>
+	<li>Jenkins jobs :)</li>
+	<li>Taking jenkins feedback to speed up the cleaning process</li>
+	<li>Remodularizaton to get even a smaller kernel</li>
+	<li>Maybe some little experiment to bootstrap MicroSqueak and learn from it</li>
+	<li>Bootstrap from source code.</li>
+</ul>
+I'll try to keep you updated often.  BTW, any ideas, critics or suggestions are welcome. I'm not a gurú, I'm just learning, as everyone :).
+
+Saludos!
