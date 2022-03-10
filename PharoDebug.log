@@ -1,0 +1,713 @@
+THERE_BE_DRAGONS_HERE
+FileDoesNotExistException: '/Users/guille/Projects/guillep.github.com/_support'
+10 March 2022 10:27:26.537804 am
+
+VM: Mac OS - intel - 1014.6 - CoInterpreter VMMaker.oscog-eem.2504 uuid: a00b0fad-c04c-47a6-8a11-5dbff110ac11 Jan  5 2019
+StackToRegisterMappingCogit VMMaker.oscog-eem.2504 uuid: a00b0fad-c04c-47a6-8a11-5dbff110ac11 Jan  5 2019
+VM: 201901051900 https://github.com/OpenSmalltalk/opensmalltalk-vm.git Date: Sat Jan 5 20:00:11 2019 CommitHash: 7a3c6b6 Plugins: 201901051900 https://github.com/OpenSmalltalk/opensmalltalk-vm.git
+
+Image: Pharo7.0.4 [Build information: Pharo-7.0.4+build.168.sha.ccd1f6489120f58ddeacb2cac77cd3a0f0dcfbe6 (32 Bit)]
+
+MacStore(FileSystemStore)>>signalFileDoesNotExist:
+	Receiver: a MacStore
+	Arguments and temporary variables: 
+		aPath: 	Path / 'Users' / 'guille' / 'Projects' / 'guillep.github.com' / '_suppor...etc...
+	Receiver's instance variables: 
+		maxFileNameLength: 	255
+
+
+[ store signalFileDoesNotExist: path ] in FileSystem>>entryAt:
+	Receiver: a FileSystem
+	Arguments and temporary variables: 
+		aResolvable: 	Path / 'Users' / 'guille' / 'Projects' / 'guillep.github.com' / '_...etc...
+		path: 	Path / 'Users' / 'guille' / 'Projects' / 'guillep.github.com' / '_support...etc...
+	Receiver's instance variables: 
+		store: 	a MacStore
+
+
+True>>ifTrue:ifFalse:
+	Receiver: true
+	Arguments and temporary variables: 
+		trueAlternativeBlock: 	[ store signalFileDoesNotExist: path ]
+		falseAlternativeBlock: 	[ entry at: 1 put: aPath basename.
+presentBlock value: e...etc...
+	Receiver's instance variables: 
+true
+
+MacStore(DiskStore)>>nodeAt:ifPresent:ifAbsent:
+	Receiver: a MacStore
+	Arguments and temporary variables: 
+		aPath: 	Path / 'Users' / 'guille' / 'Projects' / 'guillep.github.com' / '_suppor...etc...
+		presentBlock: 	[ :node | store entryFromNode: node fileSystem: self path: path ]...etc...
+		absentBlock: 	[ store signalFileDoesNotExist: path ]
+		entry: 	#badDirectoryPath
+	Receiver's instance variables: 
+		maxFileNameLength: 	255
+
+
+FileSystem>>entryAt:
+	Receiver: a FileSystem
+	Arguments and temporary variables: 
+		aResolvable: 	Path / 'Users' / 'guille' / 'Projects' / 'guillep.github.com' / '_...etc...
+		path: 	Path / 'Users' / 'guille' / 'Projects' / 'guillep.github.com' / '_support...etc...
+	Receiver's instance variables: 
+		store: 	a MacStore
+
+
+FileReference>>entry
+	Receiver: File @ /Users/guille/Projects/guillep.github.com/_support
+	Arguments and temporary variables: 
+
+	Receiver's instance variables: 
+		filesystem: 	a FileSystem
+		path: 	Path / 'Users' / 'guille' / 'Projects' / 'guillep.github.com' / '_support...etc...
+
+
+PreorderGuide>>show:
+	Receiver: a PreorderGuide
+	Arguments and temporary variables: 
+		aReference: 	File @ /Users/guille/Projects/guillep.github.com/_support
+	Receiver's instance variables: 
+		visitor: 	a CopyVisitor
+		work: 	an OrderedCollection()
+		selectChildren: 	nil
+
+
+CopyVisitor>>visit
+	Receiver: a CopyVisitor
+	Arguments and temporary variables: 
+
+	Receiver's instance variables: 
+		source: 	File @ /Users/guille/Projects/guillep.github.com/_support
+		dest: 	File @ /Users/guille/Projects/guillep.github.com/_result/html/_support
+
+
+CopyVisitor class>>copy:to:
+	Receiver: CopyVisitor
+	Arguments and temporary variables: 
+		source: 	File @ /Users/guille/Projects/guillep.github.com/_support
+		dest: 	File @ /Users/guille/Projects/guillep.github.com/_result/html/_support
+	Receiver's instance variables: 
+		superclass: 	FileSystemVisitor
+		methodDict: 	a MethodDictionary(#copyDirectory:->CopyVisitor>>#copyDirectory: #c...etc...
+		format: 	65538
+		layout: 	a FixedLayout
+		organization: 	a ClassOrganization
+		subclasses: 	{PRFileCopyVisitor}
+		name: 	#CopyVisitor
+		classPool: 	a Dictionary()
+		sharedPools: 	an OrderedCollection()
+		environment: 	a SystemDictionary(lots of globals)
+		category: 	#'FileSystem-Core-Base-Visitors'
+
+
+FileReference(AbstractFileReference)>>copyAllTo:
+	Receiver: File @ /Users/guille/Projects/guillep.github.com/_support
+	Arguments and temporary variables: 
+		aResolvable: 	File @ /Users/guille/Projects/guillep.github.com/_result/html/_sup...etc...
+	Receiver's instance variables: 
+		filesystem: 	a FileSystem
+		path: 	Path / 'Users' / 'guille' / 'Projects' / 'guillep.github.com' / '_support...etc...
+
+
+PRCopyPhase>>executeOn:
+	Receiver: a PRCopyPhase
+	Arguments and temporary variables: 
+		aPRCompilationContext: 	nil
+	Receiver's instance variables: 
+		destinationDirectory: 	File @ /Users/guille/Projects/guillep.github.com/_result/...etc...
+		sourceDirectory: 	File @ /Users/guille/Projects/guillep.github.com/_support
+
+
+PRHtmlOutput(PRWritingTarget)>>prepareForExecutionOn:
+	Receiver: a PRHtmlOutput
+	Arguments and temporary variables: 
+		aPRProject: 	a PRProject[249473536]
+		configuration: 	a ConfigurationForPillar
+		outputDirectory: 	nil
+		outputFormat: 	a PRHtmlOutput
+		target: 	File @ /Users/guille/Projects/guillep.github.com/_result/html/_support
+		source: 	File @ /Users/guille/Projects/guillep.github.com/_support
+	Receiver's instance variables: 
+		buildStrategy: 	a PRBuildAllStrategy
+		transformations: 	a Set()
+
+
+PRProject>>prepareForTarget:
+	Receiver: a PRProject[249473536]
+	Arguments and temporary variables: 
+		target: 	a PRHtmlOutput
+	Receiver's instance variables: 
+		properties: 	nil
+		baseDirectory: 	File @ /Users/guille/Projects/guillep.github.com
+		templatable: 	false
+
+
+PRProject>>build:
+	Receiver: a PRProject[249473536]
+	Arguments and temporary variables: 
+		output: 	a PRHtmlOutput
+	Receiver's instance variables: 
+		properties: 	nil
+		baseDirectory: 	File @ /Users/guille/Projects/guillep.github.com
+		templatable: 	false
+
+
+PRBuildCommandLineHandler>>activate
+	Receiver: a PRBuildCommandLineHandler
+	Arguments and temporary variables: 
+		target: 	a PRHtmlOutput
+		result: 	nil
+	Receiver's instance variables: 
+		commandLine: 	a CommandLineArguments
+		session: 	a WorkingSession
+		stdout: 	a VTermOutputDriver
+		stderr: 	a VTermOutputDriver
+		baseDirectory: 	nil
+		configurationInstaller: 	nil
+		configuration: 	nil
+		project: 	a PRProject[249473536]
+
+
+PRBuildCommandLineHandler class(CommandLineHandler class)>>activateWith:
+	Receiver: PRBuildCommandLineHandler
+	Arguments and temporary variables: 
+		aCommandLine: 	a CommandLineArguments
+	Receiver's instance variables: 
+		superclass: 	PRSubCommandLineHandler
+		methodDict: 	a MethodDictionary(#activate->PRBuildCommandLineHandler>>#activate ...etc...
+		format: 	65544
+		layout: 	a FixedLayout
+		organization: 	a ClassOrganization
+		subclasses: 	nil
+		name: 	#PRBuildCommandLineHandler
+		classPool: 	a Dictionary()
+		sharedPools: 	an OrderedCollection()
+		environment: 	a SystemDictionary(lots of globals)
+		category: 	#'Pillar-Cli-Handlers'
+
+
+[ aCommandLinehandler activateWith: commandLine ] in PRCommandLineHandler(BasicCommandLineHandler)>>activateSubCommand:
+	Receiver: a PRCommandLineHandler
+	Arguments and temporary variables: 
+		aCommandLinehandler: 	PRBuildCommandLineHandler
+	Receiver's instance variables: 
+		commandLine: 	a CommandLineArguments
+		session: 	a WorkingSession
+		stdout: 	a VTermOutputDriver
+		stderr: 	a VTermOutputDriver
+
+
+BlockClosure>>on:do:
+	Receiver: [ aCommandLinehandler activateWith: commandLine ]
+	Arguments and temporary variables: 
+		exception: 	Exit
+		handlerAction: 	[ :exit | ^ self handleExit: exit for: aCommandLinehandler ]
+	Receiver's instance variables: 
+		outerContext: 	PRCommandLineHandler(BasicCommandLineHandler)>>activateSubCommand...etc...
+		startpc: 	34
+		numArgs: 	0
+
+
+PRCommandLineHandler(BasicCommandLineHandler)>>activateSubCommand:
+	Receiver: a PRCommandLineHandler
+	Arguments and temporary variables: 
+		aCommandLinehandler: 	PRBuildCommandLineHandler
+	Receiver's instance variables: 
+		commandLine: 	a CommandLineArguments
+		session: 	a WorkingSession
+		stdout: 	a VTermOutputDriver
+		stderr: 	a VTermOutputDriver
+
+
+PRCommandLineHandler(BasicCommandLineHandler)>>handleSubcommand
+	Receiver: a PRCommandLineHandler
+	Arguments and temporary variables: 
+		handlers: 	an OrderedCollection(PRBuildCommandLineHandler)
+	Receiver's instance variables: 
+		commandLine: 	a CommandLineArguments
+		session: 	a WorkingSession
+		stdout: 	a VTermOutputDriver
+		stderr: 	a VTermOutputDriver
+
+
+PRCommandLineHandler(BasicCommandLineHandler)>>handleArgument:
+	Receiver: a PRCommandLineHandler
+	Arguments and temporary variables: 
+		aString: 	'build'
+	Receiver's instance variables: 
+		commandLine: 	a CommandLineArguments
+		session: 	a WorkingSession
+		stdout: 	a VTermOutputDriver
+		stderr: 	a VTermOutputDriver
+
+
+[ self
+	handleArgument:
+		(self arguments
+			ifEmpty: [ '' ]
+			ifNotEmpty: [ :arguments | arguments first ]) ] in [ [ self
+	handleArgument:
+		(self arguments
+			ifEmpty: [ '' ]
+			ifNotEmpty: [ :arguments | arguments first ]) ]
+	on: Exit
+	do: [ :exit | 
+		"If the command line is protected by password, we just exit the image because in non-headless mode the handleExit will let the image open. If the password protection is enabled, it is to avoid to let the access to the image."
+		self class commandLinePasswordManager hasPasswordSet
+			ifTrue: [ Smalltalk snapshot: false andQuit: true ].
+		^ self handleExit: exit ] ] in PRCommandLineHandler(BasicCommandLineHandler)>>activate
+	Receiver: a PRCommandLineHandler
+	Arguments and temporary variables: 
+
+	Receiver's instance variables: 
+		commandLine: 	a CommandLineArguments
+		session: 	a WorkingSession
+		stdout: 	a VTermOutputDriver
+		stderr: 	a VTermOutputDriver
+
+
+BlockClosure>>on:do:
+	Receiver: [ self
+	handleArgument:
+		(self arguments
+			ifEmpty: [ '' ]
+			ifNotEmpty: [ :arguments |...etc...
+	Arguments and temporary variables: 
+		exception: 	Exit
+		handlerAction: 	[ :exit | 
+"If the command line is protected by password, we jus...etc...
+	Receiver's instance variables: 
+		outerContext: 	[ [ self
+	handleArgument:
+		(self arguments
+			ifEmpty: [ '' ]
+		...etc...
+		startpc: 	93
+		numArgs: 	0
+
+
+[ [ self
+	handleArgument:
+		(self arguments
+			ifEmpty: [ '' ]
+			ifNotEmpty: [ :arguments | arguments first ]) ]
+	on: Exit
+	do: [ :exit | 
+		"If the command line is protected by password, we just exit the image because in non-headless mode the handleExit will let the image open. If the password protection is enabled, it is to avoid to let the access to the image."
+		self class commandLinePasswordManager hasPasswordSet
+			ifTrue: [ Smalltalk snapshot: false andQuit: true ].
+		^ self handleExit: exit ] ] in PRCommandLineHandler(BasicCommandLineHandler)>>activate
+	Receiver: a PRCommandLineHandler
+	Arguments and temporary variables: 
+
+	Receiver's instance variables: 
+		commandLine: 	a CommandLineArguments
+		session: 	a WorkingSession
+		stdout: 	a VTermOutputDriver
+		stderr: 	a VTermOutputDriver
+
+
+[ self value.
+Processor terminateActive ] in BlockClosure>>newProcess
+	Receiver: [ [ self
+	handleArgument:
+		(self arguments
+			ifEmpty: [ '' ]
+			ifNotEmpty: [ :arguments...etc...
+	Arguments and temporary variables: 
+
+	Receiver's instance variables: 
+		outerContext: 	PRCommandLineHandler(BasicCommandLineHandler)>>activate
+		startpc: 	89
+		numArgs: 	0
+
+
+
+--- The full stack ---
+MacStore(FileSystemStore)>>signalFileDoesNotExist:
+[ store signalFileDoesNotExist: path ] in FileSystem>>entryAt:
+True>>ifTrue:ifFalse:
+MacStore(DiskStore)>>nodeAt:ifPresent:ifAbsent:
+FileSystem>>entryAt:
+FileReference>>entry
+PreorderGuide>>show:
+CopyVisitor>>visit
+CopyVisitor class>>copy:to:
+FileReference(AbstractFileReference)>>copyAllTo:
+PRCopyPhase>>executeOn:
+PRHtmlOutput(PRWritingTarget)>>prepareForExecutionOn:
+PRProject>>prepareForTarget:
+PRProject>>build:
+PRBuildCommandLineHandler>>activate
+PRBuildCommandLineHandler class(CommandLineHandler class)>>activateWith:
+[ aCommandLinehandler activateWith: commandLine ] in PRCommandLineHandler(BasicCommandLineHandler)>>activateSubCommand:
+BlockClosure>>on:do:
+PRCommandLineHandler(BasicCommandLineHandler)>>activateSubCommand:
+PRCommandLineHandler(BasicCommandLineHandler)>>handleSubcommand
+PRCommandLineHandler(BasicCommandLineHandler)>>handleArgument:
+[ self
+	handleArgument:
+		(self arguments
+			ifEmpty: [ '' ]
+			ifNotEmpty: [ :arguments | arguments first ]) ] in [ [ self
+	handleArgument:
+		(self arguments
+			ifEmpty: [ '' ]
+			ifNotEmpty: [ :arguments | arguments first ]) ]
+	on: Exit
+	do: [ :exit | 
+		"If the command line is protected by password, we just exit the image because in non-headless mode the handleExit will let the image open. If the password protection is enabled, it is to avoid to let the access to the image."
+		self class commandLinePasswordManager hasPasswordSet
+			ifTrue: [ Smalltalk snapshot: false andQuit: true ].
+		^ self handleExit: exit ] ] in PRCommandLineHandler(BasicCommandLineHandler)>>activate
+BlockClosure>>on:do:
+[ [ self
+	handleArgument:
+		(self arguments
+			ifEmpty: [ '' ]
+			ifNotEmpty: [ :arguments | arguments first ]) ]
+	on: Exit
+	do: [ :exit | 
+		"If the command line is protected by password, we just exit the image because in non-headless mode the handleExit will let the image open. If the password protection is enabled, it is to avoid to let the access to the image."
+		self class commandLinePasswordManager hasPasswordSet
+			ifTrue: [ Smalltalk snapshot: false andQuit: true ].
+		^ self handleExit: exit ] ] in PRCommandLineHandler(BasicCommandLineHandler)>>activate
+[ self value.
+Processor terminateActive ] in BlockClosure>>newProcess
+-------------------------------------------------------------------------------
+
+Processes and their stacks: 
+Process: a Process in Dictionary>>at:ifAbsent:
+  stack:
+
+Dictionary>>at:ifAbsent:
+Dictionary>>at:
+ExternalType class>>signedLong
+ExternalType class>>long
+FFI_i386(FFIArchitecture)>>externalLongType
+FFI_i386(FFIArchitecture)>>longTypeSize
+ExternalAddress(ByteArray)>>platformLongAt:
+FFIExternalStructureReferenceHandle>>platformLongAt:
+FTGlyphMetrics>>height
+FT2GlyphSlot>>fillFromGlyphSlotRec:
+FreeTypeFace(FT2Face)>>fillGlyph:
+FT2GlyphSlot>>loadFrom:
+FreeTypeFace(FT2Face)>>loadCharacter:flags:
+[ | hintingFlags flags |
+face := aFreeTypeFont face.
+face setPixelWidth: em height: em.
+hintingFlags := FreeTypeSettings current hintingFlags.
+flags := LoadNoBitmap bitOr: (LoadIgnoreTransform bitOr: hintingFlags).
+face loadCharacter: charCode flags: flags ] in FreeTypeSubPixelAntiAliasedGlyphRenderer>>renderStretchedGlyph:depth:subpixelPosition:font:
+BlockClosure>>on:do:
+FreeTypeSubPixelAntiAliasedGlyphRenderer>>renderStretchedGlyph:depth:subpixelPosition:font:
+FreeTypeSubPixelAntiAliasedGlyphRenderer>>subGlyphOf:colorValue:mono:subpixelPosition:font:
+[ FreeTypeGlyphRenderer current
+	subGlyphOf: aCharacter
+	colorValue: aColorValue
+	mono: monoBoolean
+	subpixelPosition: sub
+	font: self ] in [ self mutex
+	critical: [ FreeTypeGlyphRenderer current
+			subGlyphOf: aCharacter
+			colorValue: aColorValue
+			mono: monoBoolean
+			subpixelPosition: sub
+			font: self ] ] in FreeTypeFont>>subGlyphOf:colorValue:mono:subpixelPosition:
+[ caught := true.
+self wait.
+blockValue := mutuallyExcludedBlock value ] in Semaphore>>critical:
+BlockClosure>>ensure:
+------------------------------
+
+Process: a Process in DelayMicrosecondTicker>>waitForUserSignalled:orExpired:
+  stack:
+
+DelayMicrosecondTicker>>waitForUserSignalled:orExpired:
+[ [ runTimerEventLoop ]
+	whileTrue: [ | nowTick |
+		"Warning! Stepping <Over> the following line may lock the Image. Use <Into> or <Proceed>."
+		ticker waitForUserSignalled: timingSemaphore orExpired: activeDelay.
+
+		"When two debuggers appear, step/proceed through this higher priority one first."
+		debug
+			ifTrue: [ self halt ].
+
+		"Invoke the api back-ends, which set the transfer-variable to nil"
+		suspendSemaphore ifNotNil: [ self suspendAtTimingPriority ].
+		delayToStart ifNotNil: [ self scheduleAtTimingPriority ].
+		delayToStop ifNotNil: [ self unscheduleAtTimingPriority ].
+
+		"Signal any expired delays"
+		nowTick := ticker nowTick.
+		[ activeDelay notNil and: [ nowTick >= activeDelay resumptionTick ] ]
+			whileTrue: [ activeDelay timingPrioritySignalExpired.
+				activeDelay := suspendedDelays removeFirstOrNil ] ] ] in DelaySemaphoreScheduler(DelayBasicScheduler)>>runBackendLoopAtTimingPriority
+BlockClosure>>ensure:
+DelaySemaphoreScheduler(DelayBasicScheduler)>>runBackendLoopAtTimingPriority
+[ self runBackendLoopAtTimingPriority ] in DelaySemaphoreScheduler(DelayBasicScheduler)>>startTimerEventLoopPriority:
+[ self value.
+Processor terminateActive ] in BlockClosure>>newProcess
+------------------------------
+
+Process: a Process in AtomicSharedQueue>>waitForNewItems
+  stack:
+
+AtomicSharedQueue>>waitForNewItems
+AtomicSharedQueue>>next
+[ | available next |
+available := OrderedCollection with: updateQueue next.
+[ next := updateQueue nextOrNil ] whileNotNil: [ available add: next ].
+self runUpdateFor: available ] in ClyDataSourceUpdateScheduler>>processQueue
+BlockClosure>>repeat
+ClyDataSourceUpdateScheduler>>processQueue
+[ self processQueue ] in ClyDataSourceUpdateScheduler>>ensureRunning
+[ self value.
+Processor terminateActive ] in BlockClosure>>newProcess
+------------------------------
+
+Process: a Process in Process>>terminate
+  stack:
+
+Process>>terminate
+------------------------------
+
+Process: a Process in [ self value.
+Processor terminateActive ] in BlockClosure>>newProcess
+  stack:
+
+[ self value.
+Processor terminateActive ] in BlockClosure>>newProcess
+------------------------------
+
+Process: a Process in Process>>terminate
+  stack:
+
+Process>>terminate
+------------------------------
+
+Process: a Process in Process>>terminate
+  stack:
+
+Process>>terminate
+------------------------------
+
+Process: a Process in Process>>terminate
+  stack:
+
+Process>>terminate
+------------------------------
+
+Process: a Process in Process>>terminate
+  stack:
+
+Process>>terminate
+------------------------------
+
+Process: a Process in Process>>terminate
+  stack:
+
+Process>>terminate
+------------------------------
+
+Process: a Process in SmalltalkImage>>lowSpaceWatcher
+  stack:
+
+SmalltalkImage>>lowSpaceWatcher
+[ self lowSpaceWatcher ] in SmalltalkImage>>installLowSpaceWatcher
+[ self value.
+Processor terminateActive ] in BlockClosure>>newProcess
+------------------------------
+
+Process: a Process in [ self value.
+Processor terminateActive ] in BlockClosure>>newProcess
+  stack:
+
+[ self value.
+Processor terminateActive ] in BlockClosure>>newProcess
+------------------------------
+
+Process: a Process in InputEventFetcher>>waitForInput
+  stack:
+
+InputEventFetcher>>waitForInput
+InputEventFetcher>>eventLoop
+[ self eventLoop ] in InputEventFetcher>>installEventLoop
+[ self value.
+Processor terminateActive ] in BlockClosure>>newProcess
+------------------------------
+
+Process: a Process in WeakArray class>>finalizationProcess
+  stack:
+
+WeakArray class>>finalizationProcess
+[ self finalizationProcess ] in WeakArray class>>restartFinalizationProcess
+[ self value.
+Processor terminateActive ] in BlockClosure>>newProcess
+------------------------------
+
+Process: a Process in [ self schedule.
+"It is critical that the following has no suspension point so that
+	the test and the wait primitive are atomic. In addition, if the delay
+	is no longer being waited on while entering the way we know that it 
+	is expired because the delay has already fired."
+beingWaitedOn
+	ifTrue: [ delaySemaphore wait ]
+	ifFalse: [ expired := true ] ] in DelayWaitTimeout>>wait
+  stack:
+
+[ self schedule.
+"It is critical that the following has no suspension point so that
+	the test and the wait primitive are atomic. In addition, if the delay
+	is no longer being waited on while entering the way we know that it 
+	is expired because the delay has already fired."
+beingWaitedOn
+	ifTrue: [ delaySemaphore wait ]
+	ifFalse: [ expired := true ] ] in DelayWaitTimeout>>wait
+BlockClosure>>ensure:
+DelayWaitTimeout>>wait
+Semaphore>>waitTimeoutMSecs:
+[ "OSProcess authors suspected that there were various ways in which OS signals
+				could be missed under conditions of heavy load. For that reason, we use
+				#waitTimeoutMSecs: with the semaphore, so that if a signal is missed,
+				we time out and rescan occasionally anyway (#updateActiveChildrenAndNotifyDead
+				sends queryExitStatus which sends waitpid() )
+				"
+self sigChldSemaphore waitTimeoutMSecs: 1000.
+processSynchronizationDelay wait.	"Avoids lost signals in heavy process switching"
+self updateActiveChildrenAndNotifyDead ] in [ [ "OSProcess authors suspected that there were various ways in which OS signals
+				could be missed under conditions of heavy load. For that reason, we use
+				#waitTimeoutMSecs: with the semaphore, so that if a signal is missed,
+				we time out and rescan occasionally anyway (#updateActiveChildrenAndNotifyDead
+				sends queryExitStatus which sends waitpid() )
+				"
+self sigChldSemaphore waitTimeoutMSecs: 1000.
+processSynchronizationDelay wait.	"Avoids lost signals in heavy process switching"
+self updateActiveChildrenAndNotifyDead ] repeat ] in OSSVMProcess>>initializeChildWatcher
+BlockClosure>>repeat
+[ [ "OSProcess authors suspected that there were various ways in which OS signals
+				could be missed under conditions of heavy load. For that reason, we use
+				#waitTimeoutMSecs: with the semaphore, so that if a signal is missed,
+				we time out and rescan occasionally anyway (#updateActiveChildrenAndNotifyDead
+				sends queryExitStatus which sends waitpid() )
+				"
+self sigChldSemaphore waitTimeoutMSecs: 1000.
+processSynchronizationDelay wait.	"Avoids lost signals in heavy process switching"
+self updateActiveChildrenAndNotifyDead ] repeat ] in OSSVMProcess>>initializeChildWatcher
+[ self value.
+Processor terminateActive ] in BlockClosure>>newProcess
+------------------------------
+
+Process: a Process in nil
+  stack:
+
+Array(SequenceableCollection)>>do:
+[ :logger | 
+logger
+	nextPutAll: 'Processes and their stacks: ';
+	cr.
+Process allInstances
+	do: [ :each | 
+		| ctx |
+		logger
+			nextPutAll: 'Process: ';
+			print: each;
+			cr;
+			nextPutAll: '  stack:';
+			cr;
+			cr.
+		ctx := each isActiveProcess
+			ifTrue: [ thisContext sender ]
+			ifFalse: [ each suspendedContext ].
+		ctx
+			ifNotNil: [ (ctx stackOfSize: 20)
+					do: [ :s | 
+						logger
+							print: s;
+							cr ] ].
+		logger
+			nextPutAll: '------------------------------';
+			cr;
+			cr ] ] in [ Smalltalk logError: aString inContext: aContext.
+
+" Print stacks of all current processes "
+Smalltalk
+	logDuring: [ :logger | 
+		logger
+			nextPutAll: 'Processes and their stacks: ';
+			cr.
+		Process allInstances
+			do: [ :each | 
+				| ctx |
+				logger
+					nextPutAll: 'Process: ';
+					print: each;
+					cr;
+					nextPutAll: '  stack:';
+					cr;
+					cr.
+				ctx := each isActiveProcess
+					ifTrue: [ thisContext sender ]
+					ifFalse: [ each suspendedContext ].
+				ctx
+					ifNotNil: [ (ctx stackOfSize: 20)
+							do: [ :s | 
+								logger
+									print: s;
+									cr ] ].
+				logger
+					nextPutAll: '------------------------------';
+					cr;
+					cr ] ] ] in NonInteractiveUIManager(CommandLineUIManager)>>quitFrom:withMessage:
+[ logStream := self openLog.
+aMonadicBlock value: logStream ] in SmalltalkImage>>logDuring:
+BlockClosure>>ensure:
+SmalltalkImage>>logDuring:
+[ Smalltalk logError: aString inContext: aContext.
+
+" Print stacks of all current processes "
+Smalltalk
+	logDuring: [ :logger | 
+		logger
+			nextPutAll: 'Processes and their stacks: ';
+			cr.
+		Process allInstances
+			do: [ :each | 
+				| ctx |
+				logger
+					nextPutAll: 'Process: ';
+					print: each;
+					cr;
+					nextPutAll: '  stack:';
+					cr;
+					cr.
+				ctx := each isActiveProcess
+					ifTrue: [ thisContext sender ]
+					ifFalse: [ each suspendedContext ].
+				ctx
+					ifNotNil: [ (ctx stackOfSize: 20)
+							do: [ :s | 
+								logger
+									print: s;
+									cr ] ].
+				logger
+					nextPutAll: '------------------------------';
+					cr;
+					cr ] ] ] in NonInteractiveUIManager(CommandLineUIManager)>>quitFrom:withMessage:
+BlockClosure>>ensure:
+NonInteractiveUIManager(CommandLineUIManager)>>quitFrom:withMessage:
+NonInteractiveUIManager(CommandLineUIManager)>>unhandledErrorDefaultAction:
+UnhandledError>>defaultAction
+UndefinedObject>>handleSignal:
+Context>>handleSignal:
+Context>>handleSignal:
+UnhandledError(Exception)>>signal
+UnhandledError class>>signalForException:
+FileDoesNotExistException(Error)>>defaultAction
+UndefinedObject>>handleSignal:
+Context>>handleSignal:
+Context>>handleSignal:
+FileDoesNotExistException(Exception)>>signal
+------------------------------
+
