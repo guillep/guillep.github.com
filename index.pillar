@@ -4,10 +4,14 @@
 
 Coding enthusiast. Mad hatter. Software engineer and researcher. 
 
-I am currently a CNRS Research Engineer at the CRIStAL laboratory, where I am expert in software engineering.
-I work in tight relation with the *RMoD team from Inria Lille-Nord Europe>https://rmod.inria.fr/*.
+I am currently an Inria Researcher at the CRIStAL laboratory, where I am expert in software engineering and language implementations, with a particular focus on test generation.
+I work in the *RMoD team from Inria Lille-Nord Europe>https://rmod.inria.fr/*.
 
-My main research interest lies in the efficiency and modularity of programming languages, particularly in Language Virtual Machines (VMs). VMs make possible for high-level programming languages to run efficiently, and thus makes them an important asset for companies. They achieve high performance thanks to aggressive optimisation techniques that mix state-of-the-art compilation with operating-system memory management. A main __challenge__ in this context is the __high-cost__ incurred in VM construction, due to the complexity and inter-dependence of their many components. This complexity is required by companies and research to be competitive.
+My main research interest lies in the efficiency, modularity and testing of programming languages, particularly in Language Virtual Machines (VMs).
+VMs make possible for high-level programming languages to run efficiently, and thus makes them an important asset for companies.
+They achieve high performance thanks to aggressive optimisation techniques that mix state-of-the-art compilation with operating-system memory management.
+A main __challenge__ in this context is the __high-cost__ incurred in VM construction, due to the complexity and inter-dependence of their many components.
+This complexity is required by companies and research to be competitive.
 
 I actively participate in the development of the open source *Pharo>http://www.pharo-project.org* programming language and environment since 2010, and I am a member of its technical board since 2018.
 
@@ -17,27 +21,8 @@ I obtained the 13 of april 2015 my Phd entitled "Virtualization support for appl
 
 !!News
 
-- ''26-02-2022'' We got our paper "Interpreter-guided Differential JIT Compiler Unit Testing" conditionally Accepted at PLDI'22!
+- ''11-04-2023'' I'll be in Dublin for *ICST'23>https://conf.researchr.org/home/icst-2023* next week, see you there!
+- ''02-02-2023'' I will be part of *MPLR'23 PC>https://2023.splashcon.org/home/mplr-2023*, prepare your submissions!
+- ''19-01-2023'' We got our paper "Heap Fuzzing: Automatic Garbage Collection Testing with Expert-Guided Random Events" Accepted at *ICST'23>https://conf.researchr.org/home/icst-2023*!
+- ''26-02-2022'' We got our paper "Interpreter-guided Differential JIT Compiler Unit Testing" Accepted at PLDI'22!
 - ''04-01-2022'' I will be part of *MPLR'22 PC>https://soft.vub.ac.be/mplr22/*, prepare your submissions!
-- ''21-10-2021'' We got our paper "Practical Online Debugging of Spark-like applications" Accepted at IEEE QRS'21!
-- ''15-09-2021'' We got our paper "Analyzing Permission Transfer Channels for Dynamically Typed Languages" Accepted at DLS'21!
-- ''08-07-2021'' We got our paper "Cross-ISA Testing of the Pharo VM: Lessons Learned While Porting to ARMv8" Accepted at MPLR'21!
-- ''08-07-2021'' We got our paper "Profiling Code Cache Behaviour via Events" Accepted at MPLR'21!
-- ''18-05-2021'' We got our paper "Rotten Green Tests in Java, Pharo and Python An Empirical Study" Accepted at Journal of Empirical Software Engineering!
-- ''17-11-2020'' We are presenting our work on *Framework-aware debugging with stack tailoring>https://hal.archives-ouvertes.fr/hal-03043779/* in 2020's Dynamic Language Symposium
-- ''20-10-2020'' We are presenting our work on *Sindarin: a versatile scripting API for the Pharo debugger>https://hal.archives-ouvertes.fr/hal-02280915* in 2019's Dynamic Language Symposium
-- ''13-12-2018'' We got our *rotten tests>https://2019.icse-conferences.org/event/icse-2019-technical-papers-rotten-green-tests* paper accepted for ICSE'19!
-- ''07-11-2018'' We got a Programming2019 paper with Matteo from the VUB! Take a look at *out of place debugging>http://programming-journal.org/2019/3/3/*
-- ''09-09-2018'' I'll be at *ESUG18>https://esug.github.io/2018-Conference/conf2018.html* presenting all our latest work on Pharo build process and Iceberg git integration
-
-!!Awards
-
-- 2019 "2nd prize" of the *ESUG IWST best paper award>https://esug.github.io/2019-Conference/cfpIWST2019.html* with __Illicium: A modular transpilation tool-chain from Pharo to C__.
-- 2019 "2nd prize" of the *ESUG IWST best paper award>https://esug.github.io/2019-Conference/cfpIWST2019.html* with __GildaVM: a Non-Blocking I/O Architecture for the Cog VM__.
-- 2018 "1st prize" of the *ESUG innovation technology awards>https://esug.github.io/2018-Conference/awardsSubmissions2018.html* presenting Iceberg.
-- 2018 "1st prize" of the *ESUG IWST best paper award>https://esug.github.io/2018-Conference/conf2018.html* with our preliminar work on rotten green tests.
-- 2017 "1st prize" of the *ESUG IWST best paper award>http://www.esug.org/wiki/pier/Conferences/2017/International-Workshop-IWST_17* with our work on Undefined Classes.
-- 2013 "1st prize" of the *ESUG innovation technology awards>http://esug.org/wiki/pier/Conferences/2013/Innovation-Technology-Awards* presenting Oz Recovery Tools.
-- 2013 "1st prize" of the *ESUG innovation technology awards>http://esug.org/wiki/pier/Conferences/2013/Innovation-Technology-Awards* presenting Oz Recovery Tools.
-- 2012 "2nd prize" of the *ESUG innovation technology awards>http://esug.org/wiki/pier/Conferences/2012/Innovation-Technology-Awards* presenting Hazelnut.
-- 2011 "3rd prize" of the *ESUG innovation technology awards>http://esug.org/wiki/pier/Conferences/2011/InnovationTechnologyAwards* presenting Ozono(formerly LOOP) in conjunction with Nicolas Passerini, Gisela Decuzzi, Carla Griggio and German Leiva.
