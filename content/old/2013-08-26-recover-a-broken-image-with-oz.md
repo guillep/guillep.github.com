@@ -1,38 +1,11 @@
 ---
-layout: post
+external: false
+draft: false
 title: Recover a broken image with Oz
-categories:
-- Oz
-tags:
-- broken image
-- Image
-- Object oriented
-- object spaces
-- oz library
-- Pharo
-- recovery
-- recovery environment
-- software
-- technology
-summary: Oz object Spaces allows one to manipulate an image. For example, install new objects in it, change the state of old ones, recompile methods. Now, this also works on broken images. Have you ever lost an image and couldn't be able to open it again? Well, let's do that no more. Oz comes to the rescue.
-status: publish
-type: post
-published: true
-meta:
-  _publicize_pending: '1'
-  _wpas_done_3194664: '1'
-  tagazine-media: a:7:{s:7:"primary";s:0:"";s:6:"images";a:0:{}s:6:"videos";a:0:{}s:11:"image_count";i:0;s:6:"author";s:8:"35633512";s:7:"blog_id";s:8:"36660125";s:9:"mod_stamp";s:19:"2013-08-26
-    16:07:15";}
-  _wpas_mess: Recover a broken image with Oz
-  _publicize_done_external: a:1:{s:8:"facebook";a:1:{i:1479284455;b:1;}}
-  publicize_twitter_user: GuillePolito
-  _wpas_done_1260342: '1'
-  _wpas_done_1260340: '1'
-  _elasticsearch_indexed_on: '2013-08-26 16:07:15'
-  _wpas_skip_3194664: '1'
-  _wpas_skip_1260342: '1'
-  _wpas_skip_1260340: '1'
+description: This post is a draft and won't be built.
+date: 2013-08-26
 ---
+
 While hacking the VM the other day, I went into a very special situation: I got an image that crashed on startup. And I had stuff without commit!! So I started the crusade to recover it.
 
 I know that some time ago, people like <a href="http://seandenigris.com/blog/">Sean De Nigris</a> had the same problem and ended up hacking the VM to solve their problem. You can have an idea of what exactly happened by reading the <a href="http://forum.world.st/Oops-I-put-a-halt-in-a-startup-method-td3800163.html">original mailing list post</a>.

@@ -1,33 +1,11 @@
 ---
-layout: post
+external: false
+draft: false
 title: Oz object spaces in Esug 2013
-categories:
-- Oz
-- Pharo
-tags:
-- Continuous integration
-- ESUG
-- object spaces
-- Pharo
-- Smalltalk
-- smalltalk environment
-summary: This little post sums up what I presented at <a href="http://esug.org/wiki/pier/Conferences/2013">ESUG 2013</a>. A paper about my work in the workshop, and the recovery tools of Oz in the innovation awards.
-status: publish
-type: post
-published: true
-meta:
-  _wpas_mess: Oz object spaces for @pharoproject in ESUG conference 2013
-  _elasticsearch_indexed_on: '2013-09-06 11:52:00'
-  _publicize_pending: '1'
-  _wpas_done_3194664: '1'
-  _publicize_done_external: a:1:{s:8:"facebook";a:1:{i:1479284455;b:1;}}
-  publicize_twitter_user: GuillePolito
-  _wpas_done_1260342: '1'
-  _wpas_done_1260340: '1'
-  _wpas_skip_3194664: '1'
-  _wpas_skip_1260342: '1'
-  _wpas_skip_1260340: '1'
+description: This post is a draft and won't be built.
+date: 2013-09-06
 ---
+
 Hi!
 
 This little post is to add a summary of what I'll be showing in the upcoming <a href="http://esug.org/wiki/pier/Conferences/2013">ESUG conference</a>. I'll present a paper about my work in the workshop and present the recovery tools of Oz in the innovation awards :).

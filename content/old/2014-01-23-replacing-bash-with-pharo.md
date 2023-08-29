@@ -1,15 +1,11 @@
 ---
-layout: post
+external: false
+draft: false
 title: Replacing bash with pharo
-categories:
-- Pharo
-tags:
-- bash
-summary: Taking Pharo to the shell? Piece of cake! Command line handlers, OSProcess, understanding how to talk to the compiler, and a bit shell scripting to have a really powerful solution in the unix shell.
-status: publish
-type: post
-published: true
+description: This post is a draft and won't be built.
+date: 2014-01-23
 ---
+
 <img alt="Pharo" src="http://playingwithobjects.files.wordpress.com/2013/03/sans-titre-1.png?w=300" width="210" height="210" />
 
 Yesterday evening we were bored with Santi (Santiago Bragagnolo) and we started discussing about Coral (link to coral). For those who don't know what Coral is, in a couple of words we could say that it's a project that aims to take Pharo into the command shell. Well, since we thought it was easy to implement on top of the new shiny command line handlers of Pharo, we made a prototype implementation of some basic stuff in a couple of hours. We put here the path we took, and what we learnt on the way.

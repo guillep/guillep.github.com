@@ -1,39 +1,11 @@
 ---
-layout: post
+external: false
+draft: false
 title: When optimal matters
-categories:
-- Software Engineering
-tags:
-- donald knuth
-- finite resource
-- it
-- optimal code
-- optimization techniques
-- optimizations
-- Pharo
-- profiling
-- resource assumptions
-- software
-- software-development
-- technology
-status: publish
-type: post
-published: true
-meta:
-  _publicize_pending: '1'
-  _wpas_done_3194664: '1'
-  tagazine-media: a:7:{s:7:"primary";s:0:"";s:6:"images";a:0:{}s:6:"videos";a:0:{}s:11:"image_count";i:0;s:6:"author";s:8:"35633512";s:7:"blog_id";s:8:"36660125";s:9:"mod_stamp";s:19:"2013-03-23
-    19:57:19";}
-  _publicize_done_external: a:1:{s:8:"facebook";a:1:{i:1479284455;b:1;}}
-  publicize_twitter_user: GuillePolito
-  _wpas_done_1260342: '1'
-  _wpas_done_1260340: '1'
-  publicize_reach: a:3:{s:7:"twitter";a:1:{i:1260342;i:159;}s:2:"fb";a:1:{i:3194664;i:363;}s:2:"wp";a:1:{i:0;i:9;}}
-  _wpas_skip_3194664: '1'
-  _wpas_skip_1260342: '1'
-  _wpas_skip_1260340: '1'
-  _elasticsearch_indexed_on: '2013-03-23 19:57:19'
+description: This post is a draft and won't be built.
+date: 2013-03-23
 ---
+
 This last week I've been involved somehow in several discussions which, although not explicitly, talked about optimizations. In particular, premature optimizations. Of course, we all know they are evil. Do we? I'll not discuss today on optimization techniques, but on what should an IT professional think about when thinking about optimizations in his programs.
 
 The main arguments I heard this week of people supporting premature organizations were:

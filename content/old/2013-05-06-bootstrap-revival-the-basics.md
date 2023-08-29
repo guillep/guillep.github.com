@@ -1,26 +1,11 @@
 ---
-layout: post
+external: false
+draft: false
 title: Bootstrap revival - the basics
-categories:
-- Pharo
-- Smalltalk
-tags:
-- Bootstrap
-- dynamic languages
-- internal implementation
-- languages
-- object spaces
-status: publish
-type: post
-published: true
-meta:
-  _wpas_mess: Bootstrap revival - the basics http://wp.me/p2tOYl-3k
-  _elasticsearch_indexed_on: '2013-05-06 14:41:55'
-  geo_public: '0'
-  _wpas_skip_3194664: '1'
-  _wpas_skip_1260342: '1'
-  _wpas_skip_1260340: '1'
+description: This post is a draft and won't be built.
+date: 2013-05-06
 ---
+
 In the last time I was working on the system bootstrap again, trying to enhance the process, lower the imposed limitations... And I have a pretty new version. I'll present here a summary of what I've learnt in the last time:
 <ul>
 	<li>A review on the process steps, with exemplar code snippets</li>

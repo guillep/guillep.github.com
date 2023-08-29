@@ -1,37 +1,11 @@
 ---
-layout: post
+external: false
+draft: false
 title: Installing Pharo in many flavors
-categories:
-- Pharo
-- Software Engineering
-tags:
-- bash scripts
-- dependency management
-- deploy
-- image releases
-- Pharo
-- software
-- technology
-summary: In the recent times, there appeared many many ways to leverage the installation and deploy of <a href="http://www.pharo-project.org/home">Pharo</a> applications. These installation approaches enhance significantly the experience of using Pharo, by simplifying either dependency management with OS libraries, enabling to write deploy bash scripts or loading prebuilt images for any (and many) taste(s). You better know them!
-status: publish
-type: post
-published: true
-meta:
-  geo_public: '0'
-  _wpas_mess: ! 'Installing Pharo in many flavors @pharoproject #pharo #easy #cool'
-  _publicize_pending: '1'
-  _wpas_done_3194664: '1'
-  _publicize_done_external: a:1:{s:8:"facebook";a:1:{i:1479284455;b:1;}}
-  publicize_twitter_user: GuillePolito
-  _wpas_done_1260342: '1'
-  _wpas_done_1260340: '1'
-  _elasticsearch_indexed_on: '2013-07-23 08:57:13'
-  tagazine-media: a:7:{s:7:"primary";s:77:"http://playingwithobjects.files.wordpress.com/2013/07/launcher_screenshot.png";s:6:"images";a:1:{s:77:"http://playingwithobjects.files.wordpress.com/2013/07/launcher_screenshot.png";a:6:{s:8:"file_url";s:77:"http://playingwithobjects.files.wordpress.com/2013/07/launcher_screenshot.png";s:5:"width";i:910;s:6:"height";i:570;s:4:"type";s:5:"image";s:4:"area";i:518700;s:9:"file_path";b:0;}}s:6:"videos";a:0:{}s:11:"image_count";i:1;s:6:"author";s:8:"35633512";s:7:"blog_id";s:8:"36660125";s:9:"mod_stamp";s:19:"2013-07-23
-    08:58:49";}
-  _wpas_skip_3194664: '1'
-  _wpas_skip_1260342: '1'
-  _wpas_skip_1260340: '1'
+description: This post is a draft and won't be built.
+date: 2013-07-23
 ---
+
 Buon giorno!
 
 In the recent times, there appeared many many ways to leverage the installation and deploy of <a href="http://www.pharo-project.org/home">Pharo</a> applications. These installation approaches enhance significantly the experience of using Pharo, by simplifying either dependency management with OS libraries, enabling to write deploy bash scripts or loading prebuilt images for any (and many) taste(s).

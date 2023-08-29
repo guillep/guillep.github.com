@@ -1,15 +1,11 @@
 ---
-layout: post
-title: Contributing into Pharo
-categories:
-- Smalltalk
-tags: []
-status: draft
-type: post
-published: false
-meta:
-  geo_public: '0'
+external: false
+draft: false
+title: Contributing to Pharo
+description: This post is a draft and won't be built.
+date: 2013-07-23
 ---
+
 Yes, <a href="http://www.pharo-project.org/">Pharo</a> is open source. It has MIT licence. That means that you can take it and use it for your own private/industrial/educational/darkOrEvil purpose. And your work can remain private for you, you are not forced to make your work open source, nor publish the code.
 
 But there is another truth: Pharo has almost no paid workers. So it's movement and success depend hightly on its users and the contributions people make in it. I know a lot of people that do not know how to contribute and/or think it is for sure a lot of work. And I'd like to enlighten them by writing this post. So, after reading this you should have a brief answer to two main questions:

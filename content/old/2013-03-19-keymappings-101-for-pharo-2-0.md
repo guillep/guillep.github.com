@@ -1,40 +1,11 @@
 ---
-layout: post
+external: false
+draft: false
 title: Keymappings 101 - for Pharo 2.0
-categories:
-- Pharo
-- Smalltalk
-tags:
-- command keys
-- dynamic languages
-- Keymappings
-- meta keys
-- Object oriented
-- OOP
-- Pharo
-- Shortcuts
-- software
-- technology
-- ui library
-status: publish
-type: post
-published: true
-meta:
-  _publicize_pending: '1'
-  _wpas_done_1260342: '1'
-  _wpas_done_1260340: '1'
-  _wpas_mess: ! 'Keymappings 101 - for #Pharo 2.0 http://wp.me/p2tOYl-2B @pharoproject'
-  _wpas_skip_1260342: '1'
-  publicize_twitter_user: GuillePolito
-  _publicize_done_external: a:1:{s:7:"twitter";a:1:{i:93753233;b:1;}}
-  publicize_reach: a:2:{s:7:"twitter";a:1:{i:1260342;i:157;}s:2:"wp";a:1:{i:0;i:8;}}
-  tagazine-media: a:7:{s:7:"primary";s:70:"http://playingwithobjects.files.wordpress.com/2013/03/sans-titre-1.png";s:6:"images";a:1:{s:70:"http://playingwithobjects.files.wordpress.com/2013/03/sans-titre-1.png";a:6:{s:8:"file_url";s:70:"http://playingwithobjects.files.wordpress.com/2013/03/sans-titre-1.png";s:5:"width";i:512;s:6:"height";i:512;s:4:"type";s:5:"image";s:4:"area";i:262144;s:9:"file_path";b:0;}}s:6:"videos";a:0:{}s:11:"image_count";i:1;s:6:"author";s:8:"35633512";s:7:"blog_id";s:8:"36660125";s:9:"mod_stamp";s:19:"2013-03-19
-    16:23:29";}
-  _wpas_skip_1260340: '1'
-  _wpas_done_3194664: '1'
-  _wpas_skip_3194664: '1'
-  _elasticsearch_indexed_on: '2013-03-19 16:18:05'
+description: This post is a draft and won't be built.
+date: 2013-03-19
 ---
+
 <img alt="Pharo" src="http://playingwithobjects.files.wordpress.com/2013/03/sans-titre-1.png?w=300" width="210" height="210" />
 
 Pharo 2.0 release includes the Keymappings library. Keymappings is a library for configuring shortcuts for the current UI library (Morphic). It models concepts like: shortcuts, key combinations, event bubbling. It is a very simple library which I'll introduce gradually in this post.

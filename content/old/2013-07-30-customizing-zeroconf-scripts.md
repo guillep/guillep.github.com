@@ -1,30 +1,11 @@
 ---
-layout: post
+external: false
+draft: false
 title: Customizing ZeroConf scripts
-categories:
-- Pharo
-- Software Engineering
-tags:
-- bash
-- bash scripts
-- Pharo
-- Smalltalk
-- zeroconf
-status: publish
-type: post
-published: true
-summary: ZeroConf scripts are bash scripts that ease the installation of a Pharo environment. Now, as I am working on my Phd on my own environment, I'd like to show you how I customized them to manage my own software with them.
-meta:
-  geo_public: '0'
-  _publicize_pending: '1'
-  _publicize_done_external: a:1:{s:8:"facebook";a:1:{i:1479284455;b:1;}}
-  _wpas_done_3194664: '1'
-  _wpas_mess: Customizing ZeroConf scripts http://wp.me/p2tOYl-4v
-  publicize_twitter_user: GuillePolito
-  _wpas_done_1260342: '1'
-  _wpas_done_1260340: '1'
-  _elasticsearch_indexed_on: '2013-07-30 10:36:55'
+description: This post is a draft and won't be built.
+date: 2013-07-30
 ---
+
 As you may already know, ZeroConf scripts are bash scripts that <a>ease the installation of a Pharo environment</a>. A funny thing about these ZeroConf scripts is that they are seen as bash scripts by a bash terminal, and as simple and minimal html pages by a web browser. These scripts are extensively used to simplify the configuration of Pharo CI jobs. They allow you to easily download many versions of the Pharo image and VM.
 
 As I'm working for my Phd, and have a custom version of my virtual machine and image, and also want to make use of the advantages our CI server provides, I wanted to build my own ZeroConf scripts specialized for my needs. I also heard recently on the pharo mailing list that there was some work on customizing ZeroConf scripts[1] for Moose[2]. So I wanted to do it as well for my project :).

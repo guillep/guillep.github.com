@@ -1,14 +1,9 @@
 ---
-layout: post
+external: false
+draft: false
 title: Onion Pharo
-categories:
-- Pharo
-tags:
-- bash
-summary: In the journey to take the bootstrap to production, we started chasing with JB the Pharo Kernel. Yeah, like the grail but shinier :). what is the minimal pharo and how do we get there?
-status: publish
-type: post
-published: true
+description: This post is a draft and won't be built.
+date: 2014-11-07
 ---
 
 In the journey to take the bootstrap to production, we started chasing with JB the Pharo Kernel. Yeah, like the grail but shinier :). what is the minimal pharo and how do we get there?
