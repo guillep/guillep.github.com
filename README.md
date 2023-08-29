@@ -1,40 +1,50 @@
-# My personal site in Ecstatic 
+# Blogster
 
-The quickest way to start and publish your Jekyll powered blog. 100% compatible with GitHub pages
+Theme: **newspaper**
 
-## Usage
+Blogster is a collection of beautiful, accessible and performant blog templates built with [Astro](https://astro.build) and [Markdoc](https://markdoc.dev).
 
-For all usage and documentation please see: <http://jekyllbootstrap.com>
+Check out the demo here - [Blogster newspaper template](https://blogster-newspaper.netlify.app).
 
-## Version
+## Newspaper Template
 
-0.3.0 - stable and versioned using [semantic versioning](http://semver.org/).
+A beautiful, performant and accessible theme built with [Tailwind](https://tailwindcss.com).
 
-**NOTE:** 0.3.0 introduces a new theme which is not backwards compatible in the sense it won't _look_ like the old version.
-However, the actual API has not changed at all.
-You might want to run 0.3.0 in a branch to make sure you are ok with the theme design changes.
+- **Fast**. Fast by default. Astro websites are engineered to be fast and load before you could blink, even when not cached.
+- **Dark mode**. All themes have light/dark mode built-in.
+- **Mobile first**. Responsive and loads fast in all devices.
+- **Accessible**. A well thought out semantic and accessible content.
+- **Perfect lighthouse score.** 100 across the board.
+- **Easy content authoring**. Author content using markdown (`.md`) from your code editor or directly in GitHub.
+- **Extended markdown with [Markdoc](https://markdoc.dev).** Type-safe custom components like YouTube embed, Twitter embed (or anything you want really) in your markdown (`.md`) files.
+- **RSS feed**. Your blog has an RSS feed setup that can be accessed at `/rss.xml`.
+- **SEO**. All pages are setup with all the SEO you might need.
 
-## Contributing
+## How do I add content?
 
+All the content is written in markdown (.md) and grouped as `blog` or `projects` in the `content` directory. All the default markdown syntax will work. You also have a few example custom markdown elements like _YouTube embed_, _Twitter embed_, etc. You can create your own custom components too in two easy steps.
 
-To contribute to the framework please make sure to checkout your branch based on `jb-development`!!
-This is very important as it allows me to accept your pull request without having to publish a public version release.
+1. Add a markdoc config. Check out the markdoc config in [src/lib/markdoc/config.ts](src/lib/markdoc/config.ts) to learn how to add custom components.
+2. Add a component to render your custom component. Check out the Renderer in [src/components/Renderer.astro](src/components/Renderer.astro).
 
-Small, atomic Features, bugs, etc.
-Use the `jb-development` branch but note it will likely change fast as pull requests are accepted.
-Please rebase as often as possible when working.
-Work on small, atomic features/bugs to avoid upstream commits affecting/breaking your development work.
+## How do I make it my blog?
 
-For Big Features or major API extensions/edits:
-This is the one case where I'll accept pull-requests based off the master branch.
-This allows you to work in isolation but it means I'll have to manually merge your work into the next public release.
-Translation : it might take a bit longer so please be patient! (but sincerely thank you).
+Easy.
 
-**Jekyll-Bootstrap Documentation Website.**
+- All content is static and everything is straight forward. Change whatever you need to change.
+- Delete or update the content in `content/{content-group}`. `content-group` could be `blog`, `projects` or `anything`.
+- (Optional) If you need more content types like _Notes_, just create a new dir in `content` and add a new frontmatter validator like [src/lib/markdoc/blog/frontmatter](src/lib/markdoc/blog/frontmatter).
 
-The documentation website at <http://jekyllbootstrap.com> is maintained at https://github.com/plusjade/jekyllbootstrap.com
+## How do I deploy?
 
+`yarn build` will generate a static website in `dist` dir. You can host it with any static hosting. If you need a recommendation, check out [Netlify](netlify.com).
+
+## Credit
+
+Thanks to other templates that inspired this theme.
+
+- [Official Astro Blog template](https://github.com/withastro/astro/tree/main/examples/blog)
 
 ## License
 
-[MIT](http://opensource.org/licenses/MIT)
+MIT © [Dinesh Pandiyan](https://github.com/flexdinesh)
