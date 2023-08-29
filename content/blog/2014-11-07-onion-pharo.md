@@ -8,8 +8,7 @@ date: 2014-11-07
 
 In the journey to take the bootstrap to production, we started chasing with JB the Pharo Kernel. Yeah, like the grail but shinier :). what is the minimal pharo and how do we get there?
 
-About onion Pharo. Or Pharo in Layers. Or Modular Pharo...
-----------------
+## About onion Pharo. Or Pharo in Layers. Or Modular Pharo...
 
 Discussing with JB about what should be a minimal Pharo, we got an even better question: What should a minimal Pharo do? Simple thing: if we know what it should do, we can know what to put inside it. The answer was, however, easy to find. We need the minimal Pharo to be able to **load code**.
 
@@ -33,12 +32,11 @@ So like that we kind of layered Pharo into the following:
 
 Now that we know what to look for, let's search!
 
-Our Crazy little list 
-----------------
+## Our Crazy little list 
 
 So our first approach is to make phase zero work, getting the class builder work. The complex thing at this point, is that that class builder depends on several parts of the system to be initialized before him: it does not require only the existance of some classes, but also that they ensure some initial state. After some iterations we arrived to this little script that initializes in an empty system all we need to run a pharo's class builder:
 
-{% highlight smalltalk %}
+```smalltalk
 HashTableSizes initialize.
 		
 DangerousClassNotifier disable
@@ -55,7 +53,7 @@ String initialize.
 DateAndTime initialize.
 ChronologyConstants initialize.
 Symbol initialize.
-{% endhighlight %}
+```
 
 Ok, to tell the thruth this script is a bit simplified to show you some core ideas. First, as you can see, the class builder does, directly or not, depend on some strange stuff that we couldn't have thought at first: DateAndTime? ChronologyConstants? SmalltalkImage? Second, and to add even more complexity, the order of this script is important. Briefly, this script shows a lot of untangled dependencies, and we are not even in phase zero! For the impatient reader, we know this script is not nice: we are working on enhancing, simplifying, and automatizing it for your happiness.
 
@@ -131,8 +129,7 @@ And then, if we run the class builder in several scenarios, we get the list of c
 
 That's a good start! We have a bunch of classes that should be the minimal Phase Zero Pharo Kernel!
 
-Reinjecting in the system
-----------------
+## Reinjecting in the system
 
 So now that we have that list of classes... what? We can start doing a lot of stuff!! But my first attempt is to reinject this knowledge inside the system itself. Just by looking at the kernel package, we can do arrive to the following conclusions:
 
