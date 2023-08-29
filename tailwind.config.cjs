@@ -2,7 +2,7 @@
 module.exports = {
   content: [
   "./src/**/*.astro",
-  "./public/*"],
+  "./public/"],
   darkMode: "class",
   theme: {
     extend: {
