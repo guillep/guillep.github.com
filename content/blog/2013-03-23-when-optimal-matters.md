@@ -2,7 +2,7 @@
 external: false
 draft: false
 title: When optimal matters
-description: This post is a draft and won't be built.
+description: "On premature optimization, why it is not the whole story, and how profiling helps you find the critical 3% of your code."
 date: 2013-03-23
 ---
 

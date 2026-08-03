@@ -2,7 +2,7 @@
 external: false
 draft: false
 title: Understanding Object Formats in CogVM
-description: This post is a draft and won't be built.
+description: "How Smalltalk objects are represented in the CogVM: object fields, headers, compact classes and immediate objects."
 date: 2012-05-30
 ---
 

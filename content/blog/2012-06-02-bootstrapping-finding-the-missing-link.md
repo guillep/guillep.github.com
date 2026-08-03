@@ -2,7 +2,7 @@
 external: false
 draft: false
 title: 'Bootstrapping: finding the missing link'
-description: This post is a draft and won't be built.
+description: "An introduction to the Pharo bootstrap project: what a bootstrap is, why Pharo needs one, and the current status of the GSOC effort."
 date: 2012-06-02
 ---
 

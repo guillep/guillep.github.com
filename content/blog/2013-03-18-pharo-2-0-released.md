@@ -2,7 +2,7 @@
 external: false
 draft: false
 title: Pharo 2.0 Released
-description: This post is a draft and won't be built.
+description: "A tour of Pharo 2.0: new development tools, NativeBoost, Fuel, the Spec and Keymappings UI libraries, and a revamped internals."
 date: 2013-03-18
 ---
 

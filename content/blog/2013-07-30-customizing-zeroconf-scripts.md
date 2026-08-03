@@ -2,7 +2,7 @@
 external: false
 draft: false
 title: Customizing ZeroConf scripts
-description: This post is a draft and won't be built.
+description: "A step-by-step guide to building your own ZeroConf scripts for custom Pharo images and VMs."
 date: 2013-07-30
 ---
 

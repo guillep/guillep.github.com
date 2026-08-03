@@ -2,7 +2,7 @@
 external: false
 draft: false
 title: The Bootstrap Chronicles - The end of a phase
-description: This post is a draft and won't be built.
+description: "Wrapping up the GSOC 2012 bootstrap project: declarative kernel descriptions and the future of bootstrapping Pharo."
 date: 2012-08-22
 ---
 

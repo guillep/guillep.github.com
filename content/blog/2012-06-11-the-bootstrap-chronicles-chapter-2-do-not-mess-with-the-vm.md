@@ -2,7 +2,7 @@
 external: false
 draft: false
 title: The Bootstrap Chronicles Chapter 2 - Don't mess with the VM
-description: This post is a draft and won't be built.
+description: "The VM restrictions that make bootstrapping hard: the special objects array, compact classes, primitives and the hacks used to work around them."
 date: 2012-06-11
 ---
 

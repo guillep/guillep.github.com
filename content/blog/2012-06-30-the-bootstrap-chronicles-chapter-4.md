@@ -2,7 +2,7 @@
 external: false
 draft: false
 title: The Bootstrap Chronicles Chapter 4 – Pump up with Fuel
-description: This post is a draft and won't be built.
+description: "Using Fuel to import packages and run SUnit tests on the bootstrapped image, plus a bootstrap-from-the-bootstrap experiment."
 date: 2012-06-30
 ---
 

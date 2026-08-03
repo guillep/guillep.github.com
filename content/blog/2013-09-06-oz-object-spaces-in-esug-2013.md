@@ -2,7 +2,7 @@
 external: false
 draft: false
 title: Oz object spaces in Esug 2013
-description: This post is a draft and won't be built.
+description: "A summary of what was presented about Oz object spaces at ESUG 2013, plus links to the paper, the demo video and the new logo."
 date: 2013-09-06
 ---
 

@@ -2,8 +2,8 @@
 external: false
 draft: false
 title: The Image Dilemma
-description: This post is a draft and won't be built.
-date: 2012-05-31
+description: "Comparing image-based and file-based development environments: configuration, development process and the tools each approach enables."
+date: 2012-06-01
 ---
 
 > Without self knowledge, without understanding the working and functions of his machine, man cannot be free, he cannot govern himself and he will always remain a slave. -- **Goerge Gurdjieff**

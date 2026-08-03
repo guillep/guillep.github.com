@@ -2,7 +2,7 @@
 external: false
 draft: false
 title: Onion Pharo
-description: This post is a draft and won't be built.
+description: "Exploring a minimal Pharo by layering it into phases, starting from the classes needed to run the class builder."
 date: 2014-11-07
 ---
 

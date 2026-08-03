@@ -2,7 +2,7 @@
 external: false
 draft: false
 title: 'Smalltalk behind the scenes: the meta model'
-description: This post is a draft and won't be built.
+description: "How the Smalltalk meta-model works and how you can build your own metaclass loop from scratch."
 date: 2012-06-17
 ---
 

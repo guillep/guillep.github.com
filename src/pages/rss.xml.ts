@@ -1,9 +1,10 @@
 import rss from "@astrojs/rss";
+import type { APIRoute } from "astro";
 import { blog } from "../lib/markdoc/frontmatter.schema";
 import { readAll } from "../lib/markdoc/read";
-import { SITE_TITLE, SITE_DESCRIPTION, SITE_URL } from "../config";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
 
-export const get = async () => {
+export const GET: APIRoute = async (context) => {
   const posts = await readAll({
     directory: "blog",
     frontmatterSchema: blog,
@@ -17,34 +18,22 @@ export const get = async () => {
         new Date(a.frontmatter.date).valueOf()
     );
 
-  let baseUrl = SITE_URL;
-  // removing trailing slash if found
-  // https://example.com/ => https://example.com
-  baseUrl = baseUrl.replace(/\/+$/g, "");
+  const baseUrl = context.site ? context.site.origin : "";
 
   const rssItems = sortedPosts.map(({ frontmatter, slug }) => {
     if (frontmatter.external) {
-      const title = frontmatter.title;
-      const pubDate = frontmatter.date;
-      const link = frontmatter.url;
-
       return {
-        title,
-        pubDate,
-        link,
+        title: frontmatter.title,
+        pubDate: frontmatter.date,
+        link: frontmatter.url,
       };
     }
 
-    const title = frontmatter.title;
-    const pubDate = frontmatter.date;
-    const description = frontmatter.description;
-    const link = `${baseUrl}/blog/${slug}`;
-
     return {
-      title,
-      pubDate,
-      description,
-      link,
+      title: frontmatter.title,
+      pubDate: frontmatter.date,
+      description: frontmatter.description,
+      link: `${baseUrl}/blog/${slug}`,
     };
   });
 

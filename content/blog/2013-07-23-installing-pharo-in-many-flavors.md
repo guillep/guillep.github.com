@@ -2,7 +2,7 @@
 external: false
 draft: false
 title: Installing Pharo in many flavors
-description: This post is a draft and won't be built.
+description: "A summary of the many ways to install and deploy Pharo: manual downloads, the Ubuntu PPA, ZeroConf scripts and the Pharo Launcher."
 date: 2013-07-23
 ---
 

@@ -2,7 +2,7 @@
 external: false
 draft: false
 title: The Bootstrap Chronicles Chapter 3 - It's Alive!
-description: This post is a draft and won't be built.
+description: "The working bootstrap implementation: building a guest image inside a host one and reporting packaging and initialization bugs."
 date: 2012-06-17
 ---
 

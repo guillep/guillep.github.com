@@ -2,7 +2,7 @@
 external: false
 draft: false
 title: Keymappings 101 - for Pharo 2.0
-description: This post is a draft and won't be built.
+description: "A tutorial on the Keymappings library for Pharo 2.0: building key combinations, mapping them to shortcuts and attaching them to morphs."
 date: 2013-03-19
 ---
 

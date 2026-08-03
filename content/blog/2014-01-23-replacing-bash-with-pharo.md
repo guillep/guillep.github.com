@@ -2,7 +2,7 @@
 external: false
 draft: false
 title: Replacing bash with pharo
-description: This post is a draft and won't be built.
+description: "Making Pharo act as a shell interpreter, with a custom command line handler to run Pharo scripts from the terminal."
 date: 2014-01-23
 ---
 

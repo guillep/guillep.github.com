@@ -2,7 +2,7 @@
 external: false
 draft: false
 title: Recover a broken image with Oz
-description: This post is a draft and won't be built.
+description: "Using Oz object spaces to recover an image that crashes on startup, by loading it, inspecting the active process and fixing the offending literal."
 date: 2013-08-26
 ---
 

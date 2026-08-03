@@ -2,7 +2,7 @@
 external: false
 draft: false
 title: The Bootstrap Chronicles Chapter 1 - Preparing the soil
-description: This post is a draft and won't be built.
+description: "First steps towards building a new Pharo image from scratch, adapting the SystemTracer and tracing packaging problems."
 date: 2012-06-08
 ---
 

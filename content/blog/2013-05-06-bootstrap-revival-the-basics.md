@@ -2,7 +2,7 @@
 external: false
 draft: false
 title: Bootstrap revival - the basics
-description: This post is a draft and won't be built.
+description: "Rebuilding the Pharo bootstrap around object spaces, mirrors and an AST interpreter to overcome VM limitations."
 date: 2013-05-06
 ---
 
