@@ -37,6 +37,38 @@ const ogImageAbsoluteUrl =
   frontmatter.external !== true && frontmatter.ogImagePath
     ? new URL(frontmatter.ogImagePath, SITE_URL).toString()
     : undefined;
+
+// Get all published internal blog posts, sorted newest → oldest
+const posts = await readAll({
+  directory: "blog",
+  frontmatterSchema: blog,
+});
+
+const sortedPosts = posts
+  .filter((p) => p.frontmatter.draft !== true)
+  .filter(({ frontmatter }) => !frontmatter.external)
+  .sort(
+    (a, b) =>
+      new Date(b.frontmatter.date).valueOf() -
+      new Date(a.frontmatter.date).valueOf()
+  );
+
+// Find the current post
+const currentIndex = sortedPosts.findIndex(
+  (post) => post.slug === slug
+);
+
+// Older = next item in newest → oldest list
+const olderPost =
+  currentIndex >= 0 && currentIndex < sortedPosts.length - 1
+    ? sortedPosts[currentIndex + 1]
+    : undefined;
+
+// Newer = previous item in newest → oldest list
+const newerPost =
+  currentIndex > 0
+    ? sortedPosts[currentIndex - 1]
+    : undefined;
 ---
 
 <ContentLayout title={frontmatter.title} date={frontmatter.date}>
@@ -48,5 +80,50 @@ const ogImageAbsoluteUrl =
     ogImageAbsoluteUrl={ogImageAbsoluteUrl}
     slot="meta"
   />
+
   <Renderer content={content} slot="content" />
+
+  <nav
+    slot="content"
+    class="mt-12 grid grid-cols-2 gap-8 border-t border-gray-200 pt-8"
+    aria-label="Blog post navigation"
+  >
+    {
+      olderPost ? (
+        <a
+          href={`/blog/${olderPost.slug}`}
+          class="group"
+        >
+          <div class="text-sm text-text-muted">
+            ← Older post
+          </div>
+
+          <div class="mt-1 font-medium group-hover:text-text-link">
+            {olderPost.frontmatter.title}
+          </div>
+        </a>
+      ) : (
+        <div />
+      )
+    }
+
+    {
+      newerPost ? (
+        <a
+          href={`/blog/${newerPost.slug}`}
+          class="group text-right"
+        >
+          <div class="text-sm text-text-muted">
+            Newer post →
+          </div>
+
+          <div class="mt-1 font-medium group-hover:text-text-link">
+            {newerPost.frontmatter.title}
+          </div>
+        </a>
+      ) : (
+        <div />
+      )
+    }
+  </nav>
 </ContentLayout>
