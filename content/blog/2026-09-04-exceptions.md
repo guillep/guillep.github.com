@@ -180,8 +180,14 @@ The important thing is that the contract becomes explicit.
 
 Instead of:
 
-```text
-signal
+```smalltalk
+Dictionary >> at: aKey ifAbsentPut: aBloc
+	
+	self at: key ifPresent: [ :v | ^ v ].
+	
+	resumtionValue := NotFound signal: aKey.
+	"Oh! If we are here they resumed the exception"
+	^ self at: key put: resumtionValue.
 ```
 
 and hoping everybody involved understands the resumption semantics, we can make the continuation visible.
