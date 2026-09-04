@@ -2,7 +2,7 @@
 external: false
 title: "Exceptional rant"
 description: "A personal journey from the familiar termination model of exceptions to Pharo's resumable exceptions—and why explicit callbacks can make better interfaces."
-pubDate: 2026-09-04
+date: 2026-09-04
 tags: [pharo, exceptions, modularity]
 ---
 
