@@ -5,6 +5,8 @@ import PageLayout from "../layouts/PageLayout.astro";
 import PageMeta from "../components/PageMeta.astro";
 import { SITE_TITLE } from "../config";
 
+const POSTS_PER_PAGE = 10;
+
 const posts = await readAll({
   directory: "blog",
   frontmatterSchema: blog,
@@ -17,14 +19,20 @@ const sortedPosts = posts
       new Date(b.frontmatter.date).valueOf() -
       new Date(a.frontmatter.date).valueOf()
   );
+
+const totalPages = Math.ceil(sortedPosts.length / POSTS_PER_PAGE);
+const currentPage = 1;
+
+const pagePosts = sortedPosts.slice(0, POSTS_PER_PAGE);
 ---
 
 <PageLayout>
   <PageMeta title={`Blog | ${SITE_TITLE}`} slot="meta" />
+
   <section slot="main">
     <ul>
       {
-        sortedPosts.map((post) => {
+        pagePosts.map((post) => {
           const formattedDate = new Date(
             post.frontmatter.date
           ).toLocaleDateString("en-us", {
@@ -32,6 +40,7 @@ const sortedPosts = posts
             month: "short",
             day: "numeric",
           });
+
           return (
             <li class="grid grid-cols-[1fr] md:grid-cols-[1fr_auto] mb-3 md:gap-2 items-start">
               <div class="title">
@@ -55,6 +64,7 @@ const sortedPosts = posts
                   </a>
                 )}
               </div>
+
               <div class="text-text-muted text-sm italic pt-1">
                 <time datetime={post.frontmatter.date.toISOString()}>
                   {formattedDate}
@@ -65,5 +75,31 @@ const sortedPosts = posts
         })
       }
     </ul>
+
+    {
+      totalPages > 1 && (
+        <nav
+          class="mt-12 flex items-center justify-between border-t border-gray-200 pt-8"
+          aria-label="Blog pagination"
+        >
+          <div>
+            {/* No newer posts on the first page */}
+          </div>
+
+          <div class="text-text-muted text-sm">
+            Page {currentPage} of {totalPages}
+          </div>
+
+          <div>
+            <a
+              href="/blog/2"
+              class="hover:text-text-link"
+            >
+              Older posts →
+            </a>
+          </div>
+        </nav>
+      )
+    }
   </section>
 </PageLayout>
