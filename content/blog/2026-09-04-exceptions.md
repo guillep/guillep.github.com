@@ -41,13 +41,11 @@ In the termination model, the runtime stops at the first handler found.
 
 ```text
 main
-  |
-on:do:
-  |
 ...
-  |
+on:do:
+...
 ensure: <- I will stop here!
-  |
+...
 signal
 ```
 
@@ -60,7 +58,7 @@ Execution goes down, exceptions go up, handlers are executed in a predictable or
 
 Somehow, Pharo inherits another model, called the **resumption model**, which is called like that because it has **resumable exceptions**.
 In the resumption model, exceptions may continue from the point where they have been raised.
-Thus, we only can execute cleanup blocks when we are faily sure!
+Thus, we only can execute cleanup blocks when we are fairly sure!
 
 Consider for example the piece of code below that opens a file, closes it on an ensure block, and resumes an exception if needed.
 In the termination model, the ensure block would execute first, close the file and continue upwards.
@@ -86,13 +84,11 @@ If the exception handler choses *not to resume*, then the cleanup handlers below
 
 ```text
 main
-  |
-on:do: <- I stop first here! If I do not resume then I go downwards again
-  |
 ...
-  |
-ensure: <- and then I'll stop here
-  |
+caller  <- 3. and finally after cleanup I will come back here
+on:do:  <- 1. I stop first here! If I do not resume then I go downwards again
+...
+ensure: <- 2. and then I'll stop here to cleanup
 signal
 ```
 
