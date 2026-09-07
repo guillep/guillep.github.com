@@ -15,7 +15,10 @@ Regardless of that cosmethic difference, I learnt in the past that exceptions wo
 Simple.
 
 At least, that is the mental model I grew up with.
-Now, in the past days a bit of archeology, and read a couple tenths of old research articles between the 70's and the 90's.
+But it turns out, over the years, I learnt that Pharo's model was a tad different.
+I knew it behaved differently, but I wanted to know more.
+
+So, in the past days I did a bit of archeology, and read a couple tenths of old research articles between the 70's and the 90's to understand the history behind and where it came from.
 And then I discovered that my mental model of exceptions was, well… narrow.
 
 ## What I did not know I knew: the termination model
