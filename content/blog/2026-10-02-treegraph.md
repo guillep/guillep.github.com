@@ -10,7 +10,7 @@ Thist past weeks I resumed my work in Druid with Nahuel and Lucio.
 One of the short term goals is to get the Druid compiler generate nice bytecode, and take from there to work on the optimizing compiler.
 
 For those that want to know more about Druid, you can check:
- - [Nahuel's thesis] (https://theses.hal.science/tel-05558340/document&ved=2ahUKEwjZlJ75sZuXAxULUKQEHe48CrgQFnoECBoQAQ&usg=AOvVaw0Gd5Eld1ogSGPVCuiOIDbh)
+ - [Nahuel's thesis](https://theses.hal.science/tel-05558340/document&ved=2ahUKEwjZlJ75sZuXAxULUKQEHe48CrgQFnoECBoQAQ&usg=AOvVaw0Gd5Eld1ogSGPVCuiOIDbh)
  - [His metacompilation paper](https://hal.science/PHARO/hal-05306190v1&ved=2ahUKEwjZlJ75sZuXAxULUKQEHe48CrgQFnoECCwQAQ&usg=AOvVaw2oa7vCArCjpY9-Dmj-V0Kf)
  - or [his paper on abstract interpretation for code generation](https://inria.hal.science/hal-05407834/)
 
@@ -29,7 +29,7 @@ Druid's IR implements a dataflow graph: that is, each instruction knows which va
 
 One particular issue happens when a node in the graph is the dependency of several nodes.
 
-![Node in several dependencies](/2026-10-02-treegraph/graph-with-reused-nodes.png)
+<img src="/2026-10-02-treegraph/graph-with-reused-nodes.png" alt="Node in several dependencies" width="33%"/>
 
 Here, we would like to compute the value of `**` once, and reuse that value many times.
 This is very important because `**` can have side effects. Imagine replacing ** by `openFile`.
