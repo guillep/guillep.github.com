@@ -29,7 +29,7 @@ Druid's IR implements a dataflow graph: that is, each instruction knows which va
 
 One particular issue happens when a node in the graph is the dependency of several nodes.
 
-<img src="/2026-10-02-treegraph/graph-with-reused-nodes.png" alt="Node in several dependencies" width="33%"/>
+![Node in several dependencies](/2026-10-02-treegraph/graph-with-reused-nodes.png)
 
 Here, we would like to compute the value of `**` once, and reuse that value many times.
 This is very important because `**` can have side effects. Imagine replacing ** by `openFile`.
