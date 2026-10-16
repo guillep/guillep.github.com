@@ -139,6 +139,7 @@ function searchText(entry: Entry): string {
             const doiUrl = doiLink(field(entry, "doi"));
             const publicationUrl = safeLink(field(entry, "url"));
             const abstract = field(entry, "abstract");
+            const rank = field(entry, "rank");
 
             return (
               <li class="publication" data-searchable={searchText(entry)}>
@@ -175,6 +176,7 @@ function searchText(entry: Entry): string {
                       </a>
                     )}
                     <span class="type-label">{typeLabels[entry.type] ?? entry.type}</span>
+                    {rank && <span class="rank-badge" aria-label={`Conference rank ${rank}`}>{rank}</span>}
                   </div>
                   {abstract && (
                     <details class="abstract-details">
@@ -273,6 +275,10 @@ function searchText(entry: Entry): string {
 
   .type-label {
     @apply text-text-muted;
+  }
+
+  .rank-badge {
+    @apply rounded border border-current px-2 py-0.5 text-xs font-bold;
   }
 
   .abstract-details {
