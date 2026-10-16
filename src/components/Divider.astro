@@ -1,0 +1,9 @@
+---
+type Props = {
+  spacing?: "normal" | "compact";
+};
+
+const { spacing = "normal" } = Astro.props;
+---
+
+<hr class:list={["border-current", spacing === "compact" ? "my-0" : "my-6"]} />

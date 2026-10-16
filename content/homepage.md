@@ -1,6 +1,10 @@
 # Guillermo Polito
 
+{% divider spacing="compact" /%}
+
 [{% icon class="fa-brands fa-github" /%} GitHub](https://github.com/guillep)
+
+{% divider spacing="compact" /%}
 
 Coding enthusiast. Mad hatter. Software engineer and researcher.
 
@@ -16,15 +20,19 @@ I obtained the 13 of april 2015 my Phd entitled "Virtualization support for appl
 
 ## Coordinates
 
+{% divider /%}
+
 Work email: guillermo.polito_at_inria.fr
 
 Personal email: guillermopolito_at_gmail.com
 
 ## Snail mail / Visits
 
-INRIA - G. Polito, 40, avenue Halley,<br />
-Parc Scientifique de la Haute Borne,<br />
-Bat.A, Park Plaza<br />
-France<br />
-Tel:33 (0)3 20 43 42 56<br />
+{% divider /%}
+
+INRIA - G. Polito, 40, avenue Halley{% br /%}
+Parc Scientifique de la Haute Borne,{% br /%}
+Bat.A, Park Plaza{% br /%}
+France{% br /%}
+Tel:33 (0)3 20 43 42 56{% br /%}
 Fax:33 (0)3 59 57 78 50

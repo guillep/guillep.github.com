@@ -37,10 +37,21 @@ const { nodes, Tag } = Markdoc;
 */
 export const config: Config = {
   tags: {
+    br: {
+      render: "br",
+      selfClosing: true,
+    },
     icon: {
       render: "i",
       attributes: {
         class: { type: String, required: true },
+      },
+      selfClosing: true,
+    },
+    divider: {
+      render: "Divider",
+      attributes: {
+        spacing: { type: String, default: "normal" },
       },
       selfClosing: true,
     },

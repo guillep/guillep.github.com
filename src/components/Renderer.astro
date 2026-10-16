@@ -7,6 +7,7 @@ import CodePenEmbed from "./CodePenEmbed.astro";
 import GitHubGistEmbed from "./GitHubGistEmbed.astro";
 import CodeBlock from "./CodeBlock.astro";
 import Heading from "./Heading.astro";
+import Divider from "./Divider.astro";
 
 type Props = {
   content: Content;
@@ -17,6 +18,10 @@ const { content } = Astro.props;
 const components = {
   Heading: {
     Component: Heading,
+    props: {},
+  },
+  Divider: {
+    Component: Divider,
     props: {},
   },
   CodeBlock: {

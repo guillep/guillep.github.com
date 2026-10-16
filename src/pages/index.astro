@@ -32,8 +32,8 @@ const { content } = await read({
     @apply mb-8;
   }
 
-  .homepage-content :global(h1 + p) {
-    @apply mb-6 border-y border-current py-1 text-center;
+  .homepage-content :global(h1 + hr + p) {
+    @apply mb-0 text-center;
   }
 
   .homepage-content :global(h1 + p a) {
@@ -49,10 +49,4 @@ const { content } = await read({
     @apply text-2xl font-bold;
   }
 
-  .homepage-content :global(h2::after) {
-    display: block;
-    content: "";
-    margin-top: 1.5rem;
-    border-bottom: 1px solid currentColor;
-  }
 </style>
