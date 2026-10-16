@@ -1,2 +1,5 @@
 .ecstatic
 _site/
+.astro/
+dist/
+node_modules/
