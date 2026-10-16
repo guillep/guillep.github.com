@@ -8,6 +8,7 @@ import GitHubGistEmbed from "./GitHubGistEmbed.astro";
 import CodeBlock from "./CodeBlock.astro";
 import Heading from "./Heading.astro";
 import Divider from "./Divider.astro";
+import SelectedPublications from "./SelectedPublications.astro";
 
 interface Props {
   content: Content;
@@ -23,6 +24,10 @@ const components = {
   },
   Divider: {
     Component: Divider,
+    props: {},
+  },
+  SelectedPublications: {
+    Component: SelectedPublications,
     props: {},
   },
   CodeBlock: {

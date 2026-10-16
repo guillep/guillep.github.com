@@ -8,9 +8,10 @@ interface Props {
   title: string;
   filter: "top-conferences" | "conferences" | "journals" | "workshops" | "others";
   search?: boolean;
+  compact?: boolean;
 }
 
-const { bibFile, title, filter, search = true } = Astro.props;
+const { bibFile, title, filter, search = true, compact = false } = Astro.props;
 const id = title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 const bibPath = path.resolve(process.cwd(), bibFile);
 const bibContents = await readFile(bibPath, "utf8");
@@ -143,14 +144,15 @@ function searchText(entry: Entry): string {
 }
 ---
 
-<section id={id} class="bibliography" aria-labelledby={`${id}-title`}>
+<section
+  id={id}
+  class:list={["bibliography", compact && "compact"]}
+  aria-labelledby={`${id}-title`}
+>
   <h2 id={`${id}-title`} class="category-heading">{title}</h2>
   {
     search && (
       <>
-        <label class="search-label" for={`${id}-search`}>
-          Search {title.toLowerCase()}
-        </label>
         <input
           id={`${id}-search`}
           class="search-input"
@@ -239,7 +241,7 @@ function searchText(entry: Entry): string {
                         </span>
                       )}
                     </div>
-                    {abstract && (
+                    {!compact && abstract && (
                       <details class="abstract-details">
                         <summary>Abstract</summary>
                         <p>{abstract}</p>
@@ -303,10 +305,6 @@ function searchText(entry: Entry): string {
     @apply mb-8;
   }
 
-  .search-label {
-    @apply block mb-2 text-sm font-semibold;
-  }
-
   .search-input {
     @apply w-full rounded border border-current bg-transparent px-3 py-2;
   }
@@ -330,6 +328,32 @@ function searchText(entry: Entry): string {
   .publication {
     @apply mb-6 border-b border-current pb-5;
     border-color: color-mix(in srgb, currentColor 20%, transparent);
+  }
+
+  .bibliography.compact :global(.category-heading) {
+    @apply mt-6 mb-3 border-0 pb-0 text-xl;
+  }
+
+  .bibliography.compact :global(.year-heading) {
+    @apply mt-3 mb-2 text-sm;
+  }
+
+  .bibliography.compact :global(.publication) {
+    @apply mb-3 pb-3;
+  }
+
+  .bibliography.compact :global(.publication-title) {
+    @apply text-base;
+  }
+
+  .bibliography.compact :global(.authors),
+  .bibliography.compact :global(.venue),
+  .bibliography.compact :global(.publication-links) {
+    @apply text-xs;
+  }
+
+  .bibliography.compact :global(.publication-links) .type-label {
+    display: none;
   }
 
   .publication-title {

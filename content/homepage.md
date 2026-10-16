@@ -18,6 +18,8 @@ My main topics of interests are the runtime adaptation of applications, Virtual 
 
 I obtained the 13 of april 2015 my Phd entitled "Virtualization support for application runtime specialization and extension" under the direction of Stéphane Ducasse ([Evref team from Inria Lille-Nord Europe](https://www.inria.fr/fr/evref)) and the supervision of Noury Bouraqadi and Luc Fabresse ([CAR team of Mines Douai](http://car.mines-douai.fr/)).
 
+{% selectedPapers /%}
+
 ## Coordinates
 
 {% divider /%}

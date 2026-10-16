@@ -55,6 +55,10 @@ export const config: Config = {
       },
       selfClosing: true,
     },
+    selectedPapers: {
+      render: "SelectedPublications",
+      selfClosing: true,
+    },
     details: {
       render: "details",
       children: nodes.document.children,
