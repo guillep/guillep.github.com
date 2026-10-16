@@ -15,7 +15,7 @@ const { content } = await read({
 <PageLayout>
   <PageMeta title={`${SITE_TITLE} | Researcher @ Inria`} slot="meta" />
   <section slot="main" class="homepage-content mb-8">
-    <Renderer content={content} />
+    <Renderer content={content} headingBorders={false} />
   </section>
 </PageLayout>
 

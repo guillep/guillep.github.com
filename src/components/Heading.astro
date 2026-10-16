@@ -5,9 +5,10 @@ import type { HTMLAttributes, HTMLTag } from 'astro/types'
 interface Props extends HTMLAttributes<'h1'> {
   level: 1 | 2 | 3 | 4 | 5 | 6;
   children: any;
+  showBorder?: boolean;
 }
 
-const { level, children } = Astro.props;
+const { level, children, showBorder = true } = Astro.props;
 const headingText = children.length && typeof children[0] === 'string' ? children[0] : '';
 const id = slugify(headingText.toLowerCase());
 
@@ -15,10 +16,10 @@ let Tag: HTMLTag = "h1";
 let withBorder = false;
 if (level === 2) {
   Tag = "h2";
-  withBorder = true;
+  withBorder = showBorder;
 } else if (level === 3) {
   Tag = "h3";
-  withBorder = true;
+  withBorder = showBorder;
 } else if (level === 4) {
   Tag = "h4";
 } else if (level === 5) {

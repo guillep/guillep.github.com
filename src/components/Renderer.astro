@@ -9,16 +9,17 @@ import CodeBlock from "./CodeBlock.astro";
 import Heading from "./Heading.astro";
 import Divider from "./Divider.astro";
 
-type Props = {
+interface Props {
   content: Content;
-};
+  headingBorders?: boolean;
+}
 
-const { content } = Astro.props;
+const { content, headingBorders = true } = Astro.props;
 
 const components = {
   Heading: {
     Component: Heading,
-    props: {},
+    props: { showBorder: headingBorders },
   },
   Divider: {
     Component: Divider,

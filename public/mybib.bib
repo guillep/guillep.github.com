@@ -101,17 +101,6 @@ Change impact analysis (CIA) aims at estimating the effects of a change in a cod
   institution = {RMod -- INRIA Lille-Nord Europe},
   keywords = {JavaScript Dynamic Language Security Isolation Semantics Web HTTP lse-pub stefPub kzLanguageDesign}}
   
-@techreport{Duca12z,
-  author = {St\'ephane Ducasse and Nicolas Petton and Guillermo Polito and Damien Cassou},
-  title = {Semantics and Security Issues in JavaScript},
-  year = {2012},
-  pdf = {http://rmod-files.lille.inria.fr/Team/Texts/Papers//Duca12z-deliverable-7321-FUI12.pdf},
-  annote = {techreport},
-  institution = {Inria Lille-Nord Europe},
-  keywords = {kzLanguageDesign stefPub lse-pub},
-  month = dec,
-  note = {Deliverable Resilience FUI 12: 7.3.2.1 Failles de s\'ecurit\'e en JavaScript / JavaScript security issues}}
-  
 @booklet{Duca18d,
   author = {St\'ephane Ducasse and Guillermo Polito},
   title = {Physche: A Little Scheme in Pharo},
@@ -340,7 +329,7 @@ Change impact analysis (CIA) aims at estimating the effects of a change in a cod
 	    hal-url = {https://hal.inria.fr/hal-03783354/},
 	    hal-id = {hal-03783354}}
 		
-		@inproceedings{Poli13a,
+@inproceedings{Poli13a,
 		  author = {Polito, Guillermo and Ducasse, St\'ephane and Fabresse, Luc and Bouraqadi, Noury},
 		  title = {Virtual Smalltalk Images: Model and Applications},
 		  booktitle = {IWST - International Workshop on Smalltalk Technology, Co-located within the 21th International Smalltalk Conference - 2013},
@@ -348,10 +337,18 @@ Change impact analysis (CIA) aims at estimating the effects of a change in a cod
 		  pdf = {http://rmod-files.lille.inria.fr/Team/Texts/Papers/Poli13a-IWST13-ObjectSpacesVirtualization.pdf},
 		  abstract = {Reflective architectures are a powerful solution for code browsing, debugging or in-language process handling. However, these reflective architectures show some limitations in edge cases of self-modification and self-monitoring. Modifying the modifier process or monitoring the monitor process in a reflective system alters the system itself, leading to the impossibility to perform some of those tasks properly. In this paper we analyze the problems of reflective architectures in the context of image based object-oriented languages and solve them by providing a first-class representation of an image: a virtualized image.
 		We present Oz, our virtual image solution. In Oz, a virtual image is represented by an object space. Through an object space, an image can manipulate the internal structure and control the execution of other images. An Oz object space allows one to introspect and modify execution information such as processes, contexts, existing classes and objects. We show how Oz solves the edge cases of reflective architectures by adding a third participant, and thus, removing the self modification and self-observation constraints.},
-		  annote = {internationalworkshop},
-		  audience = {international},
-		  hal-id = {hal-00924932},
-		  keywords = {lse-pub virtualization metacircularities recovery isolation kzReflection StefPub}}
+  annote = {internationalworkshop},
+  audience = {international},
+  hal-id = {hal-00924932},
+  keywords = {lse-pub virtualization metacircularities recovery isolation kzReflection StefPub}}
+
+@inproceedings{Poli14b,
+  author = {Guillermo Polito and Noury Bouraqadi and St{\'e}phane Ducasse and Luc Fabresse},
+  title = {Understanding Pharo's Global State to Move Programs Through Time and Space},
+  booktitle = {International Workshop on Smalltalk Technologies},
+  year = {2014},
+  hal-id = {hal-01070964},
+  hal-url = {https://hal.science/hal-01070964}}
 
 		@techreport{Poli14a,
 		  author = {Polito, Guillermo and Ducasse, St\'ephane and Bouraqadi, Noury and Fabresse, Luc},
@@ -417,7 +414,7 @@ Change impact analysis (CIA) aims at estimating the effects of a change in a cod
 		  hal-id = {hal-01185819},
 		  keywords = {lse-pub globalstate kzLanguageDesign kzReflection stefpub}}
 
-		@phdthesis{Poli15d,
+@phdthesis{Poli15d,
 		  author = {Guillermo Polito},
 		  title = {Virtualization Support for Application Runtime Specialization and Extension},
 		  year = {2015},
@@ -426,6 +423,7 @@ Change impact analysis (CIA) aims at estimating the effects of a change in a cod
 		  hal-id = {tel-01251173v1},
 		  abstract = {An application runtime is the set of software elements that represent an application during its execution. Application runtimes should be adaptable to different contexts. Advances in computing technology both in hardware and software indeed demand it. For example, on one hand we can think about extending a programming language to enhance the developers' productivity. On the other hand we can also think about transparently reducing the memory footprint of applications to make them fit in constrained resource scenarios e.g., low networks or limited memory availability. We propose Espell, a virtualization infrastructure for object-oriented high-level language runtimes. Espell provides a general purpose infrastructure to control and manipulate object-oriented runtimes in different situations. A first-class representation of an object-oriented runtime provides a high-level API for the manipulation of such runtime. A hypervisor uses this first-class object and manipulates it either directly or by executing arbitrary expressions into it. We show with our prototype that this infrastructure supports language bootstrapping and application runtime tailoring. Using bootstrapping we describe an object-oriented high-level language initialization in terms of itself. A bootstrapped language takes advantage of its own abstractions and is easier to extend. With application runtime tailoring we generate specialized applications by extracting the elements of a program that are used during execution. A tailored application encompasses only the classes and methods it needs and avoids the code bloat that appears from the usage of third-party libraries and frameworks.},
 		  month = apr}
+
 
 		@techreport{Poli17a,
 		  author = {St\'ephane Ducasse and Luc Fabresse and Guillermo Polito and Camille Teruel},
@@ -728,11 +726,284 @@ Change impact analysis (CIA) aims at estimating the effects of a change in a cod
 			  keywords = {rmod lse-pub pharo virtualmachine kzTools kzVM},
 			  hal-id = {hal-03332040}}
 
-			@misc{Teso21b,
-			  author = {Tesone, Pablo and Polito, Guillermo},
-			  title = {Pharo {{Space}} and {{Time}}},
-			  year = {2021},
-			  url = {https://github.com/tesonep/spaceAndTime},
-			  month = nov,
-			  abstract = {An small project to add some statistics generating code for used space and time for Pharo},
-			  copyright = {GPL-3.0}}
+		@misc{Teso21b,
+		  author = {Tesone, Pablo and Polito, Guillermo},
+		  title = {Pharo {{Space}} and {{Time}}},
+		  year = {2021},
+		  url = {https://github.com/tesonep/spaceAndTime},
+		  month = nov,
+		  abstract = {An small project to add some statistics generating code for used space and time for Pharo},
+		  copyright = {GPL-3.0}}
+
+@inproceedings{Grig11a,
+  author = {Carla F. Griggio and Germ{\'a}n Leiva and Guillermo Polito and Gisela Decuzzi and Nicol{\'a}s Passerini},
+  title = {A Programming Environment Supporting a Prototype-Based Introduction to OOP},
+  booktitle = {Proceedings of the International Workshop on Smalltalk Technologies},
+  pages = {1--5},
+  year = {2011},
+  doi = {10.1145/2166929.2166934}}
+
+@inproceedings{Mar21a,
+  author = {Matteo Marra and Guillermo Polito and Elisa Gonzalez Boix},
+  title = {Practical Online Debugging of Spark-like Applications},
+  booktitle = {2021 IEEE 21st International Conference on Software Quality, Reliability and Security (QRS)},
+  year = {2021},
+  doi = {10.1109/QRS54544.2021.00072},
+  hal-id = {hal-03398772},
+  hal-url = {https://hal.science/hal-03398772}}
+
+@inproceedings{Thom23a,
+  author = {Iona Thomas and St{\'e}phane Ducasse and Pablo Tesone and Guillermo Polito},
+  title = {Pharo: A Reflective Language---A First Systematic Analysis of Reflective APIs},
+  booktitle = {IWST 23: International Workshop on Smalltalk Technologies},
+  year = {2023},
+  hal-id = {hal-04217271},
+  hal-url = {https://hal.science/hal-04217271}}
+
+@techreport{Thom23b,
+  author = {Iona Thomas and St{\'e}phane Ducasse and Pablo Tesone and Guillermo Polito},
+  title = {A Classification of Runtime Reflective Operations in Pharo},
+  year = {2023},
+  institution = {Inria},
+  hal-id = {hal-04225720},
+  hal-url = {https://hal.science/hal-04225720}}
+
+@article{Thom24b,
+  author = {Iona Thomas and St{\'e}phane Ducasse and Pablo Tesone and Guillermo Polito},
+  title = {Pharo: A Reflective Language---Analyzing the Reflective API and Its Internal Dependencies},
+  journal = {Journal of Computer Languages},
+  volume = {80},
+  year = {2024},
+  pages = {101274},
+  doi = {10.1016/j.cola.2024.101274},
+  hal-id = {hal-04576440},
+  hal-url = {https://hal.science/hal-04576440}}
+
+@inproceedings{Thom24c,
+  author = {Iona Thomas and St{\'e}phane Ducasse and Guillermo Polito and Pablo Tesone},
+  title = {Assessing Reflection Usage with Mutation Testing Augmented Analysis},
+  booktitle = {21st International Conference on Software and Systems Reuse (ICSR 2024)},
+  year = {2024},
+  doi = {10.1007/978-3-031-66459-5_7},
+  hal-id = {hal-04600101},
+  hal-url = {https://hal.science/hal-04600101}}
+
+@inproceedings{Monta23a,
+  author = {Nahuel Palumbo and Sebastian Jordan Monta{\~n}o and Guillermo Polito and Pablo Tesone and St{\'e}phane Ducasse},
+  title = {Garbage Collector Tuning in Pathological Allocation Pattern Applications},
+  booktitle = {IWST 2023: International Workshop on Smalltalk Technologies},
+  year = {2023},
+  hal-id = {hal-04225588},
+  hal-url = {https://hal.science/hal-04225588}}
+
+@inproceedings{Monta23b,
+  author = {Sebastian Jordan Monta{\~n}o and Nahuel Palumbo and Guillermo Polito and St{\'e}phane Ducasse and Pablo Tesone},
+  title = {Improving Performance Through Object Lifetime Profiling: The DataFrame Case},
+  booktitle = {IWST 2023: International Workshop on Smalltalk Technologies},
+  year = {2023},
+  hal-id = {hal-04253865},
+  hal-url = {https://hal.science/hal-04253865}}
+
+@inproceedings{Pal22a,
+  author = {Nahuel Palumbo and Guillermo Polito and Pablo Tesone and St{\'e}phane Ducasse},
+  title = {Ordering Optimisations in Meta-Compilation of Primitive Methods},
+  booktitle = {FAST Workshop on Smalltalk Related Technologies},
+  year = {2022},
+  hal-id = {hal-04237932},
+  hal-url = {https://hal.science/hal-04237932}}
+
+@inproceedings{Rain22a,
+  author = {Nicol{\'a}s Mauricio Rainhart and Guillermo Polito and Pablo Tesone and St{\'e}phane Ducasse},
+  title = {Analyzing the Cost of Safety for Vectorized Bytecode in Dynamically-Typed Languages},
+  booktitle = {Proceedings of the 19th ACM SIGPLAN International Conference on Managed Programming Languages and Runtimes (MPLR 2022)},
+  year = {2022},
+  doi = {10.1145/3546918.3560803},
+  hal-id = {hal-03784758},
+  hal-url = {https://hal.science/hal-03784758}}
+
+@inproceedings{Pal22b,
+  author = {Nahuel Palumbo and Pablo Tesone and Guillermo Polito and St{\'e}phane Ducasse},
+  title = {Selecting Semi-Permanent Object Candidates in Dynamically-Typed Reflective Languages},
+  booktitle = {Proceedings of the 19th ACM SIGPLAN International Conference on Managed Programming Languages and Runtimes (MPLR 2022)},
+  year = {2022},
+  doi = {10.1145/3546918.3560806},
+  hal-id = {hal-03785536},
+  hal-url = {https://hal.science/hal-03785536}}
+
+@inproceedings{Rogl19b,
+  author = {Th{\'e}o Rogliano and Guillermo Polito and Pablo Tesone},
+  title = {Virtualization for Porting Programs or Tools to Solve a Puzzle},
+  booktitle = {IWST 2019: International Workshop on Smalltalk Technologies},
+  year = {2019},
+  hal-id = {hal-04053108},
+  hal-url = {https://hal.science/hal-04053108}}
+
+@inproceedings{Teso18b,
+  author = {Pablo Tesone and Guillermo Polito and Luc Fabresse and Noury Bouraqadi and St{\'e}phane Ducasse},
+  title = {PTm: State-Aware Transactional Live Programming},
+  booktitle = {IWST 2018: International Workshop on Smalltalk Technologies},
+  year = {2018},
+  hal-id = {hal-03437952},
+  hal-url = {https://hal.science/hal-03437952}}
+
+@techreport{Boul17a,
+  author = {Pierre Boulet and Philippe Devienne and Pierre Falez and Guillermo Polito and Mahyar Shahsavari and Pierre Tirilly},
+  title = {N2S3, an Open-Source Scalable Spiking Neuromorphic Hardware Simulator},
+  year = {2017},
+  institution = {Universit{\'e} de Lille},
+  hal-id = {hal-01432133},
+  hal-url = {https://hal.science/hal-01432133}}
+
+@techreport{Monta23c,
+  author = {Sebastian Jordan Monta{\~n}o and St{\'e}phane Ducasse and Pablo Tesone and Guillermo Polito},
+  title = {ILLIMANI Memory Profiler: A Technical Report},
+  year = {2023},
+  institution = {Inria},
+  hal-id = {hal-04225251},
+  hal-url = {https://hal.science/hal-04225251}}
+
+@techreport{Poli22c,
+  author = {Guillermo Polito and St{\'e}phane Ducasse and Pablo Tesone and Luc Fabresse and Ga{\"e}l Thomas and Mathieu Bacou and Lo{\"i}c Lagadec and Pascal Cotret},
+  title = {Remarkable Challenges of High-Performance Language Virtual Machines},
+  year = {2022},
+  institution = {Inria},
+  hal-id = {hal-03770065},
+  hal-url = {https://hal.science/hal-03770065}}
+
+@misc{Duca22e,
+  author = {St{\'e}phane Ducasse and Guillermo Polito and Pablo Tesone and Ga{\"e}l Thomas and Lo{\"i}c Lagadec},
+  title = {High-Performance Language Virtual Machines: An Analysis and Challenges},
+  year = {2022},
+  hal-id = {hal-03770053},
+  hal-url = {https://hal.science/hal-03770053}}
+
+@book{Duca23a,
+  author = {St{\'e}phane Ducasse and Guillermo Polito and Juan Pablo Sandoval Alcocer},
+  title = {Testing in Pharo},
+  year = {2023},
+  publisher = {Books on Demand},
+  hal-id = {hal-04216172},
+  hal-url = {https://hal.science/hal-04216172}}
+
+@article{Pal25a,
+  author = {Nahuel Palumbo and Guillermo Polito and St{\'e}phane Ducasse and Pablo Tesone},
+  title = {Meta-Compilation of Baseline JIT Compilers with Druid},
+  journal = {The Art, Science, and Engineering of Programming},
+  volume = {10},
+  number = {1},
+  year = {2025},
+  doi = {10.22152/programming-journal.org/2025/10/9},
+  hal-id = {hal-05306190},
+  hal-url = {https://hal.science/hal-05306190}}
+
+@inproceedings{Sare24a,
+  author = {Bal{\v{s}}a {\v{S}}arenac and St{\'e}phane Ducasse and Guillermo Polito and Gordana Raki{\'c}},
+  title = {Modular and Extensible Extract Method},
+  booktitle = {International Workshop on Smalltalk Technologies (IWST 2024)},
+  year = {2024},
+  hal-id = {hal-04670318},
+  hal-url = {https://hal.science/hal-04670318}}
+
+@inproceedings{Monta24a,
+  author = {Sebastian Jordan Monta{\~n}o and Juan Pablo Sandoval Alcocer and Guillermo Polito and St{\'e}phane Ducasse and Pablo Tesone},
+  title = {MethodProxies: A Safe and Fast Message-Passing Control Library},
+  booktitle = {International Workshop on Smalltalk Technologies 2024},
+  year = {2024},
+  hal-id = {hal-04708729},
+  hal-url = {https://hal.science/hal-04708729}}
+
+@inproceedings{Dema25a,
+  author = {Matias Demare and Guillermo Polito and Nahuel Palumbo and Javier Pim{\'a}s},
+  title = {PiNodes in the Druid Meta-Compiler},
+  booktitle = {Proceedings of the International Workshop on Smalltalk Technologies 2025},
+  year = {2025},
+  hal-id = {hal-05262681},
+  hal-url = {https://hal.science/hal-05262681}}
+
+@inproceedings{Loch22a,
+  author = {Nahuel Palumbo and Sebastian Jordan Monta{\~n}o and Guillermo Polito and Pablo Tesone and St{\'e}phane Ducasse},
+  title = {Testing Finalization Mechanisms with Heap Fuzzing},
+  booktitle = {FAST Workshop on Smalltalk Related Technologies 2022},
+  year = {2022}}
+
+@techreport{Math23a,
+  author = {Adrien Mathieu and Guillermo Polito},
+  title = {Automatic Benchmark Generation},
+  year = {2023},
+  institution = {Inria},
+  url = {https://microbo.eu/thesis/automatic-benchmark-generation/thesis.pdf}}
+
+@inproceedings{Monta24b,
+  author = {Sebastian Jordan Monta{\~n}o and Guillermo Polito and St{\'e}phane Ducasse and Pablo Tesone},
+  title = {Evaluating Finalization-Based Object Lifetime Profiling},
+  booktitle = {Proceedings of the 2024 ACM SIGPLAN International Symposium on Memory Management (ISMM)},
+  year = {2024},
+  doi = {10.1145/3652024.3665514},
+  hal-id = {hal-04581342},
+  hal-url = {https://hal.science/hal-04581342}}
+
+@inproceedings{Loch25a,
+  author = {Federico Lochbaum and Guillermo Polito},
+  title = {Towards Better Assessing Performance Effectiveness: A First Analysis with Mutation Testing},
+  booktitle = {Proceedings of the International Workshop on Smalltalk Technologies 2025},
+  year = {2025},
+  hal-id = {hal-05262667},
+  hal-url = {https://hal.science/hal-05262667}}
+
+@inproceedings{Loch25b,
+  author = {Federico Lochbaum and Guillermo Polito},
+  title = {On the Effectiveness of Interpreter-Guided Compiler Testing},
+  booktitle = {Companion Proceedings of the 9th International Conference on the Art, Science, and Engineering of Programming},
+  year = {2025}}
+
+@inproceedings{Abed25a,
+  author = {Omar Abedelkader and St{\'e}phane Ducasse and Oleksandr Zaitsev and Romain Robbes and Guillermo Polito},
+  title = {Package-Aware Approach for Repository-Level Code Completion in Pharo},
+  booktitle = {International Workshop on Smalltalk Technologies (IWST 2025)},
+  year = {2025},
+  hal-id = {hal-05715523},
+  hal-url = {https://hal.science/hal-05715523}}
+
+@inproceedings{Palu26a,
+  author = {Nahuel Palumbo and Guillermo Polito and St{\'e}phane Ducasse and Pablo Tesone},
+  title = {Are Abstract-Interpreter Baseline JITs Worth It? An Empirical Evaluation through Metacompilation},
+  booktitle = {IEEE/ACM International Symposium on Code Generation and Optimization (CGO 2026)},
+  year = {2026},
+  doi = {10.1109/CGO68049.2026.11395197}}
+
+@inproceedings{Degr26a,
+  author = {Romain Degrave and Imen Sayar and Guillermo Polito},
+  title = {Validation of Famix Model Importers with Model Shuffling and Input Reduction},
+  booktitle = {Proceedings of the ACM/IEEE 29th International Conference on Model Driven Engineering Languages and Systems (MODELS 2026)},
+  pages = {939--943},
+  year = {2026},
+  doi = {10.1145/3837062.3839066}}
+
+@article{Monta26a,
+  author = {Sebastian Jordan Monta{\~n}o and St{\'e}phane Ducasse and Guillermo Polito and Juan Pablo Sandoval Alcocer},
+  title = {Safe and Efficient Message-Passing Control in Pharo with MethodProxies},
+  journal = {Journal of Computer Languages},
+  volume = {89},
+  year = {2026},
+  doi = {10.1016/j.cola.2026.101413},
+  hal-id = {hal-05729849},
+  hal-url = {https://hal.science/hal-05729849}}
+
+@article{Abed26a,
+  author = {Omar Abedelkader and St{\'e}phane Ducasse and Guillermo Polito and Oleksandr Zaitsev and Romain Robbes},
+  title = {Evaluating Package-Level Scoping Strategies for Repository-Level Code Completion in Pharo},
+  journal = {Journal of Computer Languages},
+  volume = {89},
+  year = {2026},
+  doi = {10.1016/j.cola.2026.101412},
+  hal-id = {hal-05706661},
+  hal-url = {https://hal.science/hal-05706661}}
+
+@inproceedings{Sare26a,
+  author = {Bal{\v{s}}a {\v{S}}arenac and St{\'e}phane Ducasse and Guillermo Polito and Gordana Raki{\'c}},
+  title = {Building Blocks for Object-Oriented Refactoring Engines},
+  booktitle = {Conference on Information Technology and Its Applications 2025},
+  series = {Lecture Notes in Networks and Systems},
+  pages = {473--489},
+  year = {2025},
+  doi = {10.1007/978-3-032-04890-5_35}}
