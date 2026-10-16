@@ -1,0 +1,293 @@
+---
+import { readFile } from "node:fs/promises";
+import path from "node:path";
+import { parse, type Entry } from "@retorquere/bibtex-parser";
+
+interface Props {
+  bibFile: string;
+}
+
+const { bibFile } = Astro.props;
+const bibPath = path.resolve(process.cwd(), bibFile);
+const bibContents = await readFile(bibPath, "utf8");
+const { entries: parsedEntries, errors } = parse(bibContents, { english: false });
+
+if (errors.length > 0) {
+  console.warn(`BibTeX parser reported ${errors.length} issue(s) in ${bibFile}.`);
+}
+
+type Publication = Entry & { year: number; numericYear: number };
+const entries: Publication[] = parsedEntries
+  .filter((entry) => entry.fields.title && entry.fields.year)
+  .map((entry) => {
+    const numericYear = Number.parseInt(entry.fields.year, 10);
+    return {
+      ...entry,
+      numericYear,
+      year: Number.isFinite(numericYear) ? numericYear : 0,
+    };
+  })
+  .filter((entry) => entry.year > 0)
+  .sort(
+    (a, b) =>
+      b.numericYear - a.numericYear ||
+      a.fields.title.localeCompare(b.fields.title, undefined, {
+        sensitivity: "base",
+      })
+  );
+
+const publicationsByYear = new Map<number, Publication[]>();
+for (const entry of entries) {
+  const publicationsForYear = publicationsByYear.get(entry.year) ?? [];
+  publicationsForYear.push(entry);
+  publicationsByYear.set(entry.year, publicationsForYear);
+}
+const years = [...publicationsByYear.keys()].sort((a, b) => b - a);
+
+const typeLabels: Record<string, string> = {
+  article: "Journal article",
+  booklet: "Booklet",
+  inproceedings: "Conference paper",
+  misc: "Other publication",
+  phdthesis: "PhD thesis",
+  techreport: "Technical report",
+};
+
+function field(entry: Entry, name: string): string | undefined {
+  const value = entry.fields[name.toLowerCase()];
+  return typeof value === "string" ? value : undefined;
+}
+
+function authorName(author: { firstName?: string; lastName?: string }): string {
+  return [author.firstName, author.lastName].filter(Boolean).join(" ");
+}
+
+function safeLink(value: string | undefined): string | undefined {
+  if (!value) return undefined;
+
+  try {
+    const url = new URL(value);
+    return url.protocol === "http:" || url.protocol === "https:"
+      ? url.toString()
+      : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
+function doiLink(value: string | undefined): string | undefined {
+  if (!value) return undefined;
+  const doi = value.replace(/^https?:\/\/(doi\.org\/)?/i, "");
+  return safeLink(`https://doi.org/${doi}`);
+}
+
+function venue(entry: Entry): string | undefined {
+  const venueName =
+    field(entry, "journal") ??
+    field(entry, "booktitle") ??
+    field(entry, "institution") ??
+    field(entry, "school") ??
+    field(entry, "publisher");
+  const volume = field(entry, "volume");
+  const pages = field(entry, "pages");
+
+  return [venueName, volume && `vol. ${volume}`, pages && `pp. ${pages}`]
+    .filter(Boolean)
+    .join(", ");
+}
+
+function searchText(entry: Entry): string {
+  const authors = entry.fields.author?.map(authorName).join(" ") ?? "";
+  return [entry.fields.title, authors, venue(entry), field(entry, "keywords")]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
+}
+---
+
+<section class="bibliography" aria-label="Publications">
+  <label class="search-label" for="publication-search">Search publications</label>
+  <input
+    id="publication-search"
+    class="search-input"
+    type="search"
+    placeholder="Search titles, authors, venues…"
+    autocomplete="off"
+  />
+  <p class="result-count" aria-live="polite">
+    <span data-result-count>{entries.length}</span> publications
+  </p>
+
+  {
+    years.map((year) => (
+      <section
+        class="year-group"
+        data-year-group={year}
+        aria-labelledby={`year-${year}`}
+      >
+        <h2 id={`year-${year}`} class="year-heading">{year}</h2>
+        <ol class="publication-list">
+          {publicationsByYear.get(year)?.map((entry) => {
+            const authors = entry.fields.author?.map(authorName) ?? [];
+            const publicationVenue = venue(entry);
+            const pdfUrl =
+              safeLink(field(entry, "pdf")) ?? safeLink(field(entry, "hal-pdf"));
+            const halId = field(entry, "hal-id");
+            const halUrl =
+              safeLink(field(entry, "hal-url")) ??
+              (halId ? safeLink(`https://hal.science/${halId}`) : undefined);
+            const doiUrl = doiLink(field(entry, "doi"));
+            const publicationUrl = safeLink(field(entry, "url"));
+            const abstract = field(entry, "abstract");
+
+            return (
+              <li class="publication" data-searchable={searchText(entry)}>
+                <article>
+                  <h3 class="publication-title">{entry.fields.title}</h3>
+                  <p class="authors">
+                    {authors.map((author, index) => (
+                      <>
+                        {index > 0 && ", "}
+                        {author === "Guillermo Polito" ? <strong>{author}</strong> : author}
+                      </>
+                    ))}
+                  </p>
+                  {publicationVenue && <p class="venue">{publicationVenue}</p>}
+                  <div class="publication-links" aria-label="Publication links">
+                    {doiUrl && (
+                      <a href={doiUrl} target="_blank" rel="noreferrer">
+                        DOI
+                      </a>
+                    )}
+                    {pdfUrl && (
+                      <a href={pdfUrl} target="_blank" rel="noreferrer">
+                        PDF
+                      </a>
+                    )}
+                    {halUrl && (
+                      <a href={halUrl} target="_blank" rel="noreferrer">
+                        HAL
+                      </a>
+                    )}
+                    {publicationUrl && (
+                      <a href={publicationUrl} target="_blank" rel="noreferrer">
+                        Website
+                      </a>
+                    )}
+                    <span class="type-label">{typeLabels[entry.type] ?? entry.type}</span>
+                  </div>
+                  {abstract && (
+                    <details class="abstract-details">
+                      <summary>Abstract</summary>
+                      <p>{abstract}</p>
+                    </details>
+                  )}
+                </article>
+              </li>
+            );
+          })}
+        </ol>
+      </section>
+    ))
+  }
+
+  <p class="empty-state" hidden>No publications match your search.</p>
+</section>
+
+<script>
+  const searchInput = document.querySelector<HTMLInputElement>("#publication-search");
+  const publicationItems = Array.from(
+    document.querySelectorAll<HTMLElement>(".publication[data-searchable]")
+  );
+  const yearGroups = Array.from(
+    document.querySelectorAll<HTMLElement>("[data-year-group]")
+  );
+  const resultCount = document.querySelector<HTMLElement>("[data-result-count]");
+  const emptyState = document.querySelector<HTMLElement>(".empty-state");
+
+  searchInput?.addEventListener("input", () => {
+    const query = searchInput.value.trim().toLowerCase();
+    let visibleCount = 0;
+
+    for (const publication of publicationItems) {
+      const matches = publication.dataset.searchable?.includes(query) ?? false;
+      publication.hidden = !matches;
+      if (matches) visibleCount += 1;
+    }
+
+    for (const group of yearGroups) {
+      group.hidden = !group.querySelector(".publication:not([hidden])");
+    }
+
+    if (resultCount) resultCount.textContent = String(visibleCount);
+    if (emptyState) emptyState.hidden = visibleCount > 0;
+  });
+</script>
+
+<style>
+  .bibliography {
+    @apply mb-8;
+  }
+
+  .search-label {
+    @apply block mb-2 text-sm font-semibold;
+  }
+
+  .search-input {
+    @apply w-full rounded border border-current bg-transparent px-3 py-2;
+  }
+
+  .result-count {
+    @apply mt-2 text-sm text-text-muted;
+  }
+
+  .year-heading {
+    @apply mt-8 mb-4 text-2xl font-bold;
+  }
+
+  .publication-list {
+    @apply list-none p-0 m-0;
+  }
+
+  .publication {
+    @apply mb-6 border-b border-current pb-5;
+    border-color: color-mix(in srgb, currentColor 20%, transparent);
+  }
+
+  .publication-title {
+    @apply mb-1 text-lg font-bold leading-snug;
+  }
+
+  .authors,
+  .venue {
+    @apply mb-1 text-sm;
+  }
+
+  .venue {
+    @apply italic text-text-muted;
+  }
+
+  .publication-links {
+    @apply mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm;
+  }
+
+  .type-label {
+    @apply text-text-muted;
+  }
+
+  .abstract-details {
+    @apply mt-2 text-sm;
+  }
+
+  .abstract-details summary {
+    @apply w-fit cursor-pointer text-text-muted hover:text-text-link;
+  }
+
+  .abstract-details p {
+    @apply mt-2 mb-0;
+  }
+
+  .empty-state {
+    @apply mt-8 text-text-muted;
+  }
+</style>
