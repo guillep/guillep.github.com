@@ -5,9 +5,12 @@ import { parse, type Entry } from "@retorquere/bibtex-parser";
 
 interface Props {
   bibFile: string;
+  title: string;
+  filter: "top-conferences" | "conferences" | "journals" | "workshops" | "others";
 }
 
-const { bibFile } = Astro.props;
+const { bibFile, title, filter } = Astro.props;
+const id = title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 const bibPath = path.resolve(process.cwd(), bibFile);
 const bibContents = await readFile(bibPath, "utf8");
 const { entries: parsedEntries, errors } = parse(bibContents, { english: false });
@@ -16,7 +19,11 @@ if (errors.length > 0) {
   console.warn(`BibTeX parser reported ${errors.length} issue(s) in ${bibFile}.`);
 }
 
-type Publication = Entry & { year: number; numericYear: number };
+type Publication = Entry & {
+  year: number;
+  numericYear: number;
+  rankOrder: number;
+};
 const entries: Publication[] = parsedEntries
   .filter((entry) => entry.fields.title && entry.fields.year)
   .map((entry) => {
@@ -25,22 +32,52 @@ const entries: Publication[] = parsedEntries
       ...entry,
       numericYear,
       year: Number.isFinite(numericYear) ? numericYear : 0,
+      rankOrder: entry.fields.rank === "A*" ? 0 : entry.fields.rank === "A" ? 1 : 2,
     };
   })
   .filter((entry) => entry.year > 0)
   .sort(
     (a, b) =>
+      a.rankOrder - b.rankOrder ||
       b.numericYear - a.numericYear ||
       a.fields.title.localeCompare(b.fields.title, undefined, {
         sensitivity: "base",
       })
   );
 
+function isTopConference(entry: Publication): boolean {
+  return (
+    entry.type === "inproceedings" &&
+    (Boolean(field(entry, "rank")) || field(entry, "annote")?.toLowerCase().includes("topconference") === true)
+  );
+}
+
+function isWorkshop(entry: Publication): boolean {
+  const venueName = `${field(entry, "booktitle") ?? ""} ${field(entry, "annote") ?? ""}`;
+  return /workshop|\biwst\b|\bfast\b/i.test(venueName);
+}
+
+function matchesFilter(entry: Publication): boolean {
+  switch (filter) {
+    case "top-conferences":
+      return isTopConference(entry);
+    case "conferences":
+      return entry.type === "inproceedings" && !isTopConference(entry) && !isWorkshop(entry);
+    case "journals":
+      return entry.type === "article";
+    case "workshops":
+      return entry.type === "inproceedings" && isWorkshop(entry);
+    case "others":
+      return entry.type !== "article" && entry.type !== "inproceedings";
+  }
+}
+
+const filteredEntries = entries.filter(matchesFilter);
 const publicationsByYear = new Map<number, Publication[]>();
-for (const entry of entries) {
-  const publicationsForYear = publicationsByYear.get(entry.year) ?? [];
-  publicationsForYear.push(entry);
-  publicationsByYear.set(entry.year, publicationsForYear);
+for (const entry of filteredEntries) {
+  const yearlyEntries = publicationsByYear.get(entry.year) ?? [];
+  yearlyEntries.push(entry);
+  publicationsByYear.set(entry.year, yearlyEntries);
 }
 const years = [...publicationsByYear.keys()].sort((a, b) => b - a);
 
@@ -105,124 +142,148 @@ function searchText(entry: Entry): string {
 }
 ---
 
-<section class="bibliography" aria-label="Publications">
-  <label class="search-label" for="publication-search">Search publications</label>
+<section id={id} class="bibliography" aria-labelledby={`${id}-title`}>
+  <h2 id={`${id}-title`} class="category-heading">{title}</h2>
+  <label class="search-label" for={`${id}-search`}>Search {title.toLowerCase()}</label>
   <input
-    id="publication-search"
+    id={`${id}-search`}
     class="search-input"
     type="search"
     placeholder="Search titles, authors, venues…"
     autocomplete="off"
+    data-publication-search
   />
   <p class="result-count" aria-live="polite">
-    <span data-result-count>{entries.length}</span> publications
+    <span data-result-count>{filteredEntries.length}</span> publications
   </p>
 
-  {
-    years.map((year) => (
-      <section
-        class="year-group"
-        data-year-group={year}
-        aria-labelledby={`year-${year}`}
-      >
-        <h2 id={`year-${year}`} class="year-heading">{year}</h2>
-        <ol class="publication-list">
-          {publicationsByYear.get(year)?.map((entry) => {
-            const authors = entry.fields.author?.map(authorName) ?? [];
-            const publicationVenue = venue(entry);
-            const pdfUrl =
-              safeLink(field(entry, "pdf")) ?? safeLink(field(entry, "hal-pdf"));
-            const halId = field(entry, "hal-id");
-            const halUrl =
-              safeLink(field(entry, "hal-url")) ??
-              (halId ? safeLink(`https://hal.science/${halId}`) : undefined);
-            const doiUrl = doiLink(field(entry, "doi"));
-            const publicationUrl = safeLink(field(entry, "url"));
-            const abstract = field(entry, "abstract");
-            const rank = field(entry, "rank");
+  {years.map((year) => (
+    <section
+      class="year-group"
+      data-year-group={year}
+      aria-labelledby={`${id}-year-${year}`}
+    >
+          <h3 id={`${id}-year-${year}`} class="year-heading">
+            {year}
+          </h3>
+          <ol class="publication-list">
+        {publicationsByYear.get(year)?.map((entry) => {
+              const authors = entry.fields.author?.map(authorName) ?? [];
+              const publicationVenue = venue(entry);
+              const pdfUrl =
+                safeLink(field(entry, "pdf")) ?? safeLink(field(entry, "hal-pdf"));
+              const halId = field(entry, "hal-id");
+              const halUrl =
+                safeLink(field(entry, "hal-url")) ??
+                (halId ? safeLink(`https://hal.science/${halId}`) : undefined);
+              const doiUrl = doiLink(field(entry, "doi"));
+              const publicationUrl = safeLink(field(entry, "url"));
+              const abstract = field(entry, "abstract");
+              const rank = field(entry, "rank");
 
-            return (
-              <li class="publication" data-searchable={searchText(entry)}>
-                <article>
-                  <h3 class="publication-title">{entry.fields.title}</h3>
-                  <p class="authors">
-                    {authors.map((author, index) => (
-                      <>
-                        {index > 0 && ", "}
-                        {author === "Guillermo Polito" ? <strong>{author}</strong> : author}
-                      </>
-                    ))}
-                  </p>
-                  {publicationVenue && <p class="venue">{publicationVenue}</p>}
-                  <div class="publication-links" aria-label="Publication links">
-                    {doiUrl && (
-                      <a href={doiUrl} target="_blank" rel="noreferrer">
-                        DOI
-                      </a>
+              return (
+                <li
+                  class="publication"
+                  data-searchable={searchText(entry)}
+                  data-top-conference={isTopConference(entry) ? "true" : "false"}
+                >
+                  <article>
+                    <h3 class="publication-title">{entry.fields.title}</h3>
+                    <p class="authors">
+                      {authors.map((author, index) => (
+                        <>
+                          {index > 0 && ", "}
+                          {author === "Guillermo Polito" ? <strong>{author}</strong> : author}
+                        </>
+                      ))}
+                    </p>
+                    {publicationVenue && <p class="venue">{publicationVenue}</p>}
+                    <div class="publication-links" aria-label="Publication links">
+                      {doiUrl && (
+                        <a href={doiUrl} target="_blank" rel="noreferrer">
+                          DOI
+                        </a>
+                      )}
+                      {pdfUrl && (
+                        <a href={pdfUrl} target="_blank" rel="noreferrer">
+                          PDF
+                        </a>
+                      )}
+                      {halUrl && (
+                        <a href={halUrl} target="_blank" rel="noreferrer">
+                          HAL
+                        </a>
+                      )}
+                      {publicationUrl && (
+                        <a href={publicationUrl} target="_blank" rel="noreferrer">
+                          Website
+                        </a>
+                      )}
+                      <span class="type-label">
+                        {typeLabels[entry.type] ?? entry.type}
+                      </span>
+                      {rank && (
+                        <span class="rank-badge" aria-label={`Conference rank ${rank}`}>
+                          {rank}
+                        </span>
+                      )}
+                    </div>
+                    {abstract && (
+                      <details class="abstract-details">
+                        <summary>Abstract</summary>
+                        <p>{abstract}</p>
+                      </details>
                     )}
-                    {pdfUrl && (
-                      <a href={pdfUrl} target="_blank" rel="noreferrer">
-                        PDF
-                      </a>
-                    )}
-                    {halUrl && (
-                      <a href={halUrl} target="_blank" rel="noreferrer">
-                        HAL
-                      </a>
-                    )}
-                    {publicationUrl && (
-                      <a href={publicationUrl} target="_blank" rel="noreferrer">
-                        Website
-                      </a>
-                    )}
-                    <span class="type-label">{typeLabels[entry.type] ?? entry.type}</span>
-                    {rank && <span class="rank-badge" aria-label={`Conference rank ${rank}`}>{rank}</span>}
-                  </div>
-                  {abstract && (
-                    <details class="abstract-details">
-                      <summary>Abstract</summary>
-                      <p>{abstract}</p>
-                    </details>
-                  )}
-                </article>
-              </li>
-            );
-          })}
-        </ol>
-      </section>
-    ))
-  }
+                  </article>
+                </li>
+              );
+        })}
+      </ol>
+    </section>
+  ))}
 
   <p class="empty-state" hidden>No publications match your search.</p>
 </section>
 
 <script>
-  const searchInput = document.querySelector<HTMLInputElement>("#publication-search");
-  const publicationItems = Array.from(
-    document.querySelectorAll<HTMLElement>(".publication[data-searchable]")
-  );
-  const yearGroups = Array.from(
-    document.querySelectorAll<HTMLElement>("[data-year-group]")
-  );
-  const resultCount = document.querySelector<HTMLElement>("[data-result-count]");
-  const emptyState = document.querySelector<HTMLElement>(".empty-state");
+  document.querySelectorAll<HTMLElement>(".bibliography").forEach((bibliography) => {
+    const searchInput = bibliography.querySelector<HTMLInputElement>("[data-publication-search]");
+    const topConferencesFilter = bibliography.querySelector<HTMLInputElement>(
+      "[data-top-conferences-filter]"
+    );
+    const publicationItems = Array.from(
+      bibliography.querySelectorAll<HTMLElement>(".publication[data-searchable]")
+    );
+    const yearGroups = Array.from(
+      bibliography.querySelectorAll<HTMLElement>("[data-year-group]")
+    );
+    const resultCount = bibliography.querySelector<HTMLElement>("[data-result-count]");
+    const emptyState = bibliography.querySelector<HTMLElement>(".empty-state");
 
-  searchInput?.addEventListener("input", () => {
-    const query = searchInput.value.trim().toLowerCase();
-    let visibleCount = 0;
+    const updateFilters = () => {
+      const query = searchInput?.value.trim().toLowerCase() ?? "";
+      const onlyTopConferences = topConferencesFilter?.checked ?? false;
+      let visibleCount = 0;
 
-    for (const publication of publicationItems) {
-      const matches = publication.dataset.searchable?.includes(query) ?? false;
-      publication.hidden = !matches;
-      if (matches) visibleCount += 1;
-    }
+      for (const publication of publicationItems) {
+        const matchesSearch = publication.dataset.searchable?.includes(query) ?? false;
+        const matchesTopConference =
+          !onlyTopConferences || publication.dataset.topConference === "true";
+        const matches = matchesSearch && matchesTopConference;
+        publication.hidden = !matches;
+        if (matches) visibleCount += 1;
+      }
 
-    for (const group of yearGroups) {
-      group.hidden = !group.querySelector(".publication:not([hidden])");
-    }
+      for (const group of yearGroups) {
+        group.hidden = !group.querySelector(".publication:not([hidden])");
+      }
 
-    if (resultCount) resultCount.textContent = String(visibleCount);
-    if (emptyState) emptyState.hidden = visibleCount > 0;
+      if (resultCount) resultCount.textContent = String(visibleCount);
+      if (emptyState) emptyState.hidden = visibleCount > 0;
+    };
+
+    searchInput?.addEventListener("input", updateFilters);
+    topConferencesFilter?.addEventListener("change", updateFilters);
   });
 </script>
 
@@ -244,7 +305,11 @@ function searchText(entry: Entry): string {
   }
 
   .year-heading {
-    @apply mt-8 mb-4 text-2xl font-bold;
+    @apply mt-4 mb-3 text-lg font-bold text-text-muted;
+  }
+
+  .category-heading {
+    @apply mt-10 mb-5 border-b border-current pb-2 text-2xl font-bold;
   }
 
   .publication-list {
