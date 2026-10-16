@@ -37,6 +37,13 @@ const { nodes, Tag } = Markdoc;
 */
 export const config: Config = {
   tags: {
+    icon: {
+      render: "i",
+      attributes: {
+        class: { type: String, required: true },
+      },
+      selfClosing: true,
+    },
     details: {
       render: "details",
       children: nodes.document.children,

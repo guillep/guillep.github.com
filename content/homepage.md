@@ -1,6 +1,6 @@
 # Guillermo Polito
 
-[GitHub](https://github.com/guillep) · [Twitter](https://twitter.com/GuillePolito/)
+[{% icon class="fa-brands fa-github" /%} GitHub](https://github.com/guillep)
 
 Coding enthusiast. Mad hatter. Software engineer and researcher.
 
