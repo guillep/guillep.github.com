@@ -7,9 +7,10 @@ interface Props {
   bibFile: string;
   title: string;
   filter: "top-conferences" | "conferences" | "journals" | "workshops" | "others";
+  search?: boolean;
 }
 
-const { bibFile, title, filter } = Astro.props;
+const { bibFile, title, filter, search = true } = Astro.props;
 const id = title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 const bibPath = path.resolve(process.cwd(), bibFile);
 const bibContents = await readFile(bibPath, "utf8");
@@ -144,15 +145,23 @@ function searchText(entry: Entry): string {
 
 <section id={id} class="bibliography" aria-labelledby={`${id}-title`}>
   <h2 id={`${id}-title`} class="category-heading">{title}</h2>
-  <label class="search-label" for={`${id}-search`}>Search {title.toLowerCase()}</label>
-  <input
-    id={`${id}-search`}
-    class="search-input"
-    type="search"
-    placeholder="Search titles, authors, venues…"
-    autocomplete="off"
-    data-publication-search
-  />
+  {
+    search && (
+      <>
+        <label class="search-label" for={`${id}-search`}>
+          Search {title.toLowerCase()}
+        </label>
+        <input
+          id={`${id}-search`}
+          class="search-input"
+          type="search"
+          placeholder="Search titles, authors, venues…"
+          autocomplete="off"
+          data-publication-search
+        />
+      </>
+    )
+  }
   <p class="result-count" aria-live="polite">
     <span data-result-count>{filteredEntries.length}</span> publications
   </p>
@@ -220,7 +229,9 @@ function searchText(entry: Entry): string {
                         </a>
                       )}
                       <span class="type-label">
-                        {typeLabels[entry.type] ?? entry.type}
+                        {entry.type === "inproceedings" && isWorkshop(entry)
+                          ? "Workshop paper"
+                          : typeLabels[entry.type] ?? entry.type}
                       </span>
                       {rank && (
                         <span class="rank-badge" aria-label={`Conference rank ${rank}`}>
