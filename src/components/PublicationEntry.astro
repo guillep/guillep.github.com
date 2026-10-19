@@ -25,6 +25,11 @@ const venueText = [venue, volume && `vol. ${volume}`, pages && `pp. ${pages}`]
   .join(", ");
 const year = typeof fields.year === "string" ? Number.parseInt(fields.year, 10) : 0;
 const rank = typeof fields.rank === "string" ? fields.rank : undefined;
+const impactFactor = typeof fields.impactfactor === "string" ? fields.impactfactor : undefined;
+const scimagoQuartile = typeof fields.scimagoquartile === "string" ? fields.scimagoquartile : undefined;
+const journalMetrics = entry.type === "article" && (impactFactor || scimagoQuartile)
+  ? [impactFactor && `IF ${impactFactor}`, scimagoQuartile && `SJR ${scimagoQuartile}`].filter(Boolean).join(" · ")
+  : undefined;
 
 function link(value: string | undefined): string | undefined {
   if (!value) return undefined;
@@ -90,6 +95,7 @@ const typeLabel = /poster/i.test(`${fields.annote ?? ""} ${fields.type ?? ""}`)
       {websiteUrl && <a href={websiteUrl} target="_blank" rel="noreferrer">Website</a>}
       <span class="type-label">{typeLabel}</span>
       {rank && <span class="rank-badge" aria-label={`Conference rank ${rank}`}>{rank}</span>}
+      {journalMetrics && <span class="rank-badge" aria-label={`Journal metrics: ${journalMetrics}`}>{journalMetrics}</span>}
     </span>
     </span>
     {!compact && typeof fields.abstract === "string" && (
@@ -162,6 +168,11 @@ const typeLabel = /poster/i.test(`${fields.annote ?? ""} ${fields.type ?? ""}`)
 
   .rank-badge {
     margin-inline: 0.25rem;
+    border: 1px solid currentColor;
+    border-radius: 0.25rem;
+    padding: 0.125rem 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 700;
   }
 
   .abstract-details {
