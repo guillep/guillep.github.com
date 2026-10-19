@@ -2,9 +2,10 @@
 import { Prism } from "@astrojs/prism";
 
 const { language, content } = Astro.props;
+const prismLanguage = language === "pharo" ? "smalltalk" : language;
 ---
 
-<Prism lang={language} code={content} />
+<Prism lang={prismLanguage} code={content} />
 
 <style is:global>
   /**
