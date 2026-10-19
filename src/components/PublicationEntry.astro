@@ -77,7 +77,11 @@ const typeLabel = /poster/i.test(`${fields.annote ?? ""} ${fields.type ?? ""}`)
         </>
       ))}
     </span>
-    {venueText && <span class="venue">{venueText}</span>}
+    {venueText && (
+      <span class:list={["venue", entry.type === "inproceedings" && "conference-venue"]}>
+        {venueText}
+      </span>
+    )}
     <span class="publication-year">{year}</span>
     <span class="publication-links" aria-label="Publication links">
       {doiUrl && <a href={doiUrl} target="_blank" rel="noreferrer">DOI</a>}
@@ -129,6 +133,7 @@ const typeLabel = /poster/i.test(`${fields.annote ?? ""} ${fields.type ?? ""}`)
   }
 
   .publication-title {
+    font-weight: 700;
     font-style: italic;
   }
 
@@ -140,6 +145,10 @@ const typeLabel = /poster/i.test(`${fields.annote ?? ""} ${fields.type ?? ""}`)
   .venue::after,
   .publication-year::after {
     content: ", ";
+  }
+
+  .conference-venue {
+    color: color-mix(in srgb, currentColor 75%, transparent);
   }
 
   .author-highlight {
