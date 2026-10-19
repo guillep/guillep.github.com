@@ -1,12 +1,26 @@
 ---
 import Bibliography from "./Bibliography.astro";
+
+interface Props {
+  title?: string;
+  filter?: "top-conferences" | "conferences" | "journals" | "workshops" | "others";
+  search?: boolean;
+  compact?: boolean;
+}
+
+const {
+  title,
+  filter = "top-conferences",
+  search = false,
+  compact = true,
+} = Astro.props;
 ---
 
 <Bibliography
-  id="homepage-selected-articles"
+  id={title?.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") ?? "homepage-selected-articles"}
   bibFile="public/mybib.bib"
-  filter="top-conferences"
-  title="Selected Articles"
-  search={false}
-  compact
+  filter={filter}
+  title={title}
+  search={search}
+  compact={compact}
 />

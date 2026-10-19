@@ -2,17 +2,31 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { parse, type Entry } from "@retorquere/bibtex-parser";
+import PublicationEntry from "./PublicationEntry.astro";
 
 interface Props {
   bibFile: string;
-  title: string;
-  filter: "top-conferences" | "conferences" | "journals" | "workshops" | "others";
+  id?: string;
+  title?: string;
+  filter: "all" | "top-conferences" | "conferences" | "journals" | "workshops" | "others";
   search?: boolean;
   compact?: boolean;
+  sort?: "year" | "alphabetical";
 }
 
-const { bibFile, title, filter, search = true, compact = false } = Astro.props;
-const id = title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+const {
+  bibFile,
+  id: providedId,
+  title,
+  filter,
+  search = true,
+  compact = false,
+  sort = "year",
+} = Astro.props;
+const id =
+  providedId ??
+  title?.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") ??
+  `bibliography-${filter}`;
 const bibPath = path.resolve(process.cwd(), bibFile);
 const bibContents = await readFile(bibPath, "utf8");
 const { entries: parsedEntries, errors } = parse(bibContents, { english: false });
@@ -25,7 +39,48 @@ type Publication = Entry & {
   year: number;
   numericYear: number;
   rankOrder: number;
+  category: PublicationCategory;
 };
+type PublicationCategory = "top-conferences" | "conferences" | "journals" | "workshops" | "others";
+
+function compareByYear(a: Publication, b: Publication): number {
+  return (
+    b.numericYear - a.numericYear ||
+    a.rankOrder - b.rankOrder ||
+    a.fields.title.localeCompare(b.fields.title, undefined, { sensitivity: "base" })
+  );
+}
+
+function compareAlphabetically(a: Publication, b: Publication): number {
+  return a.fields.title.localeCompare(b.fields.title, undefined, { sensitivity: "base" });
+}
+
+function isTopConference(entry: Entry): boolean {
+  return (
+    entry.type === "inproceedings" &&
+    Boolean(field(entry, "rank"))
+  );
+}
+
+function isPoster(entry: Entry): boolean {
+  const marker = `${field(entry, "annote") ?? ""} ${field(entry, "type") ?? ""}`;
+  return /poster/i.test(marker);
+}
+
+function isWorkshop(entry: Entry): boolean {
+  if (field(entry, "venue-type")?.toLowerCase() === "workshop") return true;
+  const venueName = `${field(entry, "booktitle") ?? ""} ${field(entry, "annote") ?? ""}`;
+  return /workshop|\biwst\b|\bfast\b/i.test(venueName);
+}
+
+function categoryFor(entry: Entry): PublicationCategory {
+  if (isPoster(entry)) return "others";
+  if (isTopConference(entry)) return "top-conferences";
+  if (entry.type === "article") return "journals";
+  if (entry.type === "inproceedings") return isWorkshop(entry) ? "workshops" : "conferences";
+  return "others";
+}
+
 const entries: Publication[] = parsedEntries
   .filter((entry) => entry.fields.title && entry.fields.year)
   .map((entry) => {
@@ -35,53 +90,45 @@ const entries: Publication[] = parsedEntries
       numericYear,
       year: Number.isFinite(numericYear) ? numericYear : 0,
       rankOrder: entry.fields.rank === "A*" ? 0 : entry.fields.rank === "A" ? 1 : 2,
+      category: categoryFor(entry),
     };
   })
   .filter((entry) => entry.year > 0)
-  .sort(
-    (a, b) =>
-      a.rankOrder - b.rankOrder ||
-      b.numericYear - a.numericYear ||
-      a.fields.title.localeCompare(b.fields.title, undefined, {
-        sensitivity: "base",
-      })
-  );
+  .sort(sort === "alphabetical" ? compareAlphabetically : compareByYear);
 
-function isTopConference(entry: Publication): boolean {
-  return (
-    entry.type === "inproceedings" &&
-    (Boolean(field(entry, "rank")) || field(entry, "annote")?.toLowerCase().includes("topconference") === true)
-  );
-}
-
-function isWorkshop(entry: Publication): boolean {
-  const venueName = `${field(entry, "booktitle") ?? ""} ${field(entry, "annote") ?? ""}`;
-  return /workshop|\biwst\b|\bfast\b/i.test(venueName);
-}
+const categoriesWithEntries = new Set(entries.map((entry) => entry.category));
+const categoryOptions: { value: PublicationCategory; label: string }[] = [
+  { value: "top-conferences", label: "Top conferences" },
+  { value: "conferences", label: "Conferences" },
+  { value: "journals", label: "Journals" },
+  { value: "workshops", label: "Workshops" },
+  { value: "others", label: "Others" },
+];
 
 function matchesFilter(entry: Publication): boolean {
   switch (filter) {
+    case "all":
+      return true;
     case "top-conferences":
-      return isTopConference(entry);
+      return entry.category === "top-conferences";
     case "conferences":
-      return entry.type === "inproceedings" && !isTopConference(entry) && !isWorkshop(entry);
+      return (
+        entry.type === "inproceedings" &&
+        !isPoster(entry) &&
+        !isWorkshop(entry) &&
+        !isTopConference(entry)
+      );
     case "journals":
-      return entry.type === "article";
+      return entry.category === "journals";
     case "workshops":
-      return entry.type === "inproceedings" && isWorkshop(entry);
+      return entry.category === "workshops";
     case "others":
-      return entry.type !== "article" && entry.type !== "inproceedings";
+      return entry.category === "others";
   }
 }
 
 const filteredEntries = entries.filter(matchesFilter);
-const publicationsByYear = new Map<number, Publication[]>();
-for (const entry of filteredEntries) {
-  const yearlyEntries = publicationsByYear.get(entry.year) ?? [];
-  yearlyEntries.push(entry);
-  publicationsByYear.set(entry.year, yearlyEntries);
-}
-const years = [...publicationsByYear.keys()].sort((a, b) => b - a);
+const visibleEntries = filter === "all" ? entries : filteredEntries;
 
 const typeLabels: Record<string, string> = {
   article: "Journal article",
@@ -147,9 +194,12 @@ function searchText(entry: Entry): string {
 <section
   id={id}
   class:list={["bibliography", compact && "compact"]}
-  aria-labelledby={`${id}-title`}
+  data-filter={filter}
+  data-sort={sort}
+  aria-labelledby={title ? `${id}-title` : undefined}
+  aria-label={title ? undefined : "Publications"}
 >
-  <h2 id={`${id}-title`} class="category-heading">{title}</h2>
+  {title && <h2 id={`${id}-title`} class="category-heading">{title}</h2>}
   {
     search && (
       <>
@@ -164,96 +214,46 @@ function searchText(entry: Entry): string {
       </>
     )
   }
+  {filter === "all" && (
+    <div class="bibliography-controls">
+      <fieldset class="type-filters" data-type-filters>
+        <legend class="sr-only">Filter by type</legend>
+        {categoryOptions.map((option) => (
+          <label>
+            <input
+              type="checkbox"
+              value={option.value}
+              data-category-filter={option.value}
+              checked
+              disabled={!categoriesWithEntries.has(option.value)}
+            />
+            {option.label}
+          </label>
+        ))}
+      </fieldset>
+      <label class="sort-control">
+        Sort by
+        <select data-publication-sort value={sort}>
+          <option value="year">Year (newest first)</option>
+          <option value="alphabetical">Alphabetical</option>
+        </select>
+      </label>
+    </div>
+  )}
   <p class="result-count" aria-live="polite">
-    <span data-result-count>{filteredEntries.length}</span> publications
+    <span data-result-count>{visibleEntries.length}</span> publications
   </p>
 
-  {years.map((year) => (
-    <section
-      class="year-group"
-      data-year-group={year}
-      aria-labelledby={`${id}-year-${year}`}
-    >
-          <h3 id={`${id}-year-${year}`} class="year-heading">
-            {year}
-          </h3>
-          <ol class="publication-list">
-        {publicationsByYear.get(year)?.map((entry) => {
-              const authors = entry.fields.author?.map(authorName) ?? [];
-              const publicationVenue = venue(entry);
-              const pdfUrl =
-                safeLink(field(entry, "pdf")) ?? safeLink(field(entry, "hal-pdf"));
-              const halId = field(entry, "hal-id");
-              const halUrl =
-                safeLink(field(entry, "hal-url")) ??
-                (halId ? safeLink(`https://hal.science/${halId}`) : undefined);
-              const doiUrl = doiLink(field(entry, "doi"));
-              const publicationUrl = safeLink(field(entry, "url"));
-              const abstract = field(entry, "abstract");
-              const rank = field(entry, "rank");
-
-              return (
-                <li
-                  class="publication"
-                  data-searchable={searchText(entry)}
-                  data-top-conference={isTopConference(entry) ? "true" : "false"}
-                >
-                  <article>
-                    <h3 class="publication-title">{entry.fields.title}</h3>
-                    <p class="authors">
-                      {authors.map((author, index) => (
-                        <>
-                          {index > 0 && ", "}
-                          {author === "Guillermo Polito" ? <strong>{author}</strong> : author}
-                        </>
-                      ))}
-                    </p>
-                    {publicationVenue && <p class="venue">{publicationVenue}</p>}
-                    <div class="publication-links" aria-label="Publication links">
-                      {doiUrl && (
-                        <a href={doiUrl} target="_blank" rel="noreferrer">
-                          DOI
-                        </a>
-                      )}
-                      {pdfUrl && (
-                        <a href={pdfUrl} target="_blank" rel="noreferrer">
-                          PDF
-                        </a>
-                      )}
-                      {halUrl && (
-                        <a href={halUrl} target="_blank" rel="noreferrer">
-                          HAL
-                        </a>
-                      )}
-                      {publicationUrl && (
-                        <a href={publicationUrl} target="_blank" rel="noreferrer">
-                          Website
-                        </a>
-                      )}
-                      <span class="type-label">
-                        {entry.type === "inproceedings" && isWorkshop(entry)
-                          ? "Workshop paper"
-                          : typeLabels[entry.type] ?? entry.type}
-                      </span>
-                      {rank && (
-                        <span class="rank-badge" aria-label={`Conference rank ${rank}`}>
-                          {rank}
-                        </span>
-                      )}
-                    </div>
-                    {!compact && abstract && (
-                      <details class="abstract-details">
-                        <summary>Abstract</summary>
-                        <p>{abstract}</p>
-                      </details>
-                    )}
-                  </article>
-                </li>
-              );
-        })}
-      </ol>
-    </section>
-  ))}
+  <ol class="publication-list" data-publication-list>
+    {visibleEntries.map((entry) => (
+      <PublicationEntry
+        entry={entry}
+        category={entry.category}
+        searchable={searchText(entry)}
+        compact={compact}
+      />
+    ))}
+  </ol>
 
   <p class="empty-state" hidden>No publications match your search.</p>
 </section>
@@ -261,34 +261,54 @@ function searchText(entry: Entry): string {
 <script>
   document.querySelectorAll<HTMLElement>(".bibliography").forEach((bibliography) => {
     const searchInput = bibliography.querySelector<HTMLInputElement>("[data-publication-search]");
-    const topConferencesFilter = bibliography.querySelector<HTMLInputElement>(
-      "[data-top-conferences-filter]"
-    );
     const publicationItems = Array.from(
       bibliography.querySelectorAll<HTMLElement>(".publication[data-searchable]")
     );
-    const yearGroups = Array.from(
-      bibliography.querySelectorAll<HTMLElement>("[data-year-group]")
+    const categoryFilters = Array.from(
+      bibliography.querySelectorAll<HTMLInputElement>("[data-category-filter]")
     );
+    const sortSelect = bibliography.querySelector<HTMLSelectElement>("[data-publication-sort]");
+    const publicationList = bibliography.querySelector<HTMLOListElement>("[data-publication-list]");
     const resultCount = bibliography.querySelector<HTMLElement>("[data-result-count]");
     const emptyState = bibliography.querySelector<HTMLElement>(".empty-state");
 
     const updateFilters = () => {
       const query = searchInput?.value.trim().toLowerCase() ?? "";
-      const onlyTopConferences = topConferencesFilter?.checked ?? false;
       let visibleCount = 0;
+
+      const selectedCategories = categoryFilters
+        .filter((checkbox) => checkbox.checked)
+        .map((checkbox) => checkbox.value);
+      const sortMode = sortSelect?.value ?? bibliography.dataset.sort ?? "year";
+      const shouldFilterByCategory = bibliography.dataset.filter === "all";
+
+      const sortedItems = [...publicationItems].sort((a, b) => {
+        if (sortMode === "alphabetical") {
+          return (a.dataset.title ?? "").localeCompare(b.dataset.title ?? "", undefined, {
+            sensitivity: "base",
+          });
+        }
+        return (
+          Number(b.dataset.year) - Number(a.dataset.year) ||
+          Number(a.dataset.rankOrder ?? 2) - Number(b.dataset.rankOrder ?? 2) ||
+          (a.dataset.title ?? "").localeCompare(b.dataset.title ?? "", undefined, {
+            sensitivity: "base",
+          })
+        );
+      });
+      sortedItems.forEach((publication) => {
+        publicationList?.append(publication);
+      });
 
       for (const publication of publicationItems) {
         const matchesSearch = publication.dataset.searchable?.includes(query) ?? false;
-        const matchesTopConference =
-          !onlyTopConferences || publication.dataset.topConference === "true";
-        const matches = matchesSearch && matchesTopConference;
+        const matchesCategory =
+          !shouldFilterByCategory ||
+          categoryFilters.length === 0 ||
+          selectedCategories.includes(publication.dataset.category ?? "");
+        const matches = matchesSearch && matchesCategory;
         publication.hidden = !matches;
         if (matches) visibleCount += 1;
-      }
-
-      for (const group of yearGroups) {
-        group.hidden = !group.querySelector(".publication:not([hidden])");
       }
 
       if (resultCount) resultCount.textContent = String(visibleCount);
@@ -296,7 +316,9 @@ function searchText(entry: Entry): string {
     };
 
     searchInput?.addEventListener("input", updateFilters);
-    topConferencesFilter?.addEventListener("change", updateFilters);
+    categoryFilters.forEach((checkbox) => checkbox.addEventListener("change", updateFilters));
+    sortSelect?.addEventListener("change", updateFilters);
+    updateFilters();
   });
 </script>
 
@@ -313,6 +335,30 @@ function searchText(entry: Entry): string {
     @apply mt-2 text-sm text-text-muted;
   }
 
+  .bibliography-controls {
+    @apply my-4 flex flex-wrap items-center justify-between gap-3;
+  }
+
+  .type-filters {
+    @apply flex flex-wrap items-center gap-x-4 gap-y-2 border-0 p-0;
+  }
+
+  .type-filters label {
+    @apply flex cursor-pointer items-center gap-1.5 text-sm;
+  }
+
+  .type-filters input {
+    @apply accent-text-link;
+  }
+
+  .sort-control {
+    @apply ml-auto flex shrink-0 items-center gap-2 text-sm;
+  }
+
+  .sort-control select {
+    @apply rounded border border-current bg-transparent px-2 py-1;
+  }
+
   .year-heading {
     @apply mt-4 mb-3 text-lg font-bold text-text-muted;
   }
@@ -326,7 +372,7 @@ function searchText(entry: Entry): string {
   }
 
   .publication {
-    @apply mb-6 border-b border-current pb-5;
+    @apply mb-5 border-b border-current pb-0;
     border-color: color-mix(in srgb, currentColor 20%, transparent);
   }
 
@@ -334,43 +380,58 @@ function searchText(entry: Entry): string {
     @apply mt-6 mb-3 border-0 pb-0 text-xl;
   }
 
+  .bibliography.compact :global(.result-count) {
+    display: none;
+  }
+
   .bibliography.compact :global(.year-heading) {
     @apply mt-3 mb-2 text-sm;
   }
 
   .bibliography.compact :global(.publication) {
-    @apply mb-3 pb-3;
+    @apply mb-2 border-0 p-0;
   }
 
-  .bibliography.compact :global(.publication-title) {
-    @apply text-base;
-  }
-
-  .bibliography.compact :global(.authors),
-  .bibliography.compact :global(.venue),
-  .bibliography.compact :global(.publication-links) {
-    @apply text-xs;
-  }
-
-  .bibliography.compact :global(.publication-links) .type-label {
+  .publication-year {
     display: none;
   }
 
-  .publication-title {
-    @apply mb-1 text-lg font-bold leading-snug;
+  .bibliography.compact :global(.year-heading) {
+    display: none;
   }
 
-  .authors,
-  .venue {
-    @apply mb-1 text-sm;
+  .bibliography.compact :global(.publication-title) {
+    @apply text-sm text-inherit;
   }
 
-  .venue {
-    @apply italic text-text-muted;
+  .bibliography.compact :global(.authors),
+  .bibliography.compact :global(.venue) {
+    @apply mb-0 mt-0 inline text-sm font-normal not-italic text-inherit;
   }
 
-  .publication-links {
-    @apply mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm;
+  .bibliography.compact :global(.authors),
+  .bibliography.compact :global(.venue) {
+    @apply whitespace-normal;
+  }
+
+  .bibliography.compact :global(.authors)::after {
+    content: ", ";
+  }
+
+  .bibliography.compact :global(.publication-links a) {
+    @apply whitespace-nowrap;
+  }
+
+  .bibliography.compact :global(a:hover) {
+    color: inherit;
+  }
+
+  .bibliography.compact :global(.publication-links a:first-child)::before {
+    content: " ";
+  }
+
+  .bibliography.compact :global(.rank-badge) {
+    @apply border-0 px-0 py-0 text-sm font-normal text-inherit;
   }
 
   .type-label {

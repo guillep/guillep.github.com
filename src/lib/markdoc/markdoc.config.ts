@@ -57,6 +57,12 @@ export const config: Config = {
     },
     selectedPapers: {
       render: "SelectedPublications",
+      attributes: {
+        title: { type: String },
+        filter: { type: String, default: "top-conferences" },
+        search: { type: Boolean, default: false },
+        compact: { type: Boolean, default: true },
+      },
       selfClosing: true,
     },
     details: {

@@ -1,11 +1,5 @@
 # Guillermo Polito
 
-{% divider spacing="compact" /%}
-
-[{% icon class="fa-brands fa-github" /%} GitHub](https://github.com/guillep)
-
-{% divider spacing="compact" /%}
-
 Coding enthusiast. Mad hatter. Software engineer and researcher.
 
 I am currently an Inria Researcher at the CRIStAL laboratory, where I am expert in software engineering and language implementations, with a particular focus on test generation. I work in the [Evref team from Inria Lille-Nord Europe](https://www.inria.fr/fr/evref).
@@ -18,7 +12,11 @@ My main topics of interests are the runtime adaptation of applications, Virtual 
 
 I obtained the 13 of april 2015 my Phd entitled "Virtualization support for application runtime specialization and extension" under the direction of Stéphane Ducasse ([Evref team from Inria Lille-Nord Europe](https://www.inria.fr/fr/evref)) and the supervision of Noury Bouraqadi and Luc Fabresse ([CAR team of Mines Douai](http://car.mines-douai.fr/)).
 
-{% selectedPapers /%}
+## Selected Articles
+
+{% divider /%}
+
+{% selectedPapers filter="top-conferences" search=false compact=true /%}
 
 ## Coordinates
 

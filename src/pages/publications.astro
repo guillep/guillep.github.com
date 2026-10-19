@@ -13,31 +13,16 @@ import { SITE_TITLE } from "../config";
       bibFile="public/mybib.bib"
       filter="top-conferences"
       title="Selected Articles"
+      compact
       search={false}
     />
     <Bibliography
-      id="conference-publications"
+      id="all-publications"
       bibFile="public/mybib.bib"
-      filter="conferences"
-      title="Conferences"
-    />
-    <Bibliography
-      id="journal-publications"
-      bibFile="public/mybib.bib"
-      filter="journals"
-      title="Journals"
-    />
-    <Bibliography
-      id="workshop-publications"
-      bibFile="public/mybib.bib"
-      filter="workshops"
-      title="Workshops"
-    />
-    <Bibliography
-      id="other-publications"
-      bibFile="public/mybib.bib"
-      filter="others"
-      title="Others"
+      filter="all"
+      title="Publications"
+      search
+      sort="year"
     />
   </div>
 </PageLayout>

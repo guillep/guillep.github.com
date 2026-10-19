@@ -1,0 +1,162 @@
+---
+import type { Entry } from "@retorquere/bibtex-parser";
+
+interface Props {
+  entry: Entry;
+  category: string;
+  searchable: string;
+  compact?: boolean;
+}
+
+const { entry, category, searchable, compact = false } = Astro.props;
+const fields = entry.fields;
+const authors = fields.author ?? [];
+const authorsText = authors.map((author) => [author.firstName, author.lastName].filter(Boolean).join(" "));
+const venue =
+  fields.journal ??
+  fields.booktitle ??
+  fields.institution ??
+  fields.school ??
+  fields.publisher;
+const pages = typeof fields.pages === "string" ? fields.pages : undefined;
+const volume = typeof fields.volume === "string" ? fields.volume : undefined;
+const venueText = [venue, volume && `vol. ${volume}`, pages && `pp. ${pages}`]
+  .filter(Boolean)
+  .join(", ");
+const year = typeof fields.year === "string" ? Number.parseInt(fields.year, 10) : 0;
+const rank = typeof fields.rank === "string" ? fields.rank : undefined;
+
+function link(value: string | undefined): string | undefined {
+  if (!value) return undefined;
+  try {
+    const parsed = new URL(value);
+    return parsed.protocol === "http:" || parsed.protocol === "https:" ? parsed.toString() : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
+const doi = typeof fields.doi === "string" ? fields.doi.replace(/^https?:\/\/(doi\.org\/)?/i, "") : undefined;
+const doiUrl = doi ? link(`https://doi.org/${doi}`) : undefined;
+const pdfUrl = link(typeof fields.pdf === "string" ? fields.pdf : undefined) ??
+  link(typeof fields["hal-pdf"] === "string" ? fields["hal-pdf"] as string : undefined);
+const halId = typeof fields["hal-id"] === "string" ? fields["hal-id"] : undefined;
+const halUrl = link(typeof fields["hal-url"] === "string" ? fields["hal-url"] : undefined) ??
+  (halId ? link(`https://hal.science/${halId}`) : undefined);
+const websiteUrl = link(typeof fields.url === "string" ? fields.url : undefined);
+const typeLabel = /poster/i.test(`${fields.annote ?? ""} ${fields.type ?? ""}`)
+  ? "Poster"
+  : entry.type === "inproceedings" &&
+      (String(fields["venue-type"] ?? "").toLowerCase() === "workshop" ||
+        /workshop|\biwst\b|\bfast\b/i.test(`${fields.booktitle ?? ""}`))
+    ? "Workshop paper"
+    : ({ article: "Journal article", booklet: "Booklet", inproceedings: "Conference paper", misc: "Other publication", phdthesis: "PhD thesis", techreport: "Technical report" }[entry.type] ?? entry.type);
+---
+
+<li
+  class="publication"
+  data-searchable={searchable}
+  data-category={category}
+  data-year={year}
+  data-rank-order={rank === "A*" ? 0 : rank === "A" ? 1 : 2}
+  data-title={typeof fields.title === "string" ? fields.title.toLowerCase() : ""}
+>
+  <article>
+    <span class="citation-line">
+    <span class="publication-bullet" aria-hidden="true">•</span>
+    <span class="publication-title">{fields.title}.</span>
+    <span class="authors">
+      {authorsText.map((author, index) => (
+        <>
+          {index > 0 && ", "}
+          {author === "Guillermo Polito" ? (
+            <strong class="author-highlight">{author}</strong>
+          ) : (
+            <span>{author}</span>
+          )}
+        </>
+      ))}
+    </span>
+    {venueText && <span class="venue">{venueText}</span>}
+    <span class="publication-year">{year}</span>
+    <span class="publication-links" aria-label="Publication links">
+      {doiUrl && <a href={doiUrl} target="_blank" rel="noreferrer">DOI</a>}
+      {pdfUrl && <a href={pdfUrl} target="_blank" rel="noreferrer">PDF</a>}
+      {halUrl && <a href={halUrl} target="_blank" rel="noreferrer">HAL</a>}
+      {websiteUrl && <a href={websiteUrl} target="_blank" rel="noreferrer">Website</a>}
+      <span class="type-label">{typeLabel}</span>
+      {rank && <span class="rank-badge" aria-label={`Conference rank ${rank}`}>{rank}</span>}
+    </span>
+    </span>
+    {!compact && typeof fields.abstract === "string" && (
+      <details class="abstract-details">
+        <summary>Abstract</summary>
+        <p>{fields.abstract}</p>
+      </details>
+    )}
+  </article>
+</li>
+
+<style>
+  .publication article {
+    margin: 0;
+    padding: 0;
+    line-height: 1.1;
+  }
+
+  .citation-line {
+    display: inline;
+    font-size: 0.9rem;
+    line-height: 1.1;
+  }
+
+  .publication-bullet {
+    margin-right: 0.5rem;
+  }
+
+  .publication-title,
+  .authors,
+  .venue,
+  .publication-year,
+  .publication-links {
+    display: inline;
+    margin: 0;
+    color: inherit;
+    font-size: 0.9rem;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 1.1;
+  }
+
+  .publication-title {
+    font-style: italic;
+  }
+
+  .publication-title::after {
+    content: " ";
+  }
+
+  .authors::after,
+  .venue::after,
+  .publication-year::after {
+    content: ", ";
+  }
+
+  .author-highlight {
+    font-weight: 700;
+    color: inherit;
+  }
+
+  .publication-links a {
+    margin-inline: 0.2rem;
+  }
+
+  .rank-badge {
+    margin-inline: 0.25rem;
+  }
+
+  .abstract-details {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+  }
+</style>
