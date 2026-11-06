@@ -115,9 +115,7 @@ The agent produced a working sketch with a promising model. Some tests were more
 The clear highlight of the experience: the integration with Metacello felt like a hack. When I asked it, I had the following conversation:
 
 > **Guille:** so what you did is actually a hack
-
 > **Claude:** Yes, it is. [... technical details ...]
-
 > **Guille:** let's improve your skills. By default, I want you to create production ready code [...]. If too difficult to do at once, we grill, plan and prioritize. We can prototype and hack around, but only if told explicitly. You may ask for permission to prototype.
 
 ## My conclusions
