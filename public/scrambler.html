@@ -1,0 +1,665 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Image Guessing Generator</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<style>
+:root{--bg:#f6f6f4;--panel:#fff;--fg:#1c1c1c;--muted:#6b6b6b;--line:#ddd;--accent:#2f5bd3;--accent-fg:#fff;--warn:#a86400;--err:#b3261e;--ok:#2e7d32}
+@media (prefers-color-scheme:dark){:root{--bg:#141414;--panel:#1e1e1e;--fg:#eee;--muted:#9a9a9a;--line:#333;--accent:#7b9cff;--accent-fg:#111;--warn:#f0b056;--err:#ff8a80;--ok:#81c784}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+header{padding:16px;border-bottom:1px solid var(--line);background:var(--panel)}
+header h1{margin:0;font-size:20px}
+header p{margin:4px 0 0;color:var(--muted);font-size:13px}
+nav.steps{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap}
+nav.steps button{border:1px solid var(--line);background:transparent;color:var(--fg);padding:6px 12px;border-radius:999px;cursor:pointer}
+nav.steps button.active{background:var(--accent);color:var(--accent-fg);border-color:var(--accent)}
+main{max-width:1200px;margin:0 auto;padding:16px}
+section.view{display:none}section.view.active{display:block}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:16px}
+.panel h2{margin:0 0 12px;font-size:16px}
+.drop{border:2px dashed var(--line);border-radius:12px;padding:40px 16px;text-align:center;color:var(--muted);cursor:pointer}
+.drop.over{border-color:var(--accent);color:var(--fg)}
+button.btn{border:1px solid var(--line);background:var(--panel);color:var(--fg);padding:7px 14px;border-radius:8px;cursor:pointer;font:inherit}
+button.btn.primary{background:var(--accent);color:var(--accent-fg);border-color:var(--accent)}
+button.btn:disabled{opacity:.5;cursor:default}
+button.small{padding:3px 8px;font-size:12px}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.spacer{flex:1}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:12px}
+.card{border:1px solid var(--line);border-radius:8px;padding:6px;background:var(--bg);cursor:grab;position:relative}
+.card.dragging{opacity:.4}.card.dropbefore{box-shadow:-3px 0 0 var(--accent)}
+.card .thumb{width:100%;aspect-ratio:4/3;object-fit:contain;background:repeating-conic-gradient(#8882 0 25%,transparent 0 50%) 0 0/16px 16px;border-radius:4px;display:block}
+.card .name{font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-top:4px}
+.card .meta{font-size:11px;color:var(--muted)}
+.card .rm{position:absolute;top:8px;right:8px;background:#000a;color:#fff;border:0;border-radius:50%;width:22px;height:22px;cursor:pointer}
+.card .num{position:absolute;top:8px;left:8px;background:#000a;color:#fff;border-radius:4px;font-size:11px;padding:1px 5px}
+.status-error{color:var(--err)}.status-done{color:var(--ok)}.status-processing{color:var(--accent)}
+.msgs div{font-size:13px;padding:4px 0}.msgs .warn{color:var(--warn)}.msgs .err{color:var(--err)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+label.f{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:4px 0;font-size:14px}
+label.f input[type=number],label.f input[type=text],label.f select{width:140px;padding:4px 6px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg);font:inherit}
+label.f input[type=color]{width:60px;height:28px;border:1px solid var(--line);background:none}
+.hint{font-size:12px;color:var(--muted)}
+.tablewrap{overflow-x:auto}
+table.recipes{border-collapse:collapse;width:100%;font-size:13px}
+table.recipes th,table.recipes td{border-bottom:1px solid var(--line);padding:4px 6px;text-align:left;white-space:nowrap}
+table.recipes input{width:70px;padding:2px 4px;border:1px solid var(--line);border-radius:4px;background:var(--bg);color:var(--fg)}
+.strip{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px}
+.strip figure{margin:0;flex:0 0 auto;width:150px}
+.strip img{width:150px;height:112px;object-fit:contain;background:#0003;border-radius:4px;cursor:zoom-in;display:block}
+.strip figcaption{font-size:11px;color:var(--muted);margin-top:2px;white-space:normal}
+.group{border-top:1px solid var(--line);padding:12px 0}
+.group:first-child{border-top:0}
+.group .head{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+.group .head input{padding:4px 6px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg);min-width:200px}
+progress{width:100%;height:10px}
+.slides{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px}
+.slide{border-radius:4px;aspect-ratio:16/9;position:relative;overflow:hidden;font-size:9px;display:flex;align-items:center;justify-content:center}
+.slide img{max-width:80%;max-height:72%;object-fit:contain}
+.slide .lab{position:absolute;top:2px;left:4px;right:4px;display:flex;justify-content:space-between}
+.slide .pg{position:absolute;bottom:2px;right:4px;opacity:.6}
+.slide .txt{text-align:center;padding:4px}
+.lightbox{position:fixed;inset:0;background:#000e;display:none;flex-direction:column;align-items:center;justify-content:center;z-index:10;color:#fff}
+.lightbox.open{display:flex}
+.lightbox img{max-width:92vw;max-height:78vh;object-fit:contain}
+.lightbox .cap{margin-top:10px;font-size:14px;text-align:center;padding:0 16px}
+.lightbox .nav{position:absolute;top:50%;transform:translateY(-50%);background:#fff2;color:#fff;border:0;font-size:28px;width:48px;height:64px;cursor:pointer;border-radius:6px}
+.lightbox .prev{left:8px}.lightbox .next{right:8px}
+.lightbox .close{position:absolute;top:10px;right:14px;background:none;border:0;color:#fff;font-size:28px;cursor:pointer}
+.stale{color:var(--warn);font-size:13px}
+</style>
+</head>
+<body>
+<header>
+  <h1>Image Guessing Generator</h1>
+  <p>All images are processed locally in your browser. Nothing is uploaded.</p>
+  <nav class="steps">
+    <button data-view="import" class="active">1. Import</button>
+    <button data-view="config">2. Configure</button>
+    <button data-view="review">3. Review &amp; export</button>
+  </nav>
+</header>
+<main>
+<section class="view active" id="view-import">
+  <div class="panel">
+    <div class="drop" id="drop">
+      <strong>Drop JPG, PNG or ZIP files here</strong><br>
+      <span class="hint">or click to choose files</span>
+      <input type="file" id="fileInput" multiple accept=".jpg,.jpeg,.png,.zip,image/jpeg,image/png,application/zip" hidden>
+    </div>
+    <div class="msgs" id="importMsgs"></div>
+  </div>
+  <div class="panel">
+    <div class="row">
+      <h2 style="margin:0" id="imgCount">No images</h2>
+      <span class="hint">Drag cards to reorder.</span>
+      <span class="spacer"></span>
+      <button class="btn" id="addMore">Add more</button>
+      <button class="btn" id="clearAll">Clear all</button>
+      <button class="btn primary" id="toConfig">Continue</button>
+    </div>
+    <div class="gallery" id="gallery"></div>
+  </div>
+</section>
+
+<section class="view" id="view-config">
+  <div class="grid2">
+    <div class="panel">
+      <h2>General</h2>
+      <label class="f">Number of levels (incl. original)<input type="number" min="3" max="12" data-k="levels"></label>
+      <label class="f">Random seed<span class="row"><input type="text" data-k="seed"><button class="btn small" id="randSeed">🎲</button></span></label>
+      <label class="f">Processing size (px, long side)<input type="number" min="400" max="4000" step="100" data-k="maxSide"></label>
+      <label class="f">Warn above file size (MB)<input type="number" min="1" max="500" data-k="maxMB"></label>
+      <p class="hint">The original is always the last level. Output format: PNG.</p>
+    </div>
+    <div class="panel">
+      <h2>Transformations</h2>
+      <label class="f">Tile scrambling<input type="checkbox" data-k="enabled.scramble"></label>
+      <label class="f">&nbsp;&nbsp;Columns × rows<span class="row"><input type="number" min="2" max="20" data-k="scramble.cols" style="width:60px"> × <input type="number" min="1" max="20" data-k="scramble.rows" style="width:60px"></span></label>
+      <label class="f">Pixelation<input type="checkbox" data-k="enabled.pixelate"></label>
+      <label class="f">&nbsp;&nbsp;Interpolation<select data-k="pixelate.interp"><option value="nearest">Nearest (blocky)</option><option value="smooth">Bilinear (smooth)</option></select></label>
+      <label class="f">Blur<input type="checkbox" data-k="enabled.blur"></label>
+      <label class="f">Noise<input type="checkbox" data-k="enabled.noise"></label>
+      <label class="f">&nbsp;&nbsp;Noise type<select data-k="noise.type"><option value="mono">Monochrome</option><option value="color">Color</option><option value="saltpepper">Salt &amp; pepper</option></select></label>
+      <label class="f">&nbsp;&nbsp;Distribution<select data-k="noise.dist"><option value="gaussian">Gaussian</option><option value="uniform">Uniform</option></select></label>
+      <label class="f">&nbsp;&nbsp;Opacity (%)<input type="number" min="0" max="100" data-k="noise.opacity"></label>
+    </div>
+  </div>
+  <div class="panel">
+    <h2>Difficulty recipes</h2>
+    <p class="hint">Set the hardest (level 1) and easiest modified level. Levels in between are interpolated. You can then edit any cell. Changing levels or endpoints recomputes the table. Blur radius is in px relative to a 1000 px image. Pixelation is blocks along the long side (0 = off).</p>
+    <div class="tablewrap">
+    <table class="recipes">
+      <thead><tr><th></th><th>Blur</th><th>Pixelation</th><th>Scramble %</th><th>Noise %</th></tr></thead>
+      <tbody>
+        <tr><td>Hardest</td><td><input type="number" min="0" step="0.5" data-k="hard.blur"></td><td><input type="number" min="0" data-k="hard.pixel"></td><td><input type="number" min="0" max="100" data-k="hard.scramble"></td><td><input type="number" min="0" max="100" data-k="hard.noise"></td></tr>
+        <tr><td>Easiest</td><td><input type="number" min="0" step="0.5" data-k="easy.blur"></td><td><input type="number" min="0" data-k="easy.pixel"></td><td><input type="number" min="0" max="100" data-k="easy.scramble"></td><td><input type="number" min="0" max="100" data-k="easy.noise"></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <h2 style="margin-top:16px">Levels</h2>
+    <div class="tablewrap"><table class="recipes" id="recipeTable"></table></div>
+    <div class="msgs" id="recipeMsgs"></div>
+    <h2 style="margin-top:16px">Progression preview <span class="hint" id="previewName"></span></h2>
+    <div class="strip" id="previewStrip"><span class="hint">Import an image to see a preview.</span></div>
+  </div>
+  <div class="panel">
+    <h2>PDF presentation</h2>
+    <div class="grid2">
+      <div>
+        <label class="f">Game title<input type="text" data-k="pdf.title"></label>
+        <label class="f">Subtitle<input type="text" data-k="pdf.subtitle"></label>
+        <label class="f">Show number of questions<input type="checkbox" data-k="pdf.showCount"></label>
+        <label class="f">Aspect ratio<select data-k="pdf.aspect"><option value="16:9">16:9</option><option value="4:3">4:3</option></select></label>
+      </div>
+      <div>
+        <label class="f">Background color<input type="color" data-k="pdf.bg"></label>
+        <label class="f">Show level numbers<input type="checkbox" data-k="pdf.showLevel"></label>
+        <label class="f">Show difficulty labels<input type="checkbox" data-k="pdf.showDiff"></label>
+        <label class="f">Slide images<select data-k="pdf.format"><option value="auto">JPEG (PNG if transparent)</option><option value="png">Always PNG (lossless)</option></select></label>
+        <label class="f">JPEG quality (%)<input type="number" min="50" max="100" data-k="pdf.quality"></label>
+      </div>
+    </div>
+  </div>
+  <div class="row"><button class="btn" data-goto="import">Back</button><span class="spacer"></span><button class="btn primary" id="generate">Generate</button></div>
+</section>
+
+<section class="view" id="view-review">
+  <div class="panel">
+    <div class="row">
+      <button class="btn" data-goto="config">Back to configuration</button>
+      <button class="btn" id="regenAll">Regenerate all</button>
+      <button class="btn" id="cancel" disabled>Cancel</button>
+      <span class="spacer"></span>
+      <button class="btn" id="exportZip">Export ZIP</button>
+      <button class="btn primary" id="exportPdf">Export PDF</button>
+    </div>
+    <div style="margin-top:10px"><progress id="progress" value="0" max="1"></progress></div>
+    <div class="hint" id="progressText">Not generated yet.</div>
+    <div class="msgs" id="reviewMsgs"></div>
+  </div>
+  <div class="panel"><h2>Results</h2><div id="groups"></div></div>
+  <div class="panel"><h2>Slide order</h2><div class="slides" id="slides"></div></div>
+</section>
+</main>
+
+<div class="lightbox" id="lightbox">
+  <button class="close" aria-label="Close">×</button>
+  <button class="nav prev" aria-label="Previous">‹</button>
+  <img alt="">
+  <div class="cap"></div>
+  <button class="nav next" aria-label="Next">›</button>
+</div>
+
+<script>
+// ---------- Engine (runs in a Worker when OffscreenCanvas exists, else on the main thread) ----------
+function engineFactory(){
+  function hashStr(s){let h=2166136261>>>0;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0}
+  function hashBytes(u8){let h=2166136261>>>0;for(let i=0;i<u8.length;i++){h^=u8[i];h=Math.imul(h,16777619)}return h>>>0}
+  function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+  function rng(){return mulberry32(hashStr(Array.prototype.join.call(arguments,'|')))}
+  function mk(w,h){if(typeof OffscreenCanvas!=='undefined')return new OffscreenCanvas(w,h);const c=document.createElement('canvas');c.width=w;c.height=h;return c}
+  function toBlob(c,type,q){return c.convertToBlob?c.convertToBlob({type,quality:q}):new Promise((res,rej)=>c.toBlob(b=>b?res(b):rej(new Error('Image encoding failed')),type,q))}
+
+  function scramble(ctx,w,h,cols,rows,intensity,r){
+    const n=cols*rows;let k=Math.round(intensity/100*n);if(k<2)return;
+    const src=mk(w,h);src.getContext('2d').drawImage(ctx.canvas,0,0);
+    const idx=[];for(let i=0;i<n;i++)idx.push(i);
+    for(let i=n-1;i>0;i--){const j=Math.floor(r()*(i+1));const t=idx[i];idx[i]=idx[j];idx[j]=t}
+    const sel=idx.slice(0,k),xs=[],ys=[];
+    for(let i=0;i<=cols;i++)xs.push(Math.round(i*w/cols));
+    for(let i=0;i<=rows;i++)ys.push(Math.round(i*h/rows));
+    const rect=t=>{const cx=t%cols,cy=(t/cols)|0;return[xs[cx],ys[cy],xs[cx+1]-xs[cx],ys[cy+1]-ys[cy]]};
+    // Cyclic shift over the selected tiles: every selected tile moves.
+    for(let j=0;j<k;j++){const d=rect(sel[j]),s=rect(sel[(j+1)%k]);ctx.clearRect(d[0],d[1],d[2],d[3]);ctx.drawImage(src,s[0],s[1],s[2],s[3],d[0],d[1],d[2],d[3])}
+  }
+  function pixelate(ctx,w,h,n,interp){
+    const L=Math.max(w,h);if(!(n>0)||n>=L)return;
+    const sw=w>=h?n:Math.max(1,Math.round(n*w/h)),sh=h>w?n:Math.max(1,Math.round(n*h/w));
+    const small=mk(sw,sh),s=small.getContext('2d');s.imageSmoothingEnabled=true;s.imageSmoothingQuality='high';
+    s.drawImage(ctx.canvas,0,0,sw,sh);
+    ctx.clearRect(0,0,w,h);ctx.imageSmoothingEnabled=interp==='smooth';ctx.drawImage(small,0,0,w,h);ctx.imageSmoothingEnabled=true;
+  }
+  function boxes(sigma,n){const wI=Math.sqrt(12*sigma*sigma/n+1);let wl=Math.floor(wI);if(wl%2===0)wl--;const wu=wl+2;const m=Math.round((12*sigma*sigma-n*wl*wl-4*n*wl-3*n)/(-4*wl-4));const r=[];for(let i=0;i<n;i++)r.push(i<m?wl:wu);return r}
+  function boxH(a,b,w,h,r){const k=1/(2*r+1);for(let y=0;y<h;y++){const row=y*w;for(let c=0;c<4;c++){let v=0;for(let j=-r;j<=r;j++)v+=a[(row+Math.min(w-1,Math.max(0,j)))*4+c];for(let x=0;x<w;x++){b[(row+x)*4+c]=v*k;v+=a[(row+Math.min(w-1,x+r+1))*4+c]-a[(row+Math.max(0,x-r))*4+c]}}}}
+  function boxV(a,b,w,h,r){const k=1/(2*r+1);for(let x=0;x<w;x++){for(let c=0;c<4;c++){let v=0;for(let j=-r;j<=r;j++)v+=a[(Math.min(h-1,Math.max(0,j))*w+x)*4+c];for(let y=0;y<h;y++){b[(y*w+x)*4+c]=v*k;v+=a[(Math.min(h-1,y+r+1)*w+x)*4+c]-a[(Math.max(0,y-r)*w+x)*4+c]}}}}
+  function blur(ctx,w,h,sigma){
+    if(sigma<0.3)return;
+    const img=ctx.getImageData(0,0,w,h),d=img.data,n=w*h;
+    const a=new Float32Array(n*4),b=new Float32Array(n*4);
+    for(let i=0;i<n;i++){const al=d[i*4+3]/255;a[i*4]=d[i*4]*al;a[i*4+1]=d[i*4+1]*al;a[i*4+2]=d[i*4+2]*al;a[i*4+3]=d[i*4+3]}
+    for(const bx of boxes(sigma,3)){const r=(bx-1)/2;if(r<1)continue;boxH(a,b,w,h,r);boxV(b,a,w,h,r)}
+    for(let i=0;i<n;i++){const al=a[i*4+3];const f=al>0?255/al:0;d[i*4]=a[i*4]*f;d[i*4+1]=a[i*4+1]*f;d[i*4+2]=a[i*4+2]*f;d[i*4+3]=al}
+    ctx.putImageData(img,0,0);
+  }
+  function noise(ctx,w,h,intensity,opacity,type,dist,r){
+    const img=ctx.getImageData(0,0,w,h),d=img.data,op=opacity/100,amp=intensity/100*128;
+    const g=()=>{if(dist==='uniform')return r()*2-1;let u=r()||1e-9,v=r();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v)/2.5};
+    for(let i=0;i<d.length;i+=4){
+      if(type==='saltpepper'){if(r()<intensity/100*0.6){const v=r()<.5?0:255;for(let c=0;c<3;c++)d[i+c]=d[i+c]*(1-op)+v*op}continue}
+      if(type==='color'){for(let c=0;c<3;c++)d[i+c]=d[i+c]+g()*amp*op}
+      else{const v=g()*amp*op;d[i]+=v;d[i+1]+=v;d[i+2]+=v}
+    }
+    ctx.putImageData(img,0,0);
+  }
+  // Each level starts from the original bitmap: never cumulative.
+  async function generate(bitmap,w,h,recipes,opt,seed,onLevel){
+    const out=[];
+    for(let i=0;i<=recipes.length;i++){
+      const c=mk(w,h),ctx=c.getContext('2d',{willReadFrequently:true});
+      ctx.drawImage(bitmap,0,0,w,h);
+      const R=recipes[i];
+      if(R){
+        if(opt.enabled.scramble&&R.scramble>0)scramble(ctx,w,h,opt.scramble.cols,opt.scramble.rows,R.scramble,rng(seed,'scramble'));
+        if(opt.enabled.pixelate&&R.pixel>0)pixelate(ctx,w,h,R.pixel,opt.pixelate.interp);
+        if(opt.enabled.blur&&R.blur>0)blur(ctx,w,h,R.blur*Math.max(w,h)/1000);
+        if(opt.enabled.noise&&R.noise>0)noise(ctx,w,h,R.noise,opt.noise.opacity,opt.noise.type,opt.noise.dist,rng(seed,i,'noise'));
+      }
+      out.push(await toBlob(c,'image/png'));
+      if(onLevel)onLevel(i+1);
+    }
+    return out;
+  }
+  return {hashStr,hashBytes,mulberry32,generate,mk,toBlob};
+}
+const E=engineFactory();
+
+// ---------- Worker plumbing ----------
+let worker=null,jobSeq=0;const jobs=new Map();
+const canWorker=typeof OffscreenCanvas!=='undefined'&&typeof Worker!=='undefined';
+function getWorker(){
+  if(worker)return worker;
+  const src=`const E=(${engineFactory.toString()})();self.onmessage=async e=>{const m=e.data;try{const blobs=await E.generate(m.bitmap,m.w,m.h,m.recipes,m.opt,m.seed,l=>self.postMessage({job:m.job,progress:l}));m.bitmap.close();self.postMessage({job:m.job,blobs})}catch(err){self.postMessage({job:m.job,error:String(err&&err.message||err)})}}`;
+  worker=new Worker(URL.createObjectURL(new Blob([src],{type:'text/javascript'})));
+  worker.onmessage=e=>{const m=e.data,j=jobs.get(m.job);if(!j)return;if(m.progress)return j.onLevel(m.progress);jobs.delete(m.job);m.error?j.reject(new Error(m.error)):j.resolve(m.blobs)};
+  worker.onerror=e=>{for(const j of jobs.values())j.reject(new Error(e.message||'Worker failed'));jobs.clear();worker=null};
+  return worker;
+}
+function runJob(bitmap,w,h,recipes,opt,seed,onLevel){
+  if(!canWorker)return E.generate(bitmap,w,h,recipes,opt,seed,onLevel);
+  return new Promise((resolve,reject)=>{const job=++jobSeq;jobs.set(job,{resolve,reject,onLevel});getWorker().postMessage({job,bitmap,w,h,recipes,opt,seed},[bitmap])});
+}
+function killWorker(){if(worker){worker.terminate();worker=null}for(const j of jobs.values())j.reject(new Error('cancelled'));jobs.clear()}
+
+// ---------- State ----------
+const cfg={
+  levels:6,seed:'guess-1',maxSide:1600,maxMB:25,
+  enabled:{scramble:true,pixelate:true,blur:true,noise:false},
+  scramble:{cols:4,rows:4},pixelate:{interp:'nearest'},noise:{type:'mono',dist:'gaussian',opacity:60},
+  hard:{blur:20,pixel:12,scramble:100,noise:40},easy:{blur:1,pixel:120,scramble:0,noise:0},
+  recipes:[],
+  pdf:{title:'Guess the image',subtitle:'',showCount:true,aspect:'16:9',bg:'#111111',showLevel:true,showDiff:true,format:'auto',quality:90}
+};
+let images=[];// {uid,id,name,file,w,h,hasAlpha,orientation,thumb,status,error,answer,levels:[{blob,url}],genKey}
+let uidSeq=0,cancelled=false,busy=false;
+
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const pad=(n,l)=>String(n).padStart(l,'0');
+const getK=(o,p)=>p.split('.').reduce((a,k)=>a[k],o);
+const setK=(o,p,v)=>{const ks=p.split('.'),last=ks.pop();ks.reduce((a,k)=>a[k],o)[last]=v};
+const tick=()=>new Promise(r=>setTimeout(r,0));
+
+function buildRecipes(){
+  const m=cfg.levels-1,H=cfg.hard,Z=cfg.easy;
+  cfg.recipes=Array.from({length:m},(_,i)=>{
+    const t=m===1?1:i/(m-1);
+    const lin=(a,b)=>a+(b-a)*t;
+    const geo=(a,b)=>a>0&&b>0?a*Math.pow(b/a,t):lin(a,b);
+    return {blur:Math.round(geo(H.blur,Z.blur)*10)/10,pixel:Math.round(geo(H.pixel,Z.pixel)),scramble:Math.round(lin(H.scramble,Z.scramble)),noise:Math.round(lin(H.noise,Z.noise))};
+  });
+}
+function diffLabel(i){const m=cfg.levels-1;if(i>=m)return'Original';const h=m===1?0:1-i/(m-1);return h>=.8?'Very hard':h>=.6?'Hard':h>=.4?'Medium-hard':h>=.2?'Medium':'Easy'}
+function recipeText(i){
+  const R=cfg.recipes[i];if(!R)return'Original';const p=[];
+  if(cfg.enabled.blur&&R.blur>0)p.push(`blur ${R.blur}`);
+  if(cfg.enabled.pixelate&&R.pixel>0)p.push(`pixel ${R.pixel}`);
+  if(cfg.enabled.scramble&&R.scramble>0)p.push(`scramble ${R.scramble}%`);
+  if(cfg.enabled.noise&&R.noise>0)p.push(`noise ${R.noise}%`);
+  return p.join(', ')||'no change';
+}
+function engineOpts(){return {enabled:{...cfg.enabled},scramble:{...cfg.scramble},pixelate:{...cfg.pixelate},noise:{...cfg.noise}}}
+function genKey(){return JSON.stringify([cfg.levels,cfg.seed,cfg.maxSide,engineOpts(),cfg.recipes])}
+function imageSeed(img){return cfg.seed+'|'+img.id}
+
+// ---------- Views ----------
+function show(v){document.querySelectorAll('.view').forEach(s=>s.classList.toggle('active',s.id==='view-'+v));document.querySelectorAll('nav.steps button').forEach(b=>b.classList.toggle('active',b.dataset.view===v));if(v==='config'){renderConfig();schedulePreview()}if(v==='review')renderReview();window.scrollTo(0,0)}
+document.querySelectorAll('[data-view],[data-goto]').forEach(b=>b.onclick=()=>show(b.dataset.view||b.dataset.goto));
+
+function msg(el,text,cls){const d=document.createElement('div');d.className=cls||'';d.textContent=text;$(el).appendChild(d)}
+
+// ---------- Import ----------
+const drop=$('#drop'),fileInput=$('#fileInput');
+drop.onclick=()=>fileInput.click();$('#addMore').onclick=()=>fileInput.click();
+fileInput.onchange=()=>{handleFiles([...fileInput.files]);fileInput.value=''};
+['dragenter','dragover'].forEach(t=>drop.addEventListener(t,e=>{e.preventDefault();drop.classList.add('over')}));
+['dragleave','drop'].forEach(t=>drop.addEventListener(t,e=>{e.preventDefault();drop.classList.remove('over')}));
+drop.addEventListener('drop',e=>handleFiles([...e.dataTransfer.files]));
+document.addEventListener('dragover',e=>{if(e.dataTransfer&&[...e.dataTransfer.types].includes('Files'))e.preventDefault()});
+document.addEventListener('drop',e=>{if(e.dataTransfer&&e.dataTransfer.files.length&&!drop.contains(e.target)){e.preventDefault();handleFiles([...e.dataTransfer.files])}});
+
+const extOf=n=>(n.match(/\.([^.]+)$/)||[,''])[1].toLowerCase();
+const isImg=n=>['jpg','jpeg','png'].includes(extOf(n));
+const mimeOf=n=>extOf(n)==='png'?'image/png':'image/jpeg';
+
+async function handleFiles(files){
+  $('#importMsgs').innerHTML='';
+  for(const f of files){
+    const ext=extOf(f.name);
+    if(ext==='zip'||f.type==='application/zip'||f.type==='application/x-zip-compressed'){
+      let zip;try{zip=await JSZip.loadAsync(f)}catch(e){msg('#importMsgs',`${f.name}: corrupted or unreadable ZIP archive.`,'err');continue}
+      const entries=Object.values(zip.files).filter(z=>!z.dir&&!/(^|\/)(__MACOSX|\.)/.test(z.name)&&isImg(z.name)).sort((a,b)=>a.name.localeCompare(b.name,undefined,{numeric:true}));
+      if(!entries.length){msg('#importMsgs',`${f.name}: no JPG or PNG images found.`,'err');continue}
+      for(const z of entries){const base=z.name.split('/').pop();const blob=await z.async('blob');await addImage(new File([blob],base,{type:mimeOf(base)}))}
+      msg('#importMsgs',`${f.name}: imported ${entries.length} image(s).`);
+    }else if(isImg(f.name)||f.type==='image/jpeg'||f.type==='image/png'){await addImage(f)}
+    else msg('#importMsgs',`${f.name}: unsupported format (use JPG, PNG or ZIP).`,'err');
+  }
+  renderImport();
+}
+function jpegOrientation(u8){
+  try{
+    if(u8[0]!==0xFF||u8[1]!==0xD8)return 1;
+    const dv=new DataView(u8.buffer,u8.byteOffset,u8.byteLength);let o=2;
+    while(o+4<u8.length){
+      if(u8[o]!==0xFF)return 1;const m=u8[o+1],len=dv.getUint16(o+2);
+      if(m===0xE1&&dv.getUint32(o+4)===0x45786966){const t=o+10,le=dv.getUint16(t)===0x4949;const g16=p=>dv.getUint16(p,le),g32=p=>dv.getUint32(p,le);const ifd=t+g32(t+4),n=g16(ifd);for(let i=0;i<n;i++){const e=ifd+2+i*12;if(g16(e)===0x0112)return g16(e+8)}return 1}
+      if(m===0xDA)return 1;o+=2+len;
+    }
+  }catch(e){}
+  return 1;
+}
+async function addImage(file){
+  if(file.size>cfg.maxMB*1048576)msg('#importMsgs',`${file.name}: ${(file.size/1048576).toFixed(1)} MB exceeds the ${cfg.maxMB} MB limit. It will be processed but may be slow.`,'warn');
+  let bmp;
+  try{bmp=await createImageBitmap(file)}catch(e){msg('#importMsgs',`${file.name}: could not decode image (invalid or corrupted).`,'err');return}
+  try{
+    const u8=new Uint8Array(await file.arrayBuffer());
+    const id=pad(E.hashBytes(u8).toString(16),8)+'-'+file.size.toString(16);
+    const w=bmp.width,h=bmp.height;
+    if(w*h>50e6)msg('#importMsgs',`${file.name}: very large image (${w}×${h}). It is downscaled for processing.`,'warn');
+    const s=Math.min(1,240/Math.max(w,h)),tw=Math.max(1,Math.round(w*s)),th=Math.max(1,Math.round(h*s));
+    const c=E.mk(tw,th),ctx=c.getContext('2d',{willReadFrequently:true});ctx.drawImage(bmp,0,0,tw,th);
+    let hasAlpha=false;
+    if(mimeOf(file.name)==='image/png'||file.type==='image/png'){const d=ctx.getImageData(0,0,tw,th).data;for(let i=3;i<d.length;i+=4)if(d[i]<255){hasAlpha=true;break}}
+    const thumb=URL.createObjectURL(await E.toBlob(c,'image/png'));
+    const isJpeg=u8[0]===0xFF&&u8[1]===0xD8;
+    images.push({uid:++uidSeq,id,name:file.name,file,w,h,hasAlpha,isJpeg,orientation:isJpeg?jpegOrientation(u8):1,thumb,status:'ready',answer:file.name.replace(/\.[^.]+$/,''),levels:null,genKey:null});
+  }finally{bmp.close()}
+}
+function freeImage(img){URL.revokeObjectURL(img.thumb);freeLevels(img)}
+function freeLevels(img){if(img.levels)img.levels.forEach(l=>URL.revokeObjectURL(l.url));img.levels=null}
+$('#clearAll').onclick=()=>{if(busy||!images.length||!confirm('Remove all images?'))return;images.forEach(freeImage);images=[];renderImport()};
+$('#toConfig').onclick=()=>show('config');
+
+let dragUid=null;
+function renderImport(){
+  $('#imgCount').textContent=images.length?`${images.length} image${images.length>1?'s':''}`:'No images';
+  $('#toConfig').disabled=!images.length;
+  const g=$('#gallery');
+  g.innerHTML=images.map((im,i)=>`<div class="card" draggable="true" data-uid="${im.uid}"><span class="num">${i+1}</span><button class="rm" title="Remove" data-rm="${im.uid}">×</button><img class="thumb" src="${im.thumb}" alt=""><div class="name" title="${esc(im.name)}">${esc(im.name)}</div><div class="meta">${im.w}×${im.h} · <span class="status-${im.status}">${esc(im.status==='error'?'error':im.status)}</span></div></div>`).join('');
+  g.querySelectorAll('[data-rm]').forEach(b=>b.onclick=e=>{e.stopPropagation();if(busy)return;const i=images.findIndex(x=>x.uid==b.dataset.rm);freeImage(images[i]);images.splice(i,1);renderImport()});
+  g.querySelectorAll('.card').forEach(c=>{
+    c.ondragstart=e=>{dragUid=+c.dataset.uid;c.classList.add('dragging');e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain','x')};
+    c.ondragend=()=>{dragUid=null;c.classList.remove('dragging');g.querySelectorAll('.dropbefore').forEach(x=>x.classList.remove('dropbefore'))};
+    c.ondragover=e=>{if(dragUid==null)return;e.preventDefault();e.stopPropagation();g.querySelectorAll('.dropbefore').forEach(x=>x.classList.remove('dropbefore'));c.classList.add('dropbefore')};
+    c.ondrop=e=>{if(dragUid==null)return;e.preventDefault();e.stopPropagation();const from=images.findIndex(x=>x.uid===dragUid);const [m]=images.splice(from,1);const to=images.findIndex(x=>x.uid==c.dataset.uid);images.splice(to,0,m);renderImport()};
+  });
+}
+
+// ---------- Configure ----------
+function bindInputs(){
+  document.querySelectorAll('[data-k]').forEach(el=>{
+    const k=el.dataset.k;
+    el.addEventListener(el.type==='checkbox'||el.tagName==='SELECT'||el.type==='color'?'change':'input',()=>{
+      let v=el.type==='checkbox'?el.checked:el.type==='number'?parseFloat(el.value):el.value;
+      if(el.type==='number'){if(isNaN(v))return;if(el.min!=='')v=Math.max(+el.min,v);if(el.max!=='')v=Math.min(+el.max,v);if(el.step!=='0.5'&&!k.endsWith('blur'))v=Math.round(v)}
+      setK(cfg,k,v);
+      if(k==='levels'||k.startsWith('hard.')||k.startsWith('easy.'))buildRecipes();
+      renderRecipes();schedulePreview();
+    });
+  });
+}
+function renderConfig(){
+  document.querySelectorAll('[data-k]').forEach(el=>{const v=getK(cfg,el.dataset.k);if(el.type==='checkbox')el.checked=v;else el.value=v});
+  renderRecipes();
+}
+function renderRecipes(){
+  const t=$('#recipeTable');const m=cfg.recipes.length;
+  let h='<thead><tr><th>Level</th><th>Difficulty</th><th>Blur</th><th>Pixelation</th><th>Scramble %</th><th>Noise %</th></tr></thead><tbody>';
+  cfg.recipes.forEach((R,i)=>{h+=`<tr><td>${i+1}</td><td>${diffLabel(i)}</td>`+['blur','pixel','scramble','noise'].map(k=>`<td><input type="number" min="0" ${k==='blur'?'step="0.5"':''} ${k==='scramble'||k==='noise'?'max="100"':''} data-r="${i}" data-rk="${k}" value="${R[k]}" ${cfg.enabled[k==='pixel'?'pixelate':k]?'':'disabled'}></td>`).join('')+'</tr>'});
+  h+=`<tr><td>${m+1}</td><td>Original</td><td colspan="4" class="hint">No transformation</td></tr></tbody>`;
+  t.innerHTML=h;
+  t.querySelectorAll('input').forEach(el=>el.oninput=()=>{const v=parseFloat(el.value);if(isNaN(v)||v<0)return;cfg.recipes[+el.dataset.r][el.dataset.rk]=el.dataset.rk==='blur'?v:Math.round(Math.min(el.max?+el.max:1e9,v));checkMonotonic();schedulePreview()});
+  checkMonotonic();
+}
+function checkMonotonic(){
+  $('#recipeMsgs').innerHTML='';const R=cfg.recipes,bad=new Set();
+  const px=v=>v>0?v:Infinity;
+  for(let i=1;i<R.length;i++){
+    if(R[i].blur>R[i-1].blur)bad.add('blur');
+    if(px(R[i].pixel)<px(R[i-1].pixel))bad.add('pixelation');
+    if(R[i].scramble>R[i-1].scramble)bad.add('scrambling');
+    if(R[i].noise>R[i-1].noise)bad.add('noise');
+  }
+  if(bad.size)msg('#recipeMsgs',`Warning: ${[...bad].join(', ')} does not get easier at every level. Difficulty should decrease monotonically.`,'warn');
+}
+$('#randSeed').onclick=()=>{cfg.seed=Math.random().toString(36).slice(2,10);renderConfig();schedulePreview()};
+
+let previewTimer=null,previewRun=0,previewUrls=[];
+function schedulePreview(){clearTimeout(previewTimer);previewTimer=setTimeout(runPreview,300)}
+async function runPreview(){
+  const img=images[0],strip=$('#previewStrip');
+  if(!img){strip.innerHTML='<span class="hint">Import an image to see a preview.</span>';$('#previewName').textContent='';return}
+  const run=++previewRun;$('#previewName').textContent='('+img.name+')';
+  try{
+    const {bitmap,w,h}=await decodeNormalized(img,480);
+    const blobs=await E.generate(bitmap,w,h,cfg.recipes,engineOpts(),imageSeed(img));bitmap.close();
+    if(run!==previewRun)return;
+    previewUrls.forEach(u=>URL.revokeObjectURL(u));previewUrls=blobs.map(b=>URL.createObjectURL(b));
+    strip.innerHTML=previewUrls.map((u,i)=>`<figure><img src="${u}" alt="" data-pv="${i}"><figcaption><b>Level ${i+1}</b> · ${diffLabel(i)}<br>${esc(recipeText(i))}</figcaption></figure>`).join('');
+    strip.querySelectorAll('img').forEach(el=>el.onclick=()=>openLightbox(previewUrls.map((u,i)=>({url:u,cap:`Preview · Level ${i+1} · ${diffLabel(i)} · ${recipeText(i)}`})),+el.dataset.pv));
+  }catch(e){strip.innerHTML=`<span class="hint">Preview failed: ${esc(e.message)}</span>`}
+}
+
+// ---------- Generation ----------
+async function decodeNormalized(img,maxSide){
+  const bmp=await createImageBitmap(img.file);
+  const s=Math.min(1,maxSide/Math.max(bmp.width,bmp.height));
+  const w=Math.max(1,Math.round(bmp.width*s)),h=Math.max(1,Math.round(bmp.height*s));
+  if(s===1)return {bitmap:bmp,w,h};
+  const c=E.mk(w,h),ctx=c.getContext('2d');ctx.imageSmoothingQuality='high';ctx.drawImage(bmp,0,0,w,h);bmp.close();
+  return {bitmap:await createImageBitmap(c),w,h};
+}
+function setProgress(v,text){$('#progress').value=v;$('#progressText').textContent=text}
+function setBusy(b){busy=b;$('#cancel').disabled=!b;['#regenAll','#exportPdf','#exportZip','#generate'].forEach(s=>$(s).disabled=b);document.querySelectorAll('[data-regen]').forEach(x=>x.disabled=b)}
+async function generateImages(list){
+  if(busy)return;cancelled=false;setBusy(true);$('#reviewMsgs').innerHTML='';
+  const key=genKey(),L=cfg.levels;let done=0;
+  try{
+    for(const img of list){
+      if(cancelled)break;
+      img.status='processing';renderReview();
+      try{
+        const {bitmap,w,h}=await decodeNormalized(img,cfg.maxSide);
+        const blobs=await runJob(bitmap,w,h,cfg.recipes,engineOpts(),imageSeed(img),l=>setProgress((done+l/L)/list.length,`Image ${done+1}/${list.length} (${img.name}) · level ${l}/${L}`));
+        freeLevels(img);img.levels=blobs.map(b=>({blob:b,url:URL.createObjectURL(b)}));img.genKey=key;img.status='done';img.error=null;
+      }catch(e){
+        if(cancelled){img.status=img.levels?'done':'ready';break}
+        img.status='error';img.error=e.message;msg('#reviewMsgs',`${img.name}: generation failed (${e.message}). The image may be too large for available memory; try a smaller processing size.`,'err');
+      }
+      done++;setProgress(done/list.length,`${done}/${list.length} images processed`);
+      await tick();
+    }
+    if(cancelled)setProgress($('#progress').value,'Cancelled.');
+  }finally{setBusy(false);renderReview()}
+}
+$('#generate').onclick=()=>{show('review');generateImages(images.slice())};
+$('#regenAll').onclick=()=>generateImages(images.slice());
+$('#cancel').onclick=()=>{cancelled=true;killWorker()};
+
+// ---------- Review ----------
+function renderReview(){
+  const key=genKey(),g=$('#groups');
+  if(!images.length){g.innerHTML='<p class="hint">No images imported.</p>';renderSlides();return}
+  g.innerHTML=images.map((im,qi)=>{
+    const stale=im.levels&&im.genKey!==key;
+    const strip=im.levels?im.levels.map((l,i)=>`<figure><img src="${l.url}" alt="" data-lb="${im.uid}:${i}"><figcaption><b>${i+1<cfg.levels||!stale?'Level '+(i+1):'Level '+(i+1)}</b> · ${diffLabel(i)}<br>${esc(im.genKey===key?recipeText(i):'')}</figcaption></figure>`).join(''):`<span class="hint">${im.status==='processing'?'Processing…':im.status==='error'?esc('Error: '+im.error):'Not generated.'}</span>`;
+    return `<div class="group"><div class="head"><img src="${im.thumb}" style="width:56px;height:42px;object-fit:contain" alt=""><b>Q${qi+1}</b><span>${esc(im.name)}</span><label class="hint">Answer <input data-ans="${im.uid}" value="${esc(im.answer)}"></label><span class="status-${im.status}">${im.status}</span>${stale?'<span class="stale">settings changed, regenerate</span>':''}<span class="spacer"></span><button class="btn small" data-regen="${im.uid}" ${busy?'disabled':''}>Regenerate</button></div><div class="strip">${strip}</div></div>`;
+  }).join('');
+  g.querySelectorAll('[data-ans]').forEach(el=>el.oninput=()=>{images.find(x=>x.uid==el.dataset.ans).answer=el.value;renderSlides()});
+  g.querySelectorAll('[data-regen]').forEach(b=>b.onclick=()=>generateImages([images.find(x=>x.uid==b.dataset.regen)]));
+  g.querySelectorAll('[data-lb]').forEach(el=>el.onclick=()=>{const [u,i]=el.dataset.lb.split(':');const im=images.find(x=>x.uid==u);openLightbox(im.levels.map((l,j)=>({url:l.url,cap:`${im.name} · Level ${j+1}/${im.levels.length} · ${diffLabel(j)} · ${recipeText(j)}`})),+i)});
+  renderSlides();
+}
+function readyImages(){return images.filter(im=>im.levels&&im.levels.length===cfg.levels)}
+function slidePlan(){
+  const imgs=readyImages(),plan=[{kind:'title',n:imgs.length}];
+  imgs.forEach((im,q)=>{for(let l=0;l<cfg.levels;l++)plan.push({kind:'level',q:q+1,l,im})});
+  plan.push({kind:'answersTitle'});
+  for(let i=0;i<imgs.length;i+=6)plan.push({kind:'answers',items:imgs.slice(i,i+6).map((im,j)=>({q:i+j+1,im}))});
+  return plan;
+}
+function levelLabel(l){const L=cfg.levels,parts=[];if(l===L-1)return 'Original';if(cfg.pdf.showLevel)parts.push(`Level ${l+1} / ${L}`);if(cfg.pdf.showDiff)parts.push(diffLabel(l));return parts.join(' · ')}
+function renderSlides(){
+  const plan=slidePlan(),fg=textColor(cfg.pdf.bg),box=$('#slides');
+  const ar=cfg.pdf.aspect==='4:3'?'4/3':'16/9';
+  if(plan.length<=2){box.innerHTML='<p class="hint">Generate images to see the slide order.</p>';return}
+  box.innerHTML=plan.map((s,i)=>{
+    let inner='';
+    if(s.kind==='title')inner=`<div class="txt"><b>${esc(cfg.pdf.title)}</b><br>${esc(cfg.pdf.subtitle)}</div>`;
+    else if(s.kind==='level')inner=`<div class="lab"><span>Question ${s.q}</span><span>${esc(levelLabel(s.l))}</span></div><img src="${s.im.levels[s.l].url}" alt="">`;
+    else if(s.kind==='answersTitle')inner=`<div class="txt"><b>Answer key</b></div>`;
+    else inner=`<div class="txt">Answers ${s.items[0].q}–${s.items[s.items.length-1].q}</div>`;
+    return `<div class="slide" style="background:${cfg.pdf.bg};color:${fg.css};aspect-ratio:${ar}">${inner}<span class="pg">${pad(i+1,2)}</span></div>`;
+  }).join('');
+}
+
+// ---------- Lightbox ----------
+let lbItems=[],lbIdx=0;const lb=$('#lightbox');
+function openLightbox(items,i){lbItems=items;lbIdx=i;lb.classList.add('open');lbShow()}
+function lbShow(){const it=lbItems[lbIdx];lb.querySelector('img').src=it.url;lb.querySelector('.cap').textContent=it.cap}
+function lbStep(d){lbIdx=(lbIdx+d+lbItems.length)%lbItems.length;lbShow()}
+lb.querySelector('.prev').onclick=e=>{e.stopPropagation();lbStep(-1)};
+lb.querySelector('.next').onclick=e=>{e.stopPropagation();lbStep(1)};
+lb.querySelector('.close').onclick=()=>lb.classList.remove('open');
+lb.onclick=e=>{if(e.target===lb)lb.classList.remove('open')};
+document.addEventListener('keydown',e=>{if(!lb.classList.contains('open'))return;if(e.key==='Escape')lb.classList.remove('open');if(e.key==='ArrowRight')lbStep(1);if(e.key==='ArrowLeft')lbStep(-1)});
+
+// ---------- PDF ----------
+function hexRgb(h){const n=parseInt(h.slice(1),16);return[(n>>16&255)/255,(n>>8&255)/255,(n&255)/255]}
+function textColor(bg){const [r,g,b]=hexRgb(bg),lum=.2126*r+.7152*g+.0722*b;return lum>.5?{v:[.1,.1,.1],dim:[.35,.35,.35],css:'#1a1a1a'}:{v:[.95,.95,.95],dim:[.65,.65,.65],css:'#f2f2f2'}}
+function pdfSafe(s){return String(s).normalize('NFC').replace(/[^\x20-\x7E\xA0-\xFF]/g,'?')}
+async function blobToJpeg(blob,q,flatten){
+  const bmp=await createImageBitmap(blob);const c=E.mk(bmp.width,bmp.height),ctx=c.getContext('2d');
+  if(flatten){ctx.fillStyle='#fff';ctx.fillRect(0,0,c.width,c.height)}
+  ctx.drawImage(bmp,0,0);bmp.close();
+  return new Uint8Array(await (await E.toBlob(c,'image/jpeg',q)).arrayBuffer());
+}
+async function buildPdf(onStep){
+  const {PDFDocument,StandardFonts,rgb}=PDFLib;
+  const doc=await PDFDocument.create();
+  doc.setTitle(pdfSafe(cfg.pdf.title));doc.setCreator('Image Guessing Generator');doc.setProducer('pdf-lib');
+  const font=await doc.embedFont(StandardFonts.Helvetica),bold=await doc.embedFont(StandardFonts.HelveticaBold);
+  const [W,H]=cfg.pdf.aspect==='4:3'?[720,540]:[960,540];
+  const bg=rgb(...hexRgb(cfg.pdf.bg)),tc=textColor(cfg.pdf.bg),fg=rgb(...tc.v),dim=rgb(...tc.dim);
+  const usePng=im=>cfg.pdf.format==='png'||im.hasAlpha,q=cfg.pdf.quality/100;
+  const cache=new Map();
+  async function embedLevel(im,l){
+    const k=im.uid+':'+l;if(cache.has(k))return cache.get(k);
+    let e;
+    if(l===cfg.levels-1){
+      const bytes=new Uint8Array(await im.file.arrayBuffer());
+      try{
+        // Embed the original file directly when it is safe: no recompression.
+        if(im.isJpeg&&im.orientation===1&&!(cfg.pdf.format==='png'))e=await doc.embedJpg(bytes);
+        else if(!im.isJpeg)e=await doc.embedPng(bytes);
+      }catch(err){e=null}
+    }
+    if(!e){const b=im.levels[l].blob;e=usePng(im)?await doc.embedPng(new Uint8Array(await b.arrayBuffer())):await doc.embedJpg(await blobToJpeg(b,q,false))}
+    cache.set(k,e);return e;
+  }
+  const page=()=>{const p=doc.addPage([W,H]);p.drawRectangle({x:0,y:0,width:W,height:H,color:bg});return p};
+  const fit=(p,img,x,y,w,h)=>{const s=Math.min(w/img.width,h/img.height),dw=img.width*s,dh=img.height*s;p.drawImage(img,{x:x+(w-dw)/2,y:y+(h-dh)/2,width:dw,height:dh})};
+  const center=(p,t,f,size,y,color)=>{t=pdfSafe(t);p.drawText(t,{x:(W-f.widthOfTextAtSize(t,size))/2,y,size,font:f,color})};
+  const clip=(t,f,size,maxW)=>{t=pdfSafe(t);if(f.widthOfTextAtSize(t,size)<=maxW)return t;while(t.length>1&&f.widthOfTextAtSize(t+'…',size)>maxW)t=t.slice(0,-1);return t+'…'};
+  const plan=slidePlan();
+  for(let i=0;i<plan.length;i++){
+    if(cancelled)throw new Error('cancelled');
+    const s=plan[i],p=page();
+    if(s.kind==='title'){
+      center(p,clip(cfg.pdf.title,bold,48,W-80),bold,48,H/2+20,fg);
+      if(cfg.pdf.subtitle)center(p,clip(cfg.pdf.subtitle,font,24,W-80),font,24,H/2-24,dim);
+      if(cfg.pdf.showCount)center(p,`${s.n} question${s.n===1?'':'s'}`,font,18,H/2-(cfg.pdf.subtitle?64:30),dim);
+    }else if(s.kind==='level'){
+      p.drawText(`Question ${s.q}`,{x:28,y:H-38,size:22,font:bold,color:fg});
+      const lab=pdfSafe(levelLabel(s.l));if(lab)p.drawText(lab,{x:W-28-font.widthOfTextAtSize(lab,14),y:H-36,size:14,font,color:dim});
+      fit(p,await embedLevel(s.im,s.l),24,20,W-48,H-76);
+    }else if(s.kind==='answersTitle'){
+      center(p,'Answer key',bold,44,H/2+10,fg);center(p,'Spoilers below. End of the game.',font,18,H/2-26,dim);
+    }else{
+      p.drawText('Answer key',{x:28,y:H-38,size:20,font:bold,color:fg});
+      const cols=3,rows=2,gx=24,top=H-60,cw=(W-gx*2)/cols,ch=(top-16)/rows;
+      for(let j=0;j<s.items.length;j++){
+        const it=s.items[j],cx=gx+(j%cols)*cw,cy=top-Math.floor(j/cols)*ch-ch;
+        fit(p,await embedLevel(it.im,cfg.levels-1),cx+8,cy+30,cw-16,ch-38);
+        const cap=clip(`${it.q}. ${it.im.answer||it.im.name}`,font,13,cw-16);
+        p.drawText(cap,{x:cx+(cw-font.widthOfTextAtSize(cap,13))/2,y:cy+12,size:13,font,color:fg});
+      }
+    }
+    onStep(i+1,plan.length);await tick();
+  }
+  return doc.save();
+}
+function download(bytes,name,type){const url=URL.createObjectURL(new Blob([bytes],{type}));const a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),10000)}
+const slug=s=>(s||'game').normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/gi,'-').replace(/^-|-$/g,'').toLowerCase()||'game';
+function checkReady(){
+  const ready=readyImages();
+  if(!ready.length){msg('#reviewMsgs','Generate the images first.','err');return null}
+  const stale=images.filter(im=>!im.levels||im.genKey!==genKey());
+  if(stale.length&&!confirm(`${stale.length} image(s) are missing or were generated with older settings. Export anyway?`))return null;
+  return ready;
+}
+$('#exportPdf').onclick=async()=>{
+  $('#reviewMsgs').innerHTML='';if(!checkReady())return;
+  if(typeof PDFLib==='undefined'){msg('#reviewMsgs','pdf-lib failed to load. Check your connection and reload the page.','err');return}
+  cancelled=false;setBusy(true);
+  try{const bytes=await buildPdf((i,n)=>setProgress(i/n,`Building PDF: slide ${i}/${n}`));download(bytes,slug(cfg.pdf.title)+'.pdf','application/pdf');setProgress(1,`PDF ready (${(bytes.length/1048576).toFixed(1)} MB).`)}
+  catch(e){if(cancelled)setProgress(0,'Cancelled.');else msg('#reviewMsgs','PDF generation failed: '+e.message,'err')}
+  finally{setBusy(false)}
+};
+
+// ---------- ZIP ----------
+$('#exportZip').onclick=async()=>{
+  $('#reviewMsgs').innerHTML='';const ready=checkReady();if(!ready)return;
+  if(typeof JSZip==='undefined'){msg('#reviewMsgs','JSZip failed to load. Check your connection and reload the page.','err');return}
+  cancelled=false;setBusy(true);
+  try{
+    const zip=new JSZip(),root=zip.folder('image-guessing-game');
+    const manifest={generator:'Image Guessing Generator',generatedAt:new Date().toISOString(),seed:cfg.seed,levels:cfg.levels,
+      config:{processingMaxSide:cfg.maxSide,enabled:cfg.enabled,scramble:cfg.scramble,pixelate:cfg.pixelate,noise:cfg.noise,hardest:cfg.hard,easiest:cfg.easy,pdf:cfg.pdf,blurUnits:'px relative to a 1000 px long side',pixelUnits:'blocks along the long side'},
+      images:[]};
+    ready.forEach((im,i)=>{
+      const nid='image-'+pad(i+1,3),dir=root.folder('images/'+nid);
+      im.levels.forEach((l,j)=>dir.file(`level-${pad(j+1,2)}.png`,l.blob));
+      root.file(`originals/${nid}.${extOf(im.name)||(im.isJpeg?'jpg':'png')}`,im.file);
+      manifest.images.push({id:nid,stableId:im.id,seed:imageSeed(im),originalFilename:im.name,answer:im.answer,originalWidth:im.w,originalHeight:im.h,levels:im.levels.map((_,j)=>({level:j+1,difficulty:diffLabel(j),file:`images/${nid}/level-${pad(j+1,2)}.png`,original:j===cfg.levels-1,transformations:j<cfg.levels-1?{...cfg.recipes[j]}:null}))});
+    });
+    root.file('manifest.json',JSON.stringify(manifest,null,2));
+    const bytes=await zip.generateAsync({type:'uint8array',compression:'STORE'},m=>setProgress(m.percent/100,`Building ZIP: ${Math.round(m.percent)}%`));
+    download(bytes,slug(cfg.pdf.title)+'.zip','application/zip');setProgress(1,'ZIP ready.');
+  }catch(e){msg('#reviewMsgs','ZIP generation failed: '+e.message,'err')}
+  finally{setBusy(false)}
+};
+
+// ---------- Init ----------
+buildRecipes();bindInputs();renderImport();
+if(typeof PDFLib==='undefined'||typeof JSZip==='undefined')msg('#importMsgs','Some libraries failed to load. ZIP import and export may not work offline on first visit.','warn');
+</script>
+</body>
+</html>
